@@ -22,6 +22,8 @@
 		848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489286F2204F89400BF9BF6 /* UdacityClient.swift */; };
 		848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848928732204F8C100BF9BF6 /* UIColor+Extension.swift */; };
 		848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848928742204F8C100BF9BF6 /* UIView+Constraints.swift */; };
+		848D44772204FD6400BF3EF9 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44762204FD6400BF3EF9 /* MapController.swift */; };
+		848D44792204FD7300BF3EF9 /* File2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44782204FD7300BF3EF9 /* File2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		8489286F2204F89400BF9BF6 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		848928732204F8C100BF9BF6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		848928742204F8C100BF9BF6 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		848D44762204FD6400BF3EF9 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		848D44782204FD7300BF3EF9 /* File2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				8489285E2204F79600BF9BF6 /* MainTabBarController.swift */,
+				848D44762204FD6400BF3EF9 /* MapController.swift */,
+				848D44782204FD7300BF3EF9 /* File2.swift */,
 			);
 			path = "Main Tab Controller";
 			sourceTree = "<group>";
@@ -239,6 +245,8 @@
 				848928712204F89400BF9BF6 /* UdacityResponse.swift in Sources */,
 				8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */,
 				8489286B2204F88500BF9BF6 /* StudentInfo.swift in Sources */,
+				848D44792204FD7300BF3EF9 /* File2.swift in Sources */,
+				848D44772204FD6400BF3EF9 /* MapController.swift in Sources */,
 				8489286A2204F88500BF9BF6 /* AllStudents.swift in Sources */,
 				8489285D2204F78A00BF9BF6 /* LoginController+Button.swift in Sources */,
 			);
