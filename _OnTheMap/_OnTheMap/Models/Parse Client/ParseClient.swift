@@ -65,6 +65,21 @@ class ParseClient {
             }.resume()
     }
     
+    
+    
+    class func getStudents(completion: @escaping ([StudentInfo], Error?)-> Void){
+        let url = ParseClient.Endpoints.studentLocation.url
+        taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
+            if err != nil {
+                return completion([], err)
+            }
+            guard let data = data else {return}
+            completion(data.results, nil)
+            return
+        }
+    }
+    
+    
     class func getAllStudents(completion: @escaping (ParseRequest?, Error?)-> Void){
         let url = ParseClient.Endpoints.studentLocation.url
         taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
