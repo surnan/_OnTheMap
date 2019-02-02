@@ -30,9 +30,4 @@ extension LoginController{
             }
         }
     }
-    
-    
-    @objc func handleFacebookButton(_ sender: UIButton){
-        
-    }
 }

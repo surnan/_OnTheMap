@@ -59,7 +59,6 @@ class LoginController: UIViewController {
             loginStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             ])
         loginButton.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
-        facebookButton.addTarget(self, action: #selector(handleFacebookButton(_:)), for: .touchUpInside)
     }
     
     func handleTaskForGetResponse(completion: ParseRequest?, error: Error?){

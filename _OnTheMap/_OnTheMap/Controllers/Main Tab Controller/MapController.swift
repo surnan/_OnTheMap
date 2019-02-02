@@ -26,13 +26,13 @@ class MapController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ParseClient.getAllStudents { (data, error) in
-            guard let dataObject = data else {return}
-            let allStudents = dataObject.results
-            allStudents.forEach{
-                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
-            }
-        }
+//        ParseClient.getAllStudents { (data, error) in
+//            guard let dataObject = data else {return}
+//            let allStudents = dataObject.results
+//            allStudents.forEach{
+//                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
+//            }
+//        }
         setupUI()
     }
     
@@ -59,5 +59,13 @@ class MapController:UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        ParseClient.getAllStudents { (data, error) in
+            guard let dataObject = data else {return}
+            let allStudents = dataObject.results
+            allStudents.forEach{
+                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
+            }
+        }
     }
 }
