@@ -13,9 +13,6 @@ class MapController:UIViewController{
     
     var mapView: MKMapView = {
         var mapView = MKMapView()
-        
-        
-        
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
@@ -26,33 +23,16 @@ class MapController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        ParseClient.getAllStudents { (data, error) in
-        //            guard let dataObject = data else {return}
-        //            let allStudents = dataObject.results
-        //            allStudents.forEach{
-        //                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
-        //            }
-        //        }
-        setupUI()
-        
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.all = data
+                Students.loadPins()
             } else {
                 print("OH BOY")
             }
         }
+        setupUI()
     }
-    
-    
-    func handleGetAllStudents(error: Error?){
-        
-    }
-    
-    
-    
-    
-    
     
     func setupUI(){
         view.addSubview(mapView)
@@ -64,26 +44,8 @@ class MapController:UIViewController{
             ])
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        Students.loadPins()
-        print("\n ---> \(Students.all.count),      \(Students.all.orderedSet.count)\n")
-        
-        
-        //        ParseClient.getAllStudents { (data, error) in
-        //            guard let dataObject = data else {return}
-        //            let allStudents = dataObject.results
-        //            allStudents.forEach{
-        //                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
-        //            }
-        
-        
-        
-        
-        
-        
+        print("\n ---> \(Students.all.count),      \(Students.pinArray.count)\n")
     }
-    
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct StudentInfo: Codable, Hashable {
+struct StudentInfo: Codable {
     var objectId: String
     var uniqueKey: String?
     var firstName: String?
