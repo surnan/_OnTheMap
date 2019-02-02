@@ -12,8 +12,8 @@ import MapKit
 class MapController:UIViewController{
     
     var mapView: MKMapView = {
-       var mapView = MKMapView()
-     
+        var mapView = MKMapView()
+        
         
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,15 +25,23 @@ class MapController:UIViewController{
     //MARK:- Swift VC Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        ParseClient.getAllStudents { (data, error) in
-//            guard let dataObject = data else {return}
-//            let allStudents = dataObject.results
-//            allStudents.forEach{
-//                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
-//            }
-//        }
+        
+        //        ParseClient.getAllStudents { (data, error) in
+        //            guard let dataObject = data else {return}
+        //            let allStudents = dataObject.results
+        //            allStudents.forEach{
+        //                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
+        //            }
+        //        }
         setupUI()
+        
+        ParseClient.getStudents { (data, err) in
+            if err == nil{
+                Students.all = data
+            } else {
+                print("OH BOY")
+            }
+        }
     }
     
     
@@ -60,12 +68,21 @@ class MapController:UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        ParseClient.getAllStudents { (data, error) in
-            guard let dataObject = data else {return}
-            let allStudents = dataObject.results
-            allStudents.forEach{
-                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
-            }
-        }
+        print("\n ---> \(Students.all.count),      \(Students.all.orderedSet.count)\n")
+        
+        
+        //        ParseClient.getAllStudents { (data, error) in
+        //            guard let dataObject = data else {return}
+        //            let allStudents = dataObject.results
+        //            allStudents.forEach{
+        //                print("name = \($0.firstName ?? "") \($0.lastName ?? "")....latitude =\($0.latitude ?? 0)   longitude \($0.longitude ?? 0)")
+        //            }
+        
+        
+        
+        
+        
+        
     }
+    
 }
