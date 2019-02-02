@@ -62,7 +62,7 @@ class LoginController: UIViewController {
         facebookButton.addTarget(self, action: #selector(handleFacebookButton(_:)), for: .touchUpInside)
     }
     
-    func handleTaskForGetResponse(completion: AllStudents?, error: Error?){
+    func handleTaskForGetResponse(completion: ParseRequest?, error: Error?){
         print("HI")
     }
     
