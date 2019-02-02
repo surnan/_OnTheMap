@@ -9,17 +9,19 @@
 import Foundation
 
 
-struct MarkerInfo: Hashable {
-    var firstName: String
-    var lastName: String
-    var latitude: Double
-    var longitude: Double
-    var mediaURL: String
-}
+
 
 class Students {
     static var all = [StudentInfo]()
-    static var pinArray = [StudentInfo]()
+    static var uniques = [StudentInfo]()
+    
+    private struct MarkerInfo: Hashable {
+        var firstName: String
+        var lastName: String
+        var latitude: Double
+        var longitude: Double
+        var mediaURL: String
+    }
     
     class func loadPins(){
         var mySet = Set<MarkerInfo>()
@@ -30,15 +32,15 @@ class Students {
                                            longitude: $0.longitude ?? 0,
                                            mediaURL: $0.mediaURL ?? "")).inserted
         }
-        pinArray = myShortArray
+        uniques = myShortArray
 //        print("myShortArray.count --> \(myShortArray.count)")
 //        print("mySet.count --> \(mySet.count)")
     }
 }
 
 public func orderedSet<T: Hashable>(array: Array<T>) -> Array<T> {
-    var unique = Set<T>()
-    return array.filter { return unique.insert($0).inserted}
+    var uniqueElement = Set<T>()
+    return array.filter { return uniqueElement.insert($0).inserted}
 }
 
 

@@ -11,6 +11,12 @@ import MapKit
 
 class MapController:UIViewController{
     
+    //MARK:- Declarations for MapController+MapKit
+    var locations = [String:Any]()
+    var annotations = [MKPointAnnotation]()
+    
+    
+    //MARK:- File Specific
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +52,6 @@ class MapController:UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("\n ---> \(Students.all.count),      \(Students.pinArray.count)\n")
+        print("\n ---> \(Students.all.count),      \(Students.uniques.count)\n")
     }
 }
