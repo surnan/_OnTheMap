@@ -68,6 +68,7 @@ class MapController:UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        Students.loadPins()
         print("\n ---> \(Students.all.count),      \(Students.all.orderedSet.count)\n")
         
         
