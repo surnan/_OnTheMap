@@ -12,7 +12,7 @@ import MapKit
 class MapController:UIViewController{
     
     //MARK:- Declarations for MapController+MapKit
-    var locations = [String:Any]()
+    var locations = [[String:Any]]()
     var annotations = [MKPointAnnotation]()
     
     
@@ -22,8 +22,6 @@ class MapController:UIViewController{
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
-    
-    
     
     //MARK:- Swift VC Functions
     override func viewDidLoad() {
@@ -37,6 +35,7 @@ class MapController:UIViewController{
                 print("OH BOY")
             }
         }
+        //        createPinDictionary()
         setupUI()
     }
     
@@ -52,6 +51,7 @@ class MapController:UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("\n ---> \(Students.all.count),      \(Students.uniques.count)\n")
+        print("\n Students.all.count ---> \(Students.all.count),     Students.uniques.count ---> \(Students.uniques.count)\n")
+        setupMap()
     }
 }

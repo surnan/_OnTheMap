@@ -9,7 +9,7 @@
 import Foundation
 
 struct StudentInfo: Codable {
-    var objectId: String
+    var objectId: String?
     var uniqueKey: String?
     var firstName: String?
     var lastName: String?
@@ -25,3 +25,5 @@ struct StudentInfo: Codable {
 struct ParseRequest: Codable {
     var results: [StudentInfo]
 }
+
+
