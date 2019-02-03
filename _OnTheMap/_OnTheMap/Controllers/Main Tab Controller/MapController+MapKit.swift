@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-extension MapController: MKMapViewDelegate {
+extension MapController {
 
     func setupMap(){
         loadLocationsArray()
@@ -22,7 +22,6 @@ extension MapController: MKMapViewDelegate {
         for dictionary in locations {
             let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
             let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-            
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
             let first = dictionary["firstName"] as! String
@@ -34,11 +33,8 @@ extension MapController: MKMapViewDelegate {
             tempAnnotation.coordinate = coordinate
             tempAnnotation.title = "\(first) \(last)"
             tempAnnotation.subtitle = mediaURL
-
             annotations.append(tempAnnotation)
         }
-        
-        
     }
     
     func loadLocationsArray(){
@@ -59,4 +55,35 @@ extension MapController: MKMapViewDelegate {
         }
     }
     
+    
+    //MARK:- MKMapViewDelegagate -- MAP Specific functions
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.tintColor = .blue
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let stringToURL = view.annotation?.subtitle!, let url = URL(string: stringToURL){
+            UIApplication.shared.open(url, options: [:])
+        } else {
+            let backupURL = URL(string: "https://www.google.com")!
+            UIApplication.shared.open(backupURL, options: [:])
+        }
+    }
 }
+
+

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapController:UIViewController{
+class MapController:UIViewController, MKMapViewDelegate{
     
     //MARK:- Declarations for MapController+MapKit
     var locations = [[String:Any]]()
@@ -26,6 +26,7 @@ class MapController:UIViewController{
     //MARK:- Swift VC Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         
         ParseClient.getStudents { (data, err) in
             if err == nil{
@@ -52,4 +53,7 @@ class MapController:UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+    
+    
 }
