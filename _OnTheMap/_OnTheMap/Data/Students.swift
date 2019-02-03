@@ -33,8 +33,6 @@ class Students {
                                            mediaURL: $0.mediaURL ?? "")).inserted
         }
         uniques = myShortArray
-//        print("myShortArray.count --> \(myShortArray.count)")
-//        print("mySet.count --> \(mySet.count)")
     }
 }
 

@@ -31,11 +31,11 @@ class MapController:UIViewController{
             if err == nil{
                 Students.all = data
                 Students.loadPins()
+                self.setupMap()
             } else {
                 print("OH BOY")
             }
         }
-        //        createPinDictionary()
         setupUI()
     }
     
@@ -51,7 +51,5 @@ class MapController:UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("\n Students.all.count ---> \(Students.all.count),     Students.uniques.count ---> \(Students.uniques.count)\n")
-        setupMap()
     }
 }
