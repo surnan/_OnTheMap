@@ -19,19 +19,29 @@ class CreateLocationController: UIViewController{
         return stack
     }()
     
-//    var topView: UIView = {
-//       let view = UIView()
-//        view.backgroundColor = UIColor.yellow
-//       return view
-//    }()
-
+    
     
     var topView: UILabel = {
         let label = UILabel()
-        label.text = "Where are you \nstudying \ntoday?"
+        label.backgroundColor = UIColor.grey196
         label.numberOfLines = -1
         label.textAlignment = .center
-        label.backgroundColor = UIColor.yellow
+    
+        let attributes1: [NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 30) as Any,
+            NSAttributedString.Key.foregroundColor : UIColor.skyBlue4
+        ]
+    
+        let attributes2: [NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.font :  UIFont(name: "Arial-BoldMT", size: 30) as Any,
+            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
+        ]
+
+        var totalAttributes = NSMutableAttributedString(string:"Where are you", attributes:attributes1)
+        totalAttributes.append(NSMutableAttributedString(string:"\nstudying", attributes:attributes2))
+        totalAttributes.append(NSMutableAttributedString(string:"\ntoday?", attributes:attributes1))
+
+        label.attributedText = totalAttributes
         return label
     }()
     
@@ -44,7 +54,7 @@ class CreateLocationController: UIViewController{
     
     var btmView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.green
+        view.backgroundColor = UIColor.grey196
         return view
     }()
     
