@@ -12,7 +12,14 @@ extension UIView {
     
     
     func fillSuperView(){
-        anchor(top: superview?.topAnchor, leading: superview?.leadingAnchor, bottom: superview?.bottomAnchor, trailing: superview?.trailingAnchor)
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        
+        
     }
     
     
