@@ -68,6 +68,19 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
         return view
     }()
     
+    let findOnMapButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.lightSteelBlue1
+        button.clipsToBounds = true
+        let attributes1: [NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
+        ]
+        button.setAttributedTitle(NSAttributedString(string: "Find on the Map", attributes: attributes1), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleButton), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.lightGray
@@ -83,6 +96,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
             ])
         
         setupMidView()
+        setupBtmView()
         
     }
     
@@ -95,14 +109,24 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
     func setupMidView(){
         midView.insertSubview(locationTextField, at: 0)
         NSLayoutConstraint.activate([
-            locationTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -15),
+            locationTextField.centerYAnchor.constraint(equalTo: midView.centerYAnchor, constant: -15),
             locationTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             locationTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             ])
     }
     
     func setupBtmView(){
+        view.addSubview(findOnMapButton)
         
+        NSLayoutConstraint.activate([
+            findOnMapButton.centerYAnchor.constraint(equalTo: btmView.centerYAnchor),
+            findOnMapButton.widthAnchor.constraint(equalToConstant: 240),
+            findOnMapButton.heightAnchor.constraint(equalToConstant: 50),
+            findOnMapButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ])
+        //   findOnMapButton.setNeedsLayout()
+        findOnMapButton.layoutIfNeeded()
+        findOnMapButton.layer.cornerRadius = 0.075 * findOnMapButton.bounds.size.width
     }
  
     
@@ -111,7 +135,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
         textField.placeholder = nil
     }
     
-    
-    
-    
+    @objc func handleButton(){
+        print("--------------  HI --------------")
+    }
 }

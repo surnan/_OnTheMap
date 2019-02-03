@@ -9,6 +9,7 @@
 import UIKit
 
 //Colors from https://web.njit.edu/~kevin/rgb.txt.html
+//Colors from http://www.tayloredmktg.com/rgb/
 
 extension UIColor {
     static let solidOrange = UIColor(red: 222/255, green: 136/255, blue: 44/255, alpha: 1)
@@ -21,4 +22,6 @@ extension UIColor {
     static let steelBlue4 = UIColor(red: 54/255, green: 100/255, blue: 139/255, alpha: 1)
     static let skyBlue4 = UIColor(red: 74/255, green: 112/255, blue: 139/255, alpha: 1)
     static let dodgerBlue4 = UIColor(red: 16/255, green: 78/255, blue: 139/255, alpha: 1)
+    static let lightSteelBlue1 = UIColor(red: 202/255, green: 225/255, blue: 255/255, alpha: 1)
+    static let lightSteelBlue2 = UIColor(red: 188/255, green: 210/255, blue: 238/255, alpha: 1)
 }
