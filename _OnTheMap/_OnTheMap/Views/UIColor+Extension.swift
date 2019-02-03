@@ -20,4 +20,5 @@ extension UIColor {
     static let steelBlue = UIColor(red: 70/255, green: 130/255, blue: 180/255, alpha: 1)
     static let steelBlue4 = UIColor(red: 54/255, green: 100/255, blue: 139/255, alpha: 1)
     static let skyBlue4 = UIColor(red: 74/255, green: 112/255, blue: 139/255, alpha: 1)
+    static let dodgerBlue4 = UIColor(red: 16/255, green: 78/255, blue: 139/255, alpha: 1)
 }
