@@ -8,7 +8,18 @@
 
 import UIKit
 
-class CreateLocationController: UIViewController, UITextFieldDelegate{
+
+protocol CreateLocationControllerDelegate {
+    func getLocation()-> String
+}
+
+
+class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLocationControllerDelegate{
+    
+    func getLocation()->String {
+        return locationTextField.text ?? ""
+    }
+    
     
     var fullScreenStackView: UIStackView = {
         let stack = UIStackView()
@@ -146,10 +157,9 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func handleButton(){
-        
-        let newVC = UINavigationController(rootViewController: CreateAnnotation())
+        let newCreateAnnotationController = CreateAnnotation()
+        newCreateAnnotationController.delegate = self
+        let newVC = UINavigationController(rootViewController: newCreateAnnotationController)
         present(newVC, animated: true)
-        
-//        print("--------------  HI --------------")
     }
 }

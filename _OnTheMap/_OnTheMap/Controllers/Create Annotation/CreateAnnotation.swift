@@ -8,9 +8,11 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     
+    var delegate: CreateLocationControllerDelegate?
 
     let submitButton: UIButton = {
         let button = UIButton()
@@ -87,6 +89,9 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
         
         submitButton.layoutIfNeeded()
         submitButton.layer.cornerRadius = 0.075 * submitButton.bounds.size.width
+        
+        print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
+        
     }
     
     
