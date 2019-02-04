@@ -11,6 +11,19 @@ import MapKit
 
 class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     
+    let temp: [String: Any] = [
+        "objectId":"MtsUNmdxzk",
+        "uniqueKey":"Zoe",
+        "firstName":"Zoe",
+        "lastName":"Zboncak",
+        "mapString":"alqassim",
+        "mediaURL":"https://www.google.com",
+        "latitude":25.946163,
+        "longitude":43.219329,
+        "createdAt":"2019-01-31T08:11:27.635Z",
+        "updatedAt":"2019-01-31T08:11:27.635Z"
+    ]
+    
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false

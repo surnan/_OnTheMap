@@ -20,12 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-//        window?.rootViewController = UINavigationController(rootViewController: LoginController())
+        window?.rootViewController = UINavigationController(rootViewController: LoginController())
 //        window?.rootViewController = MainTabBarController()
 //        window?.rootViewController = CreateLocationController()
 //        window?.rootViewController = ListController()
 
-        window?.rootViewController = CreateAnnotation()
+//        window?.rootViewController = CreateAnnotation()
         
         
         
