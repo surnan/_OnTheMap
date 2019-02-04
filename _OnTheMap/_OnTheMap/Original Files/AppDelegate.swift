@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = CreateLocationController()
 //        window?.rootViewController = ListController()
 
-//        window?.rootViewController = CreateAnnotation()
+        window?.rootViewController = CreateAnnotation()
         
         
         
