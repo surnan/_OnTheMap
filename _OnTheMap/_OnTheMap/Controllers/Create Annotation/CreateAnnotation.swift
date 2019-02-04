@@ -92,6 +92,28 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
         
         print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
         
+        
+        
+        let address = "1 Infinite Loop, Cupertino, CA 95014"
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+                else {
+                    print("UNABLE to convert to CLL Coordinates")
+                    return
+            }
+            
+            
+            // Use your location
+        }
+        
+        
+        
+        
+        
     }
     
     
