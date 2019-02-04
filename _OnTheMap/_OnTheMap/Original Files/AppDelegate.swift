@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
 //        window?.rootViewController = UINavigationController(rootViewController: LoginController())
-//        window?.rootViewController = MainTabBarController()
-        window?.rootViewController = CreateLocationController()
-        
+        window?.rootViewController = MainTabBarController()
+//        window?.rootViewController = CreateLocationController()
+//        window?.rootViewController = ListController()
         
         return true
     }
