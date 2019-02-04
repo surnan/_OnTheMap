@@ -117,7 +117,6 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
     
     func setupBtmView(){
         view.addSubview(findOnMapButton)
-        
         NSLayoutConstraint.activate([
             findOnMapButton.centerYAnchor.constraint(equalTo: btmView.centerYAnchor),
             findOnMapButton.widthAnchor.constraint(equalToConstant: 240),

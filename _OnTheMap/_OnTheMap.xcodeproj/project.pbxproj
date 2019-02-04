@@ -28,6 +28,7 @@
 		848D44792204FD7300BF3EF9 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44782204FD7300BF3EF9 /* ListController.swift */; };
 		848D4483220614DB00BF3EF9 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D4482220614DB00BF3EF9 /* Students.swift */; };
 		848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D448622062C6000BF3EF9 /* MapController+MapKit.swift */; };
+		84D067432207EF5D000D8564 /* CreateAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D067422207EF5D000D8564 /* CreateAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		848D44782204FD7300BF3EF9 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		848D4482220614DB00BF3EF9 /* Students.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		848D448622062C6000BF3EF9 /* MapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapController+MapKit.swift"; sourceTree = "<group>"; };
+		84D067422207EF5D000D8564 /* CreateAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 		84D067412207EEA4000D8564 /* Create Annotation */ = {
 			isa = PBXGroup;
 			children = (
+				84D067422207EF5D000D8564 /* CreateAnnotation.swift */,
 			);
 			path = "Create Annotation";
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				848928712204F89400BF9BF6 /* UdacityResponse.swift in Sources */,
 				848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */,
 				8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */,
+				84D067432207EF5D000D8564 /* CreateAnnotation.swift in Sources */,
 				8489286B2204F88500BF9BF6 /* StudentInfo.swift in Sources */,
 				848D44792204FD7300BF3EF9 /* ListController.swift in Sources */,
 				848D44772204FD6400BF3EF9 /* MapController.swift in Sources */,
