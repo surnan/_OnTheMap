@@ -11,8 +11,20 @@ import MapKit
 
 class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     
-    
-    
+
+    let submitButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.lightSteelBlue1
+        button.clipsToBounds = true
+        let attributes1: [NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
+        ]
+        button.setAttributedTitle(NSAttributedString(string: "     Submit     ", attributes: attributes1), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleSubmitButton), for: .touchUpInside)
+        return button
+    }()
     
     var mapView: MKMapView = {
         var mapView = MKMapView()
@@ -33,10 +45,28 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
         return textfield
     }()
     
+    func setupTopBar(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(handleCancel))
+    }
+    
+    @objc func handleCancel(){
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         mapView.delegate = self
         inputLinkTextField.delegate = self
-        [mapView, inputLinkTextField].forEach{view.addSubview($0)}
+        [mapView, inputLinkTextField, submitButton].forEach{view.addSubview($0)}
+        
+        setupTopBar()
+    
+        
+        let bounds = UIScreen.main.bounds
+//        let width = bounds.size.width
+        let height = bounds.size.height
         
         NSLayoutConstraint.activate([
             inputLinkTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -48,9 +78,21 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
             mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            
+            submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: height * -1 * 0.15)
             ])
+        
+        
+        submitButton.layoutIfNeeded()
+        submitButton.layer.cornerRadius = 0.075 * submitButton.bounds.size.width
     }
     
+    
+    @objc func handleSubmitButton(){
+        print("HI HI HI")
+    }
     
     //MARK:- UITextField Delegate Functions
     func textFieldDidBeginEditing(_ textField: UITextField) {

@@ -35,8 +35,8 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func handleAddBarButton(){
-        //Left Bar Button
-        print("hello")
+        let newVC = UINavigationController(rootViewController: CreateLocationController())
+        present(newVC, animated: true)
     }
     
     @objc func handleRefreshBarButton(){

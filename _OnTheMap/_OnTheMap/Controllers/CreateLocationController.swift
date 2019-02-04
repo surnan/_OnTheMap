@@ -82,10 +82,21 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
         return button
     }()
     
+    
+    func setupTopBar(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(handleCancel))
+    }
+    
+    @objc func handleCancel(){
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = UIColor.lightGray
         loadFullScreenStackView()
         locationTextField.delegate = self
+    
+        setupTopBar()
         
         view.addSubview(fullScreenStackView)
         NSLayoutConstraint.activate([
@@ -135,6 +146,10 @@ class CreateLocationController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func handleButton(){
-        print("--------------  HI --------------")
+        
+        let newVC = UINavigationController(rootViewController: CreateAnnotation())
+        present(newVC, animated: true)
+        
+//        print("--------------  HI --------------")
     }
 }

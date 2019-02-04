@@ -15,20 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-//        window?.rootViewController = UINavigationController(rootViewController: LoginController())
 //        window?.rootViewController = MainTabBarController()
 //        window?.rootViewController = CreateLocationController()
 //        window?.rootViewController = ListController()
-
-        window?.rootViewController = CreateAnnotation()
+//        window?.rootViewController = CreateAnnotation()
         
-        
-        
+        window?.rootViewController = UINavigationController(rootViewController: LoginController())
         return true
     }
 
