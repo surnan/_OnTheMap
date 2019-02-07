@@ -34,15 +34,31 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         return mapView
     }()
     
+    /*
+ let attributes1: [NSAttributedString.Key:Any] = [
+ NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+ NSAttributedString.Key.foregroundColor : UIColor.grey196
+ ]
+ textField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: attributes1)
+ textField.defaultTextAttributes = attributes1
+ textField.textAlignment = .center
+ textField.clearsOnInsertion = true
+ textField.clearsOnBeginEditing = true
+ */
+    
     var inputLinkTextField: UITextField = {
         var textfield = UITextField()
         textfield.backgroundColor = UIColor.dodgerBlue4
         textfield.textColor = UIColor.white
         textfield.textAlignment = .center
-        textfield.attributedPlaceholder = NSAttributedString(string: "Enter a Link to Share Here", attributes: [
+        let attributes1: [NSAttributedString.Key:Any] = [
             NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
             NSAttributedString.Key.foregroundColor : UIColor.grey196
-            ])
+        ]
+        textfield.attributedPlaceholder = NSAttributedString(string: "Enter a Link to Share Here", attributes: attributes1)
+        textfield.defaultTextAttributes = attributes1
+        textfield.textAlignment = .center
+        textfield.clearsOnInsertion = true
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -90,6 +106,10 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
 //        annotation.coordinate = (delegate?.getCLLocation().coordinate)!
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
+        
+        mapView.setCenter(coordinate, animated: true)
+            
+            
         } else {
             print("Unable to obtain coordinate from delegate")
             dismiss(animated: true, completion: nil)
@@ -98,7 +118,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     
     @objc func handleSubmitButton(){
-        print("HI HI HI")
+        print("Button Pressed --> \(inputLinkTextField.text ?? "")")
     }
     
     //MARK:- UITextField Delegate Functions
