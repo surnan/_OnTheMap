@@ -11,7 +11,6 @@ import CoreLocation
 
 
 protocol CreateLocationControllerDelegate {
-    func getLocation()-> String
     func getCLLocation()-> CLLocation
 }
 
@@ -23,13 +22,6 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
     func getCLLocation()->CLLocation {
         return globalLocation
     }
-    
-    
-    func getLocation()->String {
-        return locationTextField.text ?? ""
-    }
-    
-    
     
     var fullScreenStackView: UIStackView = {
         let stack = UIStackView()
@@ -168,37 +160,8 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
     }
     
     @objc func handleFindOnMapButton(){
-        
-        /*
-            print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
-        
-        //        let address = "1 Infinite Loop, Cupertino, CA 95014"
-        let address = delegate?.getLocation() ?? ""
-        
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location else {print("UNABLE to convert to CLL Coordinates");return}
-            
-            //            let coord = location.coordinate
-            DispatchQueue.main.async {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.coordinate
-                self.mapView.addAnnotation(annotation)
-            }
-            // Use your location
-        }
-        */
-        
-//        isStringToLocationValid(completion: <#T##() -> Void#>)
-        
         isStringToLocationValid(completion: handleIsStringToLocationValid(success:error:))
-        
-        
-     
     }
-    
-//    var globalLocation = CLLocation()
-    
     
     func isStringToLocationValid(completion: @escaping (Bool, Error?)-> Void){
         let geoCoder = CLGeocoder()
@@ -228,11 +191,6 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
             present(newVC, animated: true)
         } else {
             print("There was an error \(String(describing: error))")
-         
-            func temp(){
-                self.locationTextField.text = ""
-            }
-            
             let _alertController = UIAlertController(title: "Invalid Entry", message: "Please enter another study location", preferredStyle: .alert)
                 _alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                     self.locationTextField.text = ""
@@ -240,9 +198,4 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
             present(_alertController, animated: true)
         }
     }
-    
-    
-    
-    
-    
 }

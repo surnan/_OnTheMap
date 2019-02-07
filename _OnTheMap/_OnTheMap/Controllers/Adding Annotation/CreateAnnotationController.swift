@@ -13,7 +13,7 @@ import CoreLocation
 class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     
     var delegate: CreateLocationControllerDelegate?
-
+    
     let submitButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightSteelBlue1
@@ -56,18 +56,15 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     }
     
     
-    
-    
     override func viewDidLoad() {
         mapView.delegate = self
         inputLinkTextField.delegate = self
         [mapView, inputLinkTextField, submitButton].forEach{view.addSubview($0)}
         
         setupTopBar()
-    
         
         let bounds = UIScreen.main.bounds
-//        let width = bounds.size.width
+        //        let width = bounds.size.width
         let height = bounds.size.height
         
         NSLayoutConstraint.activate([
@@ -81,31 +78,21 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
             mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            
             submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: height * -1 * 0.15)
             ])
         
-        
         submitButton.layoutIfNeeded()
         submitButton.layer.cornerRadius = 0.075 * submitButton.bounds.size.width
         
-        print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
-        
-//        let address = "1 Infinite Loop, Cupertino, CA 95014"
-        let address = delegate?.getLocation() ?? ""
-        
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location else {print("UNABLE to convert to CLL Coordinates");return}
-            
-//            let coord = location.coordinate
-            DispatchQueue.main.async {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.coordinate
-                self.mapView.addAnnotation(annotation)
-            }
-            // Use your location
+        let annotation = MKPointAnnotation()
+        if let coordinate = delegate?.getCLLocation().coordinate {
+//        annotation.coordinate = (delegate?.getCLLocation().coordinate)!
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+        } else {
+            print("Unable to obtain coordinate from delegate")
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -139,8 +126,4 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         print("A")
         return pinView
     }
-    
-    
-    
-    
 }
