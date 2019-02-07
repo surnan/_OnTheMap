@@ -34,18 +34,6 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         return mapView
     }()
     
-    /*
- let attributes1: [NSAttributedString.Key:Any] = [
- NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
- NSAttributedString.Key.foregroundColor : UIColor.grey196
- ]
- textField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: attributes1)
- textField.defaultTextAttributes = attributes1
- textField.textAlignment = .center
- textField.clearsOnInsertion = true
- textField.clearsOnBeginEditing = true
- */
-    
     var inputLinkTextField: UITextField = {
         var textfield = UITextField()
         textfield.backgroundColor = UIColor.dodgerBlue4
@@ -103,7 +91,6 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getCLLocation().coordinate {
-//        annotation.coordinate = (delegate?.getCLLocation().coordinate)!
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
         
@@ -119,6 +106,9 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     @objc func handleSubmitButton(){
         print("Button Pressed --> \(inputLinkTextField.text ?? "")")
+        
+        
+       print("Valid URL = \(inputLinkTextField.text!.isValidURL)")
     }
     
     //MARK:- UITextField Delegate Functions
