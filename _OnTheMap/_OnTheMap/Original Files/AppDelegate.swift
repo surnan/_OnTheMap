@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         
-        window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())  
+        window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())
 
         
 //        window?.rootViewController = UINavigationController(rootViewController: LoginController())

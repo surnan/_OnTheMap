@@ -7,18 +7,28 @@
 //
 
 import UIKit
+import CoreLocation
 
 
 protocol CreateLocationControllerDelegate {
     func getLocation()-> String
+    func getCLLocation()-> CLLocation
 }
 
 
 class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLocationControllerDelegate{
     
+    var globalLocation = CLLocation()
+    
+    func getCLLocation()->CLLocation {
+        return globalLocation
+    }
+    
+    
     func getLocation()->String {
         return locationTextField.text ?? ""
     }
+    
     
     
     var fullScreenStackView: UIStackView = {
@@ -158,9 +168,81 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
     }
     
     @objc func handleFindOnMapButton(){
-        let newCreateAnnotationController = CreateAnnotationController()
-        newCreateAnnotationController.delegate = self
-        let newVC = UINavigationController(rootViewController: newCreateAnnotationController)
-        present(newVC, animated: true)
+        
+        /*
+            print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
+        
+        //        let address = "1 Infinite Loop, Cupertino, CA 95014"
+        let address = delegate?.getLocation() ?? ""
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location else {print("UNABLE to convert to CLL Coordinates");return}
+            
+            //            let coord = location.coordinate
+            DispatchQueue.main.async {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location.coordinate
+                self.mapView.addAnnotation(annotation)
+            }
+            // Use your location
+        }
+        */
+        
+//        isStringToLocationValid(completion: <#T##() -> Void#>)
+        
+        isStringToLocationValid(completion: handleIsStringToLocationValid(success:error:))
+        
+        
+     
     }
+    
+//    var globalLocation = CLLocation()
+    
+    
+    func isStringToLocationValid(completion: @escaping (Bool, Error?)-> Void){
+        let geoCoder = CLGeocoder()
+        let temp = locationTextField.text ?? ""
+        geoCoder.geocodeAddressString(temp) { [unowned self] (clplacement, error) in
+            guard let placemarks = clplacement, let location = placemarks.first?.location else {
+                print("UNABLE to convert to CLL Coordinates")
+                
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.globalLocation = location
+                completion(true, nil)
+            }
+            return
+        }
+    }
+    
+    func handleIsStringToLocationValid(success: Bool, error: Error?){
+        if success {
+            let newCreateAnnotationController = CreateAnnotationController()
+            newCreateAnnotationController.delegate = self
+            let newVC = UINavigationController(rootViewController: newCreateAnnotationController)
+            present(newVC, animated: true)
+        } else {
+            print("There was an error \(String(describing: error))")
+         
+            func temp(){
+                self.locationTextField.text = ""
+            }
+            
+            let _alertController = UIAlertController(title: "Invalid Entry", message: "Please enter another study location", preferredStyle: .alert)
+                _alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                    self.locationTextField.text = ""
+                } ))
+            present(_alertController, animated: true)
+        }
+    }
+    
+    
+    
+    
+    
 }
