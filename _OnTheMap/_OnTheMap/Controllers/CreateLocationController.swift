@@ -66,6 +66,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
             NSAttributedString.Key.foregroundColor : UIColor.grey196
         ]
         textField.attributedPlaceholder = NSAttributedString(string: "Enter Your Location Here", attributes: attributes1)
+        textField.defaultTextAttributes = attributes1
         textField.textAlignment = .center
         textField.clearsOnInsertion = true
         textField.clearsOnBeginEditing = true
@@ -89,7 +90,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         ]
         button.setAttributedTitle(NSAttributedString(string: "Find on the Map", attributes: attributes1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleFindOnMapButton), for: .touchUpInside)
         return button
     }()
     
@@ -156,7 +157,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         textField.placeholder = nil
     }
     
-    @objc func handleButton(){
+    @objc func handleFindOnMapButton(){
         let newCreateAnnotationController = CreateAnnotation()
         newCreateAnnotationController.delegate = self
         let newVC = UINavigationController(rootViewController: newCreateAnnotationController)

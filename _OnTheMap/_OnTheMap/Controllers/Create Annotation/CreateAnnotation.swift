@@ -92,28 +92,21 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
         
         print("delegate?.getLocation() ==> \(delegate?.getLocation() ?? "")")
         
-        
-        
-        let address = "1 Infinite Loop, Cupertino, CA 95014"
+//        let address = "1 Infinite Loop, Cupertino, CA 95014"
+        let address = delegate?.getLocation() ?? ""
         
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard
-                let placemarks = placemarks,
-                let location = placemarks.first?.location
-                else {
-                    print("UNABLE to convert to CLL Coordinates")
-                    return
+            guard let placemarks = placemarks, let location = placemarks.first?.location else {print("UNABLE to convert to CLL Coordinates");return}
+            
+//            let coord = location.coordinate
+            DispatchQueue.main.async {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location.coordinate
+                self.mapView.addAnnotation(annotation)
             }
-            
-            
             // Use your location
         }
-        
-        
-        
-        
-        
     }
     
     
@@ -125,4 +118,29 @@ class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = nil
     }
+    
+    
+    // MARK: - MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .purple
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        print("A")
+        return pinView
+    }
+    
+    
+    
+    
 }
