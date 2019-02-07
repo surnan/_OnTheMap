@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class CreateAnnotation:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
+class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFieldDelegate{
     
     var delegate: CreateLocationControllerDelegate?
 

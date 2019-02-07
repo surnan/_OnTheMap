@@ -28,7 +28,7 @@
 		848D44792204FD7300BF3EF9 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44782204FD7300BF3EF9 /* ListController.swift */; };
 		848D4483220614DB00BF3EF9 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D4482220614DB00BF3EF9 /* Students.swift */; };
 		848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D448622062C6000BF3EF9 /* MapController+MapKit.swift */; };
-		84D067432207EF5D000D8564 /* CreateAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D067422207EF5D000D8564 /* CreateAnnotation.swift */; };
+		84D067432207EF5D000D8564 /* CreateAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D067422207EF5D000D8564 /* CreateAnnotationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 		848D44782204FD7300BF3EF9 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		848D4482220614DB00BF3EF9 /* Students.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		848D448622062C6000BF3EF9 /* MapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapController+MapKit.swift"; sourceTree = "<group>"; };
-		84D067422207EF5D000D8564 /* CreateAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnnotation.swift; sourceTree = "<group>"; };
+		84D067422207EF5D000D8564 /* CreateAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnnotationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +119,8 @@
 		848928602204F7C100BF9BF6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				845BA42D22072A9400F6D80E /* CreateLocationController.swift */,
 				8489285E2204F79600BF9BF6 /* MainTabBarController.swift */,
-				84D067412207EEA4000D8564 /* Create Annotation */,
+				84D067412207EEA4000D8564 /* Adding Annotation */,
 				845BA44F22077FD700F6D80E /* List Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				845BA42C2207248C00F6D80E /* Map Controller */,
@@ -195,12 +194,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		84D067412207EEA4000D8564 /* Create Annotation */ = {
+		84D067412207EEA4000D8564 /* Adding Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				84D067422207EF5D000D8564 /* CreateAnnotation.swift */,
+				845BA42D22072A9400F6D80E /* CreateLocationController.swift */,
+				84D067422207EF5D000D8564 /* CreateAnnotationController.swift */,
 			);
-			path = "Create Annotation";
+			path = "Adding Annotation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,7 +285,7 @@
 				848928712204F89400BF9BF6 /* UdacityResponse.swift in Sources */,
 				848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */,
 				8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */,
-				84D067432207EF5D000D8564 /* CreateAnnotation.swift in Sources */,
+				84D067432207EF5D000D8564 /* CreateAnnotationController.swift in Sources */,
 				8489286B2204F88500BF9BF6 /* StudentInfo.swift in Sources */,
 				848D44792204FD7300BF3EF9 /* ListController.swift in Sources */,
 				848D44772204FD6400BF3EF9 /* MapController.swift in Sources */,

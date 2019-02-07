@@ -158,7 +158,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
     }
     
     @objc func handleFindOnMapButton(){
-        let newCreateAnnotationController = CreateAnnotation()
+        let newCreateAnnotationController = CreateAnnotationController()
         newCreateAnnotationController.delegate = self
         let newVC = UINavigationController(rootViewController: newCreateAnnotationController)
         present(newVC, animated: true)
