@@ -117,11 +117,13 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         
         
 //       UserInfoClient.setupFromAnnotationController(mapString: mapString, mediaURL: mediaURL, location: location)
-//       
+//
 //        print("Button Pressed --> \(inputLinkTextField.text ?? "")")
 //        print("Valid URL = \(inputLinkTextField.text!.isValidURL)")
         
         ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        
+        dismiss(animated: true, completion: nil)
         
     }
     

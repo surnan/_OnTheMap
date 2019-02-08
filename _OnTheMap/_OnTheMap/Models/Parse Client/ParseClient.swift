@@ -81,8 +81,6 @@ class ParseClient {
 //    class func postStudentLocation<Encode: Encodable, Decoder: Decodable> (url: URL, encoding: Encode, decoder: Decoder.Type){
     class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double){
 
-
-        
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
                                           firstName: "John",
                                           lastName: "Snow",
@@ -91,6 +89,26 @@ class ParseClient {
                                           latitude: latitude,
                                           longitude: longitude)
         
+        taskForPostRequest(url: Endpoints.studentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
+            if error != nil {
+                print("Object found")
+            }
+            
+            guard let data = data else {
+                print("Data returned from taskForPostRequest is nil and returned error was also nil")
+                return
+            }
+            
+            print("data.createdAt = \(data.createdAt)")
+            print("data.objectId = \(data.objectId)")
+            
+        }
+        
+    }
+    
+    
+    class func taskForPostRequest<Encoding: Encodable, Decoder: Decodable>(url: URL, body: Encoding, decodeType: Decoder.Type, completion: @escaping (Decoder?, Error?)->Void){
+        
         
         var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
@@ -98,26 +116,50 @@ class ParseClient {
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-//        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
-
+        //        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
+        
         do {
-            let body =  try JSONEncoder().encode(_StudentLocationRequest)
+            let body =  try JSONEncoder().encode(body)
             request.httpBody =   body
-            
             print(body)
-            
         } catch {
             print("Unable to encode JSON Body for ParseClient.PostStudentLocation with StudentLocationRequest object")
             return
         }
-    
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error…
+        
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let data = data else {
+                completion(nil, error)
                 return
             }
-            print(String(data: data!, encoding: .utf8)!)
-        }.resume()
+            
+            do {
+                let dataObject = try JSONDecoder().decode(decodeType, from: data)
+                completion(dataObject, nil)
+                return
+                
+            }catch {
+                print("Unable to convert data into decodable within taskForPostRequest")
+                completion(nil, error)
+                return
+            }
+            
+            
+            
+            
+            
+            }.resume()
+        
+        
     }
+    
+    
+    
+    
+    
+    
 }
 
 
