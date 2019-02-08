@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
+		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
 		8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* Helper+Extensions.swift */; };
 		844DFEC62204F42800742437 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DFEC52204F42800742437 /* AppDelegate.swift */; };
 		844DFECB2204F42800742437 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844DFEC92204F42800742437 /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
+		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* Helper+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper+Extensions.swift"; sourceTree = "<group>"; };
 		844DFEC22204F42800742437 /* _OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = _OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844DFEC52204F42800742437 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8439960E220D192800A73345 /* UserInfoClient */ = {
+			isa = PBXGroup;
+			children = (
+				8439960F220D195400A73345 /* UserInfoClient.swift */,
+			);
+			path = UserInfoClient;
+			sourceTree = "<group>";
+		};
 		8439D00F220CB6C00057CE6E /* Helper+Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +163,7 @@
 		848928622204F7C600BF9BF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8439960E220D192800A73345 /* UserInfoClient */,
 				848928652204F86500BF9BF6 /* Parse Client */,
 				848928662204F86F00BF9BF6 /* Udacity Client */,
 			);
@@ -174,6 +187,7 @@
 				848928672204F88500BF9BF6 /* ParseRequest.swift */,
 				848928692204F88500BF9BF6 /* ParseClient.swift */,
 				848928682204F88500BF9BF6 /* StudentInfo.swift */,
+				8439960A220CEB0700A73345 /* ParseResponse.swift */,
 			);
 			path = "Parse Client";
 			sourceTree = "<group>";
@@ -288,6 +302,8 @@
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
 				844DFEC62204F42800742437 /* AppDelegate.swift in Sources */,
 				8489285C2204F78A00BF9BF6 /* LoginController.swift in Sources */,
+				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
+				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
 				8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,

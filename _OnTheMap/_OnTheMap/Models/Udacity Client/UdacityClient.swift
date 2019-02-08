@@ -36,6 +36,9 @@ class UdacityClient {
             return URL(string: self.toString)!
         }
     }
+    class func getAccountKey()-> String {
+        return UserInfo.accountKey
+    }
     
     class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type,
                                                                       completion: @escaping (Decoder?, Error?)-> Void){
