@@ -18,6 +18,7 @@ class UdacityClient {
         static var sessionExpiration = ""
     }
 
+    
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         case postingSession
@@ -36,6 +37,7 @@ class UdacityClient {
             return URL(string: self.toString)!
         }
     }
+    
     class func getAccountKey()-> String {
         return UserInfo.accountKey
     }

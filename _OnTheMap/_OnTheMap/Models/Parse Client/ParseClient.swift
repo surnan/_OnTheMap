@@ -77,30 +77,6 @@ class ParseClient {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    class func taskForGetResponse<Decoder: Decodable>(url: URL, decoder: Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
-    
     class func postStudentLocation<Encode: Encodable, Decoder: Decodable> (url: URL, encoding: Encode, decoder: Decoder.Type){
         
 
