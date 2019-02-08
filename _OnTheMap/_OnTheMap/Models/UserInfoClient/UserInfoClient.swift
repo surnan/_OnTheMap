@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 
 class UserInfoClient {
@@ -32,11 +33,17 @@ class UserInfoClient {
     }
     
     
-    class func setupFromAnnotationController(mapString: String, mediaURL: String, longitude: Double, latitude: Double){
+    class func setupFromAnnotationController(mapString: String, mediaURL: String, location: CLLocation){
         UserInfoClient.mapString = mapString
         UserInfoClient.mediaURL = mediaURL
-        UserInfoClient.longitude = longitude
-        UserInfoClient.latitude = latitude
+        UserInfoClient.longitude = location.coordinate.longitude
+        UserInfoClient.latitude = location.coordinate.longitude
+        
+        
+        print(UserInfoClient.mapString)
+        print(UserInfoClient.mediaURL)
+        print(UserInfoClient.longitude)
+        print(UserInfoClient.latitude)
     }
     
     

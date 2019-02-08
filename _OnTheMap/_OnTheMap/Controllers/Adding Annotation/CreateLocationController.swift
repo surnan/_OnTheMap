@@ -11,6 +11,7 @@ import CoreLocation
 
 
 protocol CreateLocationControllerDelegate {
+    func getMapString()-> String
     func getCLLocation()-> CLLocation
 }
 
@@ -21,6 +22,14 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
     
     func getCLLocation()->CLLocation {
         return globalLocation
+    }
+    
+    func getMapString()->String {
+        guard let text = locationTextField.text else {
+            print("Possible error in validating locationTextField.text can be found on map")
+            return ""
+        }
+        return text
     }
     
     var fullScreenStackView: UIStackView = {
@@ -72,6 +81,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         textField.textAlignment = .center
         textField.clearsOnInsertion = true
         textField.clearsOnBeginEditing = true
+        textField.autocapitalizationType = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

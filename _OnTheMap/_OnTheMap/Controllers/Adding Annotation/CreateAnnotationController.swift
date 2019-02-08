@@ -47,6 +47,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         textfield.defaultTextAttributes = attributes1
         textfield.textAlignment = .center
         textfield.clearsOnInsertion = true
+        textfield.autocapitalizationType = .none
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -91,10 +92,10 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getCLLocation().coordinate {
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
-        
-        mapView.setCenter(coordinate, animated: true)
+            annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
+            
+            mapView.setCenter(coordinate, animated: true)
             
             
         } else {
@@ -105,10 +106,22 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     
     @objc func handleSubmitButton(){
+        
+        guard let mapString = delegate?.getMapString(),
+            let mediaURL = inputLinkTextField.text,
+            let location = delegate?.getCLLocation() else {
+                print("Exit before passing invalid value into UserInfoClient.setupFromAnnotationController")
+                return
+        }
+        
+        
+        
+       UserInfoClient.setupFromAnnotationController(mapString: mapString, mediaURL: mediaURL, location: location)
+       
         print("Button Pressed --> \(inputLinkTextField.text ?? "")")
+        print("Valid URL = \(inputLinkTextField.text!.isValidURL)")
         
         
-       print("Valid URL = \(inputLinkTextField.text!.isValidURL)")
     }
     
     //MARK:- UITextField Delegate Functions
