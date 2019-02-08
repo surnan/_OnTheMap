@@ -76,14 +76,66 @@ extension MapController {
         return pinView
     }
 
+//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//        let backupURL = URL(string: "https://www.google.com")!
+//        guard let currentAnnotation = view.annotation, var stringToURL = currentAnnotation.subtitle else {
+//            // currentAnnotation has blank subtitle.  Handle by opening up any website.
+//            UIApplication.shared.open(backupURL, options: [:])
+//            return
+//        }
+//        if (stringToURL?.isValidURL)!{
+//            stringToURL = stringToURL?.prependHTTPifNeeded()
+//            if let url = URL(string: stringToURL!){
+//                UIApplication.shared.open(url, options: [:])
+//            } else {
+//                UIApplication.shared.open(backupURL, options: [:])
+//            }
+//        }
+//    }
+    
+    
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let stringToURL = view.annotation?.subtitle!, let url = URL(string: stringToURL){
-            UIApplication.shared.open(url, options: [:])
+//        let backupURL = URL(string: "https://www.google.com")!
+        guard var _stringToURL = view.annotation?.subtitle as? String else {
+            //MediaURL field is empty
+            UIApplication.shared.open(URL(string: "https://www.google.com")!)
+            return
+        }
+
+        let backupURL2 = URL(string: "https://www.google.com/search?q=" + _stringToURL)!
+        if _stringToURL._isValidURL {
+            _stringToURL = _stringToURL._prependHTTPifNeeded()
+            let url = URL(string: _stringToURL) ?? backupURL2
+            UIApplication.shared.open(url)
         } else {
-            let backupURL = URL(string: "https://www.google.com")!
-            UIApplication.shared.open(backupURL, options: [:])
+            UIApplication.shared.open(backupURL2)
         }
     }
+        
+        
+        
+//        if _stringToURL._isValidURL {
+//            _stringToURL = _stringToURL._prependHTTPifNeeded()
+//            let url = URL(string: _stringToURL) ?? backupURL
+//            UIApplication.shared.open(url)
+//        } else {
+//
+//        }
+//    }
 }
 
-
+//extension String {
+//    var _isValidURL: Bool {
+//        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+//        let range = NSRange(startIndex..., in: self)    //startIndex = position of first character in non-empty String
+//        return detector.firstMatch(in: self, range: range)?.range == range
+//    }
+//
+//    func _prependHTTPifNeeded() -> String{
+//        if prefix(4) != "http" {
+//            return "http://" + self
+//        } else {
+//            return self
+//        }
+//    }
+//}

@@ -33,16 +33,18 @@ extension ListController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard var stringToURL = locations[indexPath.row].mediaURL  else {
+            UIApplication.shared.open(URL(string: "https://www.google.com")!)
+            return
+        }
+        let backupURL2 = URL(string: "https://www.google.com/search?q=" + stringToURL)!
         
-        let item = locations[indexPath.row]
-        
-        if let url = URL(string: item.mediaURL ?? ""){
-            UIApplication.shared.open(url, options: [:])
+        if stringToURL._isValidURL {
+        stringToURL = stringToURL._prependHTTPifNeeded()
+        let url = URL(string: stringToURL) ?? backupURL2
+        UIApplication.shared.open(url)
         } else {
-            let backupURL = URL(string: "https://www.google.com")!
-            UIApplication.shared.open(backupURL, options: [:])
+            UIApplication.shared.open(backupURL2)
         }
     }
-    
-    
 }

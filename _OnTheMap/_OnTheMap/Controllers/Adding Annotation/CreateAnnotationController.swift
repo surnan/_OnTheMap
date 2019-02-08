@@ -112,10 +112,10 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
                 print("Exit before passing invalid value into UserInfoClient.setupFromAnnotationController")
                 return
         }
-        mediaURL = mediaURL.prependHTTPifNeeded()
+        mediaURL = mediaURL._prependHTTPifNeeded()
         
        
-        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
          view.window!.rootViewController?.dismiss(animated: true, completion: nil)
 //        dismiss(animated: true, completion: nil)
     }
