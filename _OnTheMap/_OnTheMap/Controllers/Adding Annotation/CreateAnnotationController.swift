@@ -113,8 +113,11 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
                 return
         }
         mediaURL = mediaURL.prependHTTPifNeeded()
+        
+       
         ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        dismiss(animated: true, completion: nil)
+         view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
     }
     
     //MARK:- UITextField Delegate Functions
