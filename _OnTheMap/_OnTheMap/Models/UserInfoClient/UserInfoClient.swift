@@ -11,11 +11,7 @@ import CoreLocation
 
 
 class UserInfoClient {
-    static var uniqueKey: String {
-        return UdacityClient.getAccountKey()
-    }
-    
-    
+    static var uniqueKey = ""
     static var firstName = "John"
     static var lastName = "Snow"
     static var mapString = ""
@@ -34,6 +30,7 @@ class UserInfoClient {
     
     
     class func setupFromAnnotationController(mapString: String, mediaURL: String, location: CLLocation){
+        UserInfoClient.uniqueKey = UdacityClient.getAccountKey()
         UserInfoClient.mapString = mapString
         UserInfoClient.mediaURL = mediaURL
         UserInfoClient.longitude = location.coordinate.longitude

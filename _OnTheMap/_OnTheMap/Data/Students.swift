@@ -30,8 +30,8 @@ import Foundation
 
 
 class Students {
-    static var all = [StudentInfo]()
-    static var uniques = [StudentInfo]()
+    static var all = [PostedStudentInfoResponse]()
+    static var uniques = [PostedStudentInfoResponse]()
     
     private struct MarkerInfo: Hashable {
         var firstName: String

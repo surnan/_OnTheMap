@@ -10,7 +10,7 @@ import UIKit
 
 class ListController:UITableViewController{
     
-    var locations = [StudentInfo]()
+    var locations = [PostedStudentInfoResponse]()
     let listReuseID = "asdfasdfasdfasdf"
     
     func loadLocationsArray(){
