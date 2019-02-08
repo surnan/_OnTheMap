@@ -160,8 +160,11 @@
 		848928612204F7C400BF9BF6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				844DFECC2204F42900742437 /* Assets.xcassets */,
+				844DFECE2204F42900742437 /* LaunchScreen.storyboard */,
 				848928732204F8C100BF9BF6 /* UIColor+Extension.swift */,
 				848928742204F8C100BF9BF6 /* UIView+Constraints.swift */,
+				844DFEC92204F42800742437 /* Main.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,10 +182,7 @@
 		848928642204F81800BF9BF6 /* Original Files */ = {
 			isa = PBXGroup;
 			children = (
-				844DFEC92204F42800742437 /* Main.storyboard */,
 				844DFEC52204F42800742437 /* AppDelegate.swift */,
-				844DFECC2204F42900742437 /* Assets.xcassets */,
-				844DFECE2204F42900742437 /* LaunchScreen.storyboard */,
 			);
 			path = "Original Files";
 			sourceTree = "<group>";

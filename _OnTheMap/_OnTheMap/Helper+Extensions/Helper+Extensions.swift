@@ -18,4 +18,14 @@ extension String {
             return false
         }
     }
+    
+    func prependHTTPifNeeded()-> String{
+        let first4 = self.prefix(4)
+        if first4 != "http" {
+            return "http://" + self
+        } else {
+            return self
+        }
+    }
+    
 }

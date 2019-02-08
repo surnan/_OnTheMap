@@ -106,25 +106,15 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     
     @objc func handleSubmitButton(){
-        
         guard let mapString = delegate?.getMapString(),
-            let mediaURL = inputLinkTextField.text,
+            var mediaURL = inputLinkTextField.text,
             let location = delegate?.getCLLocation() else {
                 print("Exit before passing invalid value into UserInfoClient.setupFromAnnotationController")
                 return
         }
-        
-        
-        
-//       UserInfoClient.setupFromAnnotationController(mapString: mapString, mediaURL: mediaURL, location: location)
-//
-//        print("Button Pressed --> \(inputLinkTextField.text ?? "")")
-//        print("Valid URL = \(inputLinkTextField.text!.isValidURL)")
-        
+        mediaURL = mediaURL.prependHTTPifNeeded()
         ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
         dismiss(animated: true, completion: nil)
-        
     }
     
     //MARK:- UITextField Delegate Functions
@@ -135,11 +125,8 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = "pin"
-        
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
@@ -149,7 +136,6 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         else {
             pinView!.annotation = annotation
         }
-        print("A")
         return pinView
     }
 }
