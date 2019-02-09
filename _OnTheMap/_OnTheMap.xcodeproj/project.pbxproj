@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				8489285E2204F79600BF9BF6 /* MainTabBarController.swift */,
-				84D067412207EEA4000D8564 /* Adding Annotation */,
+				84D067412207EEA4000D8564 /* Create Annotation Controller */,
 				845BA44F22077FD700F6D80E /* List Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				845BA42C2207248C00F6D80E /* Map Controller */,
@@ -217,13 +217,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		84D067412207EEA4000D8564 /* Adding Annotation */ = {
+		84D067412207EEA4000D8564 /* Create Annotation Controller */ = {
 			isa = PBXGroup;
 			children = (
 				845BA42D22072A9400F6D80E /* CreateLocationController.swift */,
 				84D067422207EF5D000D8564 /* CreateAnnotationController.swift */,
 			);
-			path = "Adding Annotation";
+			path = "Create Annotation Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
