@@ -11,8 +11,8 @@ import CoreLocation
 
 class UserInfoClient {
     static var uniqueKey = ""
-    static var firstName = "John"
-    static var lastName = "Snow"
+    static var firstName = ""
+    static var lastName = ""
     static var mapString = ""
     static var mediaURL = ""
     static var longitude = 0.0

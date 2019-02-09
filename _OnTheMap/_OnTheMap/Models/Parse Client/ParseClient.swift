@@ -4,7 +4,7 @@
 //
 //  Created by admin on 1/31/19.
 //  Copyright © 2019 admin. All rights reserved.
-//
+//case studentLocation
 
 import Foundation
 
@@ -15,11 +15,13 @@ class ParseClient {
     
     enum Endpoints{
         static let base = "https://parse.udacity.com/parse/classes"
-        case studentLocation
+        case addStudentLocation
+        case changeStudentLocation(String)
         
         var toString: String {
             switch self {
-            case .studentLocation: return Endpoints.base + "/StudentLocation"
+            case .addStudentLocation: return Endpoints.base + "/StudentLocation"
+            case .changeStudentLocation(let objectID): return Endpoints.base + "/StudentLocation/" + objectID
             }
         }
         
@@ -63,7 +65,7 @@ class ParseClient {
     }
     
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void){
-        let url = ParseClient.Endpoints.studentLocation.url
+        let url = ParseClient.Endpoints.addStudentLocation.url
         taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
                 return completion([], err)
@@ -83,7 +85,7 @@ class ParseClient {
                                           latitude: latitude,
                                           longitude: longitude)
         
-        taskForPostRequest(url: Endpoints.studentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
+        taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
             if let err = error {
                 completion(false, err)
                 return
@@ -138,6 +140,27 @@ class ParseClient {
             }
             }.resume()
     }
+    
+    
+//    class func changingStudentLocation(objectID: String, completion: @escaping (Bool, Error?)->Void){
+//        let url = Endpoints.changeStudentLocation(objectID)
+//        
+//        let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
+//                                                             firstName: "Waldo",
+//                                                             lastName: "Found",
+//                                                             mapString: mapString,
+//                                                             mediaURL: mediaURL,
+//                                                             latitude: latitude,
+//                                                             longitude: longitude)
+//        
+//    }
+//    
+//    class func taskForPutStudentLocation(url: String, completion: @escaping (Bool, Error?)->Void ){
+//
+//    }
+    
+    
+    
 }
 
 
