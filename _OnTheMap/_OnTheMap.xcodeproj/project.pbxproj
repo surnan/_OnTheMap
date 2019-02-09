@@ -33,6 +33,7 @@
 		848D44792204FD7300BF3EF9 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44782204FD7300BF3EF9 /* ListController.swift */; };
 		848D4483220614DB00BF3EF9 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D4482220614DB00BF3EF9 /* Students.swift */; };
 		848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D448622062C6000BF3EF9 /* MapController+MapKit.swift */; };
+		849DEAA0220F8B13009B0E91 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEA9F220F8B13009B0E91 /* ListCell.swift */; };
 		84D067432207EF5D000D8564 /* CreateAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D067422207EF5D000D8564 /* CreateAnnotationController.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		848D44782204FD7300BF3EF9 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		848D4482220614DB00BF3EF9 /* Students.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		848D448622062C6000BF3EF9 /* MapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapController+MapKit.swift"; sourceTree = "<group>"; };
+		849DEA9F220F8B13009B0E91 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		84D067422207EF5D000D8564 /* CreateAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnnotationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 			children = (
 				848D44782204FD7300BF3EF9 /* ListController.swift */,
 				845BA4502207807500F6D80E /* ListController+TableView.swift */,
+				849DEA9F220F8B13009B0E91 /* ListCell.swift */,
 			);
 			path = "List Controller";
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849DEAA0220F8B13009B0E91 /* ListCell.swift in Sources */,
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
 				844DFEC62204F42800742437 /* AppDelegate.swift in Sources */,
 				8489285C2204F78A00BF9BF6 /* LoginController.swift in Sources */,

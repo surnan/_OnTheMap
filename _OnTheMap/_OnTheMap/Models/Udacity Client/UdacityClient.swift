@@ -99,7 +99,7 @@ class UdacityClient {
             
             do {
                 let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
-                print(dataObject)
+//                print(dataObject)
                 DispatchQueue.main.async {
                     completion(dataObject, nil)
                 }

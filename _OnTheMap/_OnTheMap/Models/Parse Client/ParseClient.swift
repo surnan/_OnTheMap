@@ -116,7 +116,7 @@ class ParseClient {
         do {
             let body =  try JSONEncoder().encode(body)
             request.httpBody =   body
-            print(body)
+//            print(body)
         } catch {
             print("Unable to encode JSON Body for ParseClient.PostStudentLocation with StudentLocationRequest object")
             return

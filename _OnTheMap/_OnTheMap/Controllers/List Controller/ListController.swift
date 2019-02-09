@@ -26,6 +26,9 @@ class ListController:UITableViewController{
         view.backgroundColor = UIColor.grey227
         loadLocationsArray()    //MapController().ViewDidLoad  ==> preloads 'Class Students' and it's the default opening tab
         print("locations.count --> \(locations.count)")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: listReuseID)
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: listReuseID)
+        
+        tableView.register(ListCell.self, forCellReuseIdentifier: listReuseID)
+        
     }
 }

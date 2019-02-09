@@ -10,14 +10,6 @@ import UIKit
 
 extension UIView {
     
-//    func fillSuperView(){
-//        translatesAutoresizingMaskIntoConstraints = false
-//        topAnchor.constraint(equalTo: .topAnchor).isActive = true
-//        bottomAnchor.constraint(equalTo: .bottomAnchor).isActive = true
-//        leadingAnchor.constraint(equalTo: .leadingAnchor).isActive = true
-//        trailingAnchor.constraint(equalTo: .trailingAnchor).isActive = true
-//    }
-    
     func fillSafeView(){
         translatesAutoresizingMaskIntoConstraints = false
         topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true

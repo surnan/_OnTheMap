@@ -17,20 +17,34 @@ extension ListController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: listReuseID, for: indexPath) as! ListCell
         let item = locations[indexPath.row]
-        let cell = UITableViewCell()
-
-        var tempString = ""
-        [item.firstName, item.lastName].forEach{
-            if let temp = $0 {
-                tempString.append("  \(temp)")
-            }
-        }
-    
-        cell.textLabel?.text = tempString
-        cell.imageView?.image = #imageLiteral(resourceName: "icon_pin")
+        cell.titleLabel.text =  "\(item.firstName ?? "") \(item.lastName ?? "") ..... \(item.objectId ?? "")"
+        cell.messageLabel.text = item.mediaURL
         return cell
+        
+        
+        
+//        let item = locations[indexPath.row]
+//        let cell = UITableViewCell()
+//
+//        var tempString = ""
+//        [item.firstName, item.lastName, "\n", item.mediaURL].forEach{
+//            if let temp = $0 {
+//                tempString.append("  \(temp)")
+//            }
+//        }
+//
+//        cell.textLabel?.text = tempString
+//        cell.textLabel?.numberOfLines = -1
+//        cell.imageView?.image = #imageLiteral(resourceName: "icon_pin")
+//        return cell
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard var stringToURL = locations[indexPath.row].mediaURL  else {

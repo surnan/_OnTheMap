@@ -34,10 +34,10 @@ class UserInfoClient {
         UserInfoClient.latitude = location.coordinate.longitude
         
         
-        print(UserInfoClient.mapString)
-        print(UserInfoClient.mediaURL)
-        print(UserInfoClient.longitude)
-        print(UserInfoClient.latitude)
+//        print(UserInfoClient.mapString)
+//        print(UserInfoClient.mediaURL)
+//        print(UserInfoClient.longitude)
+//        print(UserInfoClient.latitude)
     }
     
     class func getUserInfoClient()->(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, longitude: Double, latitude: Double){

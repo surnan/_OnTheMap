@@ -37,9 +37,10 @@ class Students {
         var mySet = Set<MarkerInfo>()
         let myShortArray = self.all.filter{
             
-            print("objectID = \($0.objectId ?? "No ID listed") ")
+//            print("objectID = \($0.objectId ?? "No ID listed") ")
             
-            guard let mediaURL = $0.mediaURL, let _ = URL(string: mediaURL), $0.firstName != nil, $0.lastName != nil else {return false}
+//            guard let mediaURL = $0.mediaURL, let _ = URL(string: mediaURL), $0.firstName != nil, $0.lastName != nil else {return false}
+            guard $0.firstName != nil, $0.lastName != nil else {return false}
             return mySet.insert(MarkerInfo(firstName: $0.firstName ?? "",
                                            lastName: $0.lastName ?? "",
                                            latitude: $0.latitude ?? 0,
