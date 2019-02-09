@@ -26,16 +26,19 @@ class MapController:UIViewController, MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+
+        setupMap()
+//        ParseClient.getStudents { (data, err) in
+//            if err == nil{
+//                Students.all = data
+//                Students.loadPins()
+//                self.setupMap()
+//            } else {
+//                print("OH BOY")
+//            }
+//        }
         
-        ParseClient.getStudents { (data, err) in
-            if err == nil{
-                Students.all = data
-                Students.loadPins()
-                self.setupMap()
-            } else {
-                print("OH BOY")
-            }
-        }
+        
         setupUI()
     }
     
@@ -48,11 +51,4 @@ class MapController:UIViewController, MKMapViewDelegate{
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             ])
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    
-    
 }

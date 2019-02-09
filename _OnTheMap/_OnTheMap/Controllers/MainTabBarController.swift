@@ -10,11 +10,28 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
-        setupBottomToolBar()
-        setupTopToolBar()
+        view.backgroundColor = .black
+        
+        
+        ParseClient.getStudents { (data, err) in
+            if err == nil{
+                Students.all = data
+                Students.loadPins()
+                //                self.viewControllers = controllers
+                //                self.setupMap()
+                self.setupBottomToolBar()
+                self.setupTopToolBar()
+            } else {
+                print("OH BOY")
+            }
+        }
+//        setupBottomToolBar()
+//        setupTopToolBar()
     }
     
     func setupBottomToolBar(){
@@ -25,7 +42,21 @@ class MainTabBarController: UITabBarController {
         mapController.tabBarItem = mapIcon
         listController.tabBarItem = listIcon
         let controllers = [mapController, listController]
-        viewControllers = controllers
+        self.viewControllers = controllers
+        
+        ParseClient.getStudents { (data, err) in
+            if err == nil{
+                Students.all = data
+                Students.loadPins()
+//                self.viewControllers = controllers
+//                self.setupMap()
+            } else {
+                print("OH BOY")
+            }
+        }
+        
+        
+//        viewControllers = controllers
     }
     
     func setupTopToolBar(){
