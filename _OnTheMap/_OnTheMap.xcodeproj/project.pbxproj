@@ -116,12 +116,11 @@
 		844DFEC42204F42800742437 /* _OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
-				848D4481220614C600BF3EF9 /* Data */,
 				848928622204F7C600BF9BF6 /* Models */,
 				848928612204F7C400BF9BF6 /* Views */,
 				848928602204F7C100BF9BF6 /* Controllers */,
-				848928642204F81800BF9BF6 /* Original Files */,
 				844DFED12204F42900742437 /* Info.plist */,
+				844DFEC52204F42800742437 /* AppDelegate.swift */,
 				8439D00F220CB6C00057CE6E /* Helper+Extensions */,
 			);
 			path = _OnTheMap;
@@ -172,19 +171,12 @@
 		848928622204F7C600BF9BF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				848D4481220614C600BF3EF9 /* Data */,
 				8439960E220D192800A73345 /* UserInfoClient */,
 				848928652204F86500BF9BF6 /* Parse Client */,
 				848928662204F86F00BF9BF6 /* Udacity Client */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		848928642204F81800BF9BF6 /* Original Files */ = {
-			isa = PBXGroup;
-			children = (
-				844DFEC52204F42800742437 /* AppDelegate.swift */,
-			);
-			path = "Original Files";
 			sourceTree = "<group>";
 		};
 		848928652204F86500BF9BF6 /* Parse Client */ = {

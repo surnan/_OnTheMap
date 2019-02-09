@@ -115,9 +115,9 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         mediaURL = mediaURL._prependHTTPifNeeded()
         
        
-//        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
          view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-//        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)  //including this line & the "dismiss" above will bring us back to the login window
     }
     
     //MARK:- UITextField Delegate Functions
