@@ -30,8 +30,16 @@ class MainTabBarController: UITabBarController {
     
     func setupTopToolBar(){
         navigationItem.title = "On The Map"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_pin"), style: .done, target: self, action: #selector(handleAddBarButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: .done, target: self, action: #selector(handleRefreshBarButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LOGOUT", style: .done, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: .done, target: self, action: #selector(handleAddBarButton)),
+                                              UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: .done, target: self, action: #selector(handleRefreshBarButton)),
+        ]
+        
+        
+    }
+    
+    @objc func handleLogout(){
+        print("Logging Out.....")
     }
     
     @objc func handleAddBarButton(){
