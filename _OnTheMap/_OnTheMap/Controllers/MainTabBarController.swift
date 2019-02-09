@@ -39,7 +39,8 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func handleLogout(){
-        print("Logging Out.....")
+        UdacityClient.logout()
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func handleAddBarButton(){
