@@ -38,7 +38,7 @@ class MainTabBarController: UITabBarController {
                 self.setupTopToolBar()
                 self.myActivityMonitor.stopAnimating()
             } else {
-                print("OH BOY")
+                print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
         }
     }
@@ -52,20 +52,6 @@ class MainTabBarController: UITabBarController {
         listController.tabBarItem = listIcon
         let controllers = [mapController, listController]
         self.viewControllers = controllers
-        
-        ParseClient.getStudents { (data, err) in
-            if err == nil{
-                Students.all = data
-                Students.loadPins()
-//                self.viewControllers = controllers
-//                self.setupMap()
-            } else {
-                print("OH BOY")
-            }
-        }
-        
-        
-//        viewControllers = controllers
     }
     
     func setupTopToolBar(){
@@ -89,7 +75,18 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func handleRefreshBarButton(){
-        //Right Bar Button
-        print("World")
+        ParseClient.getStudents { (data, err) in
+            if err == nil{
+                Students.all = data
+                Students.loadPins()
+                self.setupBottomToolBar()
+                self.setupTopToolBar()
+                self.myActivityMonitor.stopAnimating()
+            } else {
+                print("OH BOY")
+            }
+        }
+        
+        
     }
 }
