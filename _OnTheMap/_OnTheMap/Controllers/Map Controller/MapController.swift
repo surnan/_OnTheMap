@@ -15,7 +15,6 @@ class MapController:UIViewController, MKMapViewDelegate{
     var locations = [[String:Any]]()
     var annotations = [MKPointAnnotation]()
     
-    
     //MARK:- File Specific
     var mapView: MKMapView = {
         var mapView = MKMapView()

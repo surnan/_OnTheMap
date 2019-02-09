@@ -10,26 +10,18 @@ import UIKit
 
 extension UIView {
     
-    
     func fillSuperView(){
         translatesAutoresizingMaskIntoConstraints = false
-        
         topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
         bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
         leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        
     }
-    
     
     func anchorSize(to view: UIView){
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
-    
-    
-    
     
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?,
                 padding: UIEdgeInsets = .zero, size: CGSize = .zero){

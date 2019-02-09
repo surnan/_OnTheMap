@@ -62,8 +62,6 @@ class ParseClient {
             }.resume()
     }
     
-    
-    
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void){
         let url = ParseClient.Endpoints.studentLocation.url
         taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
@@ -75,7 +73,6 @@ class ParseClient {
             return
         }
     }
-
     
     class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),

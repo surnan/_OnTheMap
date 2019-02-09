@@ -50,7 +50,6 @@ class LoginController: UIViewController {
         passwordTextField.text = "atDZ8=Gm%=VU"
         
         [emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
-//        [emailTextField, passwordTextField, loginButton, facebookButton].forEach{$0.heightAnchor.constraint(equalToConstant: customFontSize * 2)}
         
         view.addSubview(loginStack)
         NSLayoutConstraint.activate([

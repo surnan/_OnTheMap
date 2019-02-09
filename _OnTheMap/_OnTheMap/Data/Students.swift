@@ -8,27 +8,6 @@
 
 import Foundation
 
-/*
- func loadLocationsArray(){
- Students.uniques.forEach {
- let temp: [String:Any] = [
- "objectId": $0.objectId ?? "",
- "uniqueKey": $0.uniqueKey ?? "",
- "firstName": $0.firstName ?? "",
- "lastName": $0.lastName ?? "",
- "mapString": $0.mapString ?? "",
- "mediaURL": $0.mediaURL ?? "",
- "latitude": $0.latitude ?? 0,
- "longitude": $0.longitude ?? 0,
- "createdAt": $0.createdAt ?? "",
- "updatedAt": $0.updatedAt ?? ""
- ]
- locations.append(temp)
- }
- }
- */
-
-
 class Students {
     static var all = [PostedStudentInfoResponse]()
     static var uniques = [PostedStudentInfoResponse]()

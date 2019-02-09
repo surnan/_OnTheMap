@@ -15,7 +15,6 @@ protocol CreateLocationControllerDelegate {
     func getCLLocation()-> CLLocation
 }
 
-
 class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLocationControllerDelegate{
     
     var globalLocation = CLLocation()
@@ -106,7 +105,6 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         return button
     }()
     
-    
     func setupTopBar(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(handleCancel))
     }
@@ -119,9 +117,7 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         view.backgroundColor = UIColor.lightGray
         loadFullScreenStackView()
         locationTextField.delegate = self
-    
         setupTopBar()
-        
         view.addSubview(fullScreenStackView)
         NSLayoutConstraint.activate([
             fullScreenStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -129,10 +125,8 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
             fullScreenStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             fullScreenStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
-        
         setupMidView()
         setupBtmView()
-        
     }
     
     
@@ -179,7 +173,6 @@ class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLoc
         geoCoder.geocodeAddressString(temp) { [unowned self] (clplacement, error) in
             guard let placemarks = clplacement, let location = placemarks.first?.location else {
                 print("UNABLE to convert to CLL Coordinates")
-                
                 DispatchQueue.main.async {
                     completion(false, error)
                 }

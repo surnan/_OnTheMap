@@ -17,7 +17,6 @@ class UdacityClient {
         static var sessionId = ""
         static var sessionExpiration = ""
     }
-
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
@@ -67,7 +66,6 @@ class UdacityClient {
             
             let range = (5..<data.count)
             let newData = data.subdata(in: range)
-            //  print(String(data: newData, encoding: .utf8)!)
             
             do {
                 let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
@@ -108,10 +106,4 @@ class UdacityClient {
         }
     }
 }
-
-/*
-//    var PostingSession = "https://onthemap-api.udacity.com/v1/session"
-//    var deletingSession = "https://onthemap-api.udacity.com/v1/session"
-//    var onTheMapUserData = "https://onthemap-api.udacity.com/v1/users/<user_id>"
-*/
 
