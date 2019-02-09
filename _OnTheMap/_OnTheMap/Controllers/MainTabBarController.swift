@@ -10,23 +10,23 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-//    var myActivityMonitor: UIActivityIndicatorView = {
-//        let activity = UIActivityIndicatorView()
-//        activity.hidesWhenStopped = true
-//        activity.style = .whiteLarge
-//        return activity
-//    }()
+    var myActivityMonitor: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.style = .whiteLarge
+        return activity
+    }()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        
-//        view.addSubview(myActivityMonitor)
-//        myActivityMonitor.startAnimating()
-//        myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+        view.addSubview(myActivityMonitor)
+        myActivityMonitor.center = view.center
+        myActivityMonitor.startAnimating()
+
         
         
         
@@ -36,7 +36,7 @@ class MainTabBarController: UITabBarController {
                 Students.loadPins()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
-//                self.myActivityMonitor.stopAnimating()
+                self.myActivityMonitor.stopAnimating()
             } else {
                 print("OH BOY")
             }
