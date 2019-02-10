@@ -22,23 +22,6 @@ extension ListController {
         cell.titleLabel.text =  "\(item.firstName ?? "") \(item.lastName ?? "") ..... \(item.objectId ?? "")"
         cell.messageLabel.text = item.mediaURL
         return cell
-        
-        
-        
-//        let item = locations[indexPath.row]
-//        let cell = UITableViewCell()
-//
-//        var tempString = ""
-//        [item.firstName, item.lastName, "\n", item.mediaURL].forEach{
-//            if let temp = $0 {
-//                tempString.append("  \(temp)")
-//            }
-//        }
-//
-//        cell.textLabel?.text = tempString
-//        cell.textLabel?.numberOfLines = -1
-//        cell.imageView?.image = #imageLiteral(resourceName: "icon_pin")
-//        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -61,4 +44,27 @@ extension ListController {
             UIApplication.shared.open(backupURL2)
         }
     }
+    
+    
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        let temp2 = UIContextualAction(style: .normal, title: "Move"){(_,_,_) in
+            print("Hello World")
+        }
+        temp2.image = #imageLiteral(resourceName: "25_png")
+        temp2.backgroundColor = UIColor.blue
+        let temp = UISwipeActionsConfiguration(actions: [temp2])
+        return temp
+    }
+    
+    @objc func handleSwipe(){
+        print("hello")
+    }
+
+    
+    
+    
+    
 }
