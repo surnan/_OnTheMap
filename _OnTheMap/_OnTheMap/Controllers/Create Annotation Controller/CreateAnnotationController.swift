@@ -113,12 +113,23 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
                 return
         }
         mediaURL = mediaURL._prependHTTPifNeeded()
-        
-       
-//        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(success:error:))
-         view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-//        dismiss(animated: true, completion: nil)  //including this line & the "dismiss" above will bring us back to the login window
+        let exists = true
+        if exists {
+            print("ParseClient.PUT")
+            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
+            let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
+                if err == nil{
+                    print("success")
+                } else {
+                    print("failure")
+                }
+            }
+        } else {
+            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(success:error:))
+        }
+        view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        //  dismiss(animated: true, completion: nil)  //including this line & the "dismiss" above will bring us back to the login window
     }
     
     

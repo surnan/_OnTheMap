@@ -50,8 +50,13 @@ extension ListController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         
+        let item = locations[indexPath.row]
+        
         let temp2 = UIContextualAction(style: .normal, title: "Move"){(_,_,_) in
-            print("Hello World")
+            print("objectId = \(self.locations[indexPath.row].objectId)")
+            print("Location (latitude, longitude) ==> \(item.latitude ?? 0.0)  \(item.longitude ?? 0.0)   ")
+            let newVC = CreateLocationController()
+            self.present(newVC, animated: true)
         }
         temp2.image = #imageLiteral(resourceName: "25_png")
         temp2.backgroundColor = UIColor.blue
@@ -61,10 +66,8 @@ extension ListController {
     
     @objc func handleSwipe(){
         print("hello")
+        
+        let newVC = CreateLocationController()
+        present(newVC, animated: true)
     }
-
-    
-    
-    
-    
 }

@@ -142,25 +142,44 @@ class ParseClient {
     }
     
     
-//    class func changingStudentLocation(objectID: String, completion: @escaping (Bool, Error?)->Void){
-//        let url = Endpoints.changeStudentLocation(objectID)
-//        
-//        let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-//                                                             firstName: "Waldo",
-//                                                             lastName: "Found",
-//                                                             mapString: mapString,
-//                                                             mediaURL: mediaURL,
-//                                                             latitude: latitude,
-//                                                             longitude: longitude)
-//        
-//    }
-//    
-//    class func taskForPutStudentLocation(url: String, completion: @escaping (Bool, Error?)->Void ){
-//
-//    }
+    class func changingStudentLocation(objectID: String, temp: PutRequest, completion: @escaping (Bool, Error?)->Void){
+        let url = Endpoints.changeStudentLocation(objectID).url
+
+        taskForPutStudentLocation(url: url, temp: temp) { (success, err) in
+            if success {
+                completion(true, nil)
+                return
+            } else {
+                completion(false, err)
+                return
+            }
+        }
+    }
     
-    
-    
+    class func taskForPutStudentLocation(url: URL, temp: PutRequest, completion: @escaping (Bool, Error?)->Void ){
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+        let body = try JSONEncoder().encode(temp)
+        request.httpBody = body
+        } catch {
+            print("unable to encode")
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error == nil {
+                completion(true, nil)
+                return
+            } else {
+                completion(false, error)
+                return
+            }
+        }.resume()
+    }
 }
 
 
