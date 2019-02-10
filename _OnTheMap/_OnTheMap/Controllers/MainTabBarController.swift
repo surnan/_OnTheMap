@@ -7,29 +7,42 @@
 //
 
 import UIKit
+import MapKit
 
-class MainTabBarController: UITabBarController {
-    
+
+class MainTabBarController: UITabBarController{
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
-        activity.style = .gray
+        activity.style = .whiteLarge
         return activity
     }()
     
+    var mapView: MKMapView = {
+        var mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        return mapView
+    }()
     
+    var coverView: UIView = {
+       var myView = UIView()
+        myView.backgroundColor = UIColor.grey125Half
+        myView.translatesAutoresizingMaskIntoConstraints = false
+        return myView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(myActivityMonitor)
-        myActivityMonitor.center = view.center
-        myActivityMonitor.startAnimating()
+        setupTempMapView()
 
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
+                self.navigationController?.navigationBar.isHidden = false
+                self.mapView.removeFromSuperview()
+                self.coverView.removeFromSuperview()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
                 self.myActivityMonitor.stopAnimating()
@@ -80,7 +93,23 @@ class MainTabBarController: UITabBarController {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
         }
-        
-        
+    }
+    
+    func setupTempMapView(){
+        view.addSubview(mapView)
+        view.addSubview(coverView)
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coverView.topAnchor.constraint(equalTo: view.topAnchor),
+            coverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            coverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coverView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ])
+        view.addSubview(myActivityMonitor)
+        myActivityMonitor.center = view.center
+        myActivityMonitor.startAnimating()
     }
 }

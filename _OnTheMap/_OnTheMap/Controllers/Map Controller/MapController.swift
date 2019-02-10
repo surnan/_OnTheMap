@@ -12,6 +12,12 @@ import MapKit
 class MapController:UIViewController, MKMapViewDelegate{
     
     //MARK:- Declarations for MapController+MapKit
+    
+    
+    
+    
+    
+    
     var locations = [[String:Any]]()
     var annotations = [MKPointAnnotation]()
     

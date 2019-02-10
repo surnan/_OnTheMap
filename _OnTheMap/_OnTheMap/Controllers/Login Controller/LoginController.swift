@@ -163,6 +163,6 @@ class LoginController: UIViewController {
         super.viewDidAppear(animated)
         newView.removeFromSuperview()
         myActivityMonitor.stopAnimating()
-        navigationController?.navigationBar.isHidden = false
+//        navigationController?.navigationBar.isHidden = false
     }
 }

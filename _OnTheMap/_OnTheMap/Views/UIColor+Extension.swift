@@ -30,4 +30,5 @@ extension UIColor {
     static let ghostWhiteHalf = UIColor(red: 248/255, green: 248/255, blue: 255/255, alpha: 0.5)
     static let whiteSmokeHalf = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 0.5)
     static let grey254 = UIColor(red: 254/255, green: 254/255, blue: 254/255, alpha: 0.5)
+    static let grey125Half = UIColor(red: 125/255, green: 125/255, blue: 125/255, alpha: 0.5)
 }
