@@ -14,7 +14,7 @@ class LoginController: UIViewController {
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
-        activity.style = .gray
+        activity.style = .whiteLarge
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
@@ -120,7 +120,14 @@ class LoginController: UIViewController {
         return label
     }()
     
+    let newView: UIView = {
+        let _view = UIView()
+        _view.backgroundColor = UIColor.grey196Half
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        return _view
+    }()
     
+
     //MARK:- CODE STARTS HERE
     private func setupUI(){
         emailTextField.text = "4suresh@gmail.com"
@@ -128,14 +135,12 @@ class LoginController: UIViewController {
         
         [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
         
-        view.addSubview(myActivityMonitor)
+//        view.addSubview(myActivityMonitor)
         view.addSubview(loginStack)
         NSLayoutConstraint.activate([
             loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             loginStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             loginStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            myActivityMonitor.topAnchor.constraint(equalTo: loginStack.bottomAnchor, constant: 30)
             ])
         loginButton.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
     }
@@ -156,6 +161,8 @@ class LoginController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        newView.removeFromSuperview()
+        myActivityMonitor.stopAnimating()
         navigationController?.navigationBar.isHidden = false
     }
 }

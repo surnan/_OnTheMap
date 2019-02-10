@@ -20,6 +20,18 @@ extension LoginController{
             return
         }
         
+        view.addSubview(newView)
+        newView.addSubview(myActivityMonitor)
+        
+        newView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        newView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        newView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        newView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+        
         myActivityMonitor.startAnimating()
         UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
             if err == nil {

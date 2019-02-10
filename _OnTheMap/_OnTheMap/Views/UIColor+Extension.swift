@@ -18,6 +18,7 @@ extension UIColor {
     static let darkBlue = UIColor(red: 60/255, green: 90/255, blue: 153/255, alpha: 1)
     static let fbWhite =  UIColor(red: 86/255, green: 71/255, blue: 11/255, alpha: 1)
     static let grey196 = UIColor(red: 196/255, green: 196/255, blue: 196/255, alpha: 1)
+    static let grey196Half = UIColor(red: 196/255, green: 196/255, blue: 196/255, alpha: 0.5)
     static let grey227 = UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1)
     static let steelBlue = UIColor(red: 70/255, green: 130/255, blue: 180/255, alpha: 1)
     static let steelBlue4 = UIColor(red: 54/255, green: 100/255, blue: 139/255, alpha: 1)
@@ -25,4 +26,8 @@ extension UIColor {
     static let dodgerBlue4 = UIColor(red: 16/255, green: 78/255, blue: 139/255, alpha: 1)
     static let lightSteelBlue1 = UIColor(red: 202/255, green: 225/255, blue: 255/255, alpha: 1)
     static let lightSteelBlue2 = UIColor(red: 188/255, green: 210/255, blue: 238/255, alpha: 1)
+    static let snowHalf = UIColor(red: 255/255, green: 250/255, blue: 250/255, alpha: 0.5)
+    static let ghostWhiteHalf = UIColor(red: 248/255, green: 248/255, blue: 255/255, alpha: 0.5)
+    static let whiteSmokeHalf = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 0.5)
+    static let grey254 = UIColor(red: 254/255, green: 254/255, blue: 254/255, alpha: 0.5)
 }
