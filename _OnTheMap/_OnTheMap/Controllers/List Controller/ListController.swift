@@ -10,24 +10,19 @@ import UIKit
 
 class ListController:UITableViewController{
     
-    var locations = [PostedStudentInfoResponse]()
+    var locations = [VerifiedPostedStudentInfoResponse]()
     let listReuseID = "asdfasdfasdfasdf"
     
     func loadLocationsArray(){
-        locations = Students.uniques
+        locations = Students.validLocations
+
     }
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grey227
         loadLocationsArray()    //MapController().ViewDidLoad  ==> preloads 'Class Students' and it's the default opening tab
-        print("locations.count --> \(locations.count)")
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: listReuseID)
-        
+        print("locations.count --> \(locations.count)")        
         tableView.register(ListCell.self, forCellReuseIdentifier: listReuseID)
         
     }

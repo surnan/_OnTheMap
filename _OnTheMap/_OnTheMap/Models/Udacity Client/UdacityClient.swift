@@ -59,13 +59,9 @@ class UdacityClient {
             print(String(data: newData!, encoding: .utf8)!)
         }
         task.resume()
-     
-        print("EXECUTED LOGOUT FUNCTION")
+        print("Logged out")
         
     }
-    
-    
-    
     
     class func getAccountKey()-> String {
         return UserInfo.accountKey
@@ -99,7 +95,6 @@ class UdacityClient {
             
             do {
                 let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
-//                print(dataObject)
                 DispatchQueue.main.async {
                     completion(dataObject, nil)
                 }
@@ -118,7 +113,6 @@ class UdacityClient {
     class func authenticateSession(name: String, password: String, completion: @escaping (Error?)-> Void){
         let url = Endpoints.postingSession.url
         let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
-        
         postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self) {(data, err) in
             if err != nil {
                 completion(err)

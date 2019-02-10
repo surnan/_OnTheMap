@@ -36,18 +36,18 @@ extension MapController {
     }
     
     func loadLocationsArray(){
-        Students.uniques.forEach {
+        Students.validLocations.forEach {
             let temp: [String:Any] = [
-                "objectId": $0.objectId ?? "",
-                "uniqueKey": $0.uniqueKey ?? "",
-                "firstName": $0.firstName ?? "",
-                "lastName": $0.lastName ?? "",
-                "mapString": $0.mapString ?? "",
-                "mediaURL": $0.mediaURL ?? "",
-                "latitude": $0.latitude ?? 0,
-                "longitude": $0.longitude ?? 0,
-                "createdAt": $0.createdAt ?? "",
-                "updatedAt": $0.updatedAt ?? ""
+                "objectId": $0.objectId,
+                "uniqueKey": $0.uniqueKey,
+                "firstName": $0.firstName,
+                "lastName": $0.lastName,
+                "mapString": $0.mapString,
+                "mediaURL": $0.mediaURL,
+                "latitude": $0.latitude,
+                "longitude": $0.longitude,
+                "createdAt": $0.createdAt,
+                "updatedAt": $0.updatedAt
             ]
             locations.append(temp)
         }
@@ -56,11 +56,8 @@ extension MapController {
     
     //MARK:- MKMapViewDelegagate -- MAP Specific functions
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = "pin"
-        
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
@@ -70,24 +67,22 @@ extension MapController {
         else {
             pinView!.annotation = annotation
         }
-        
         return pinView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        let backupURL = URL(string: "https://www.google.com")!
         guard var _stringToURL = view.annotation?.subtitle as? String else {
             //MediaURL field is empty
             UIApplication.shared.open(URL(string: "https://www.google.com")!)
             return
         }
-        let backupURL2 = URL(string: "https://www.google.com/search?q=" + _stringToURL)!
+        let backupURL = URL(string: "https://www.google.com/search?q=" + _stringToURL)!
         if _stringToURL._isValidURL {
             _stringToURL = _stringToURL._prependHTTPifNeeded()
-            let url = URL(string: _stringToURL) ?? backupURL2
+            let url = URL(string: _stringToURL) ?? backupURL
             UIApplication.shared.open(url)
         } else {
-            UIApplication.shared.open(backupURL2)
+            UIApplication.shared.open(backupURL)
         }
     }
 }

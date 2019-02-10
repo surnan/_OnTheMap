@@ -19,7 +19,7 @@ extension ListController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: listReuseID, for: indexPath) as! ListCell
         let item = locations[indexPath.row]
-        cell.titleLabel.text =  "\(item.firstName ?? "") \(item.lastName ?? "") ..... \(item.objectId ?? "")"
+        cell.titleLabel.text =  "\(item.firstName) \(item.lastName) ..... \(item.objectId)"
         cell.messageLabel.text = item.mediaURL
         return cell
     }
@@ -30,43 +30,32 @@ extension ListController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard var stringToURL = locations[indexPath.row].mediaURL  else {
-            UIApplication.shared.open(URL(string: "https://www.google.com")!)
-            return
-        }
-        let backupURL2 = URL(string: "https://www.google.com/search?q=" + stringToURL)!
-        
+        var stringToURL = locations[indexPath.row].mediaURL
+        let backupURL = URL(string: "https://www.google.com/search?q=" + stringToURL)!
         if stringToURL._isValidURL {
         stringToURL = stringToURL._prependHTTPifNeeded()
-        let url = URL(string: stringToURL) ?? backupURL2
+        let url = URL(string: stringToURL) ?? backupURL
         UIApplication.shared.open(url)
         } else {
-            UIApplication.shared.open(backupURL2)
+            UIApplication.shared.open(backupURL)
         }
     }
-    
-    
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        
         let item = locations[indexPath.row]
-        
-        let temp2 = UIContextualAction(style: .normal, title: "Move"){(_,_,_) in
-            print("objectId = \(self.locations[indexPath.row].objectId ?? "")")
-            print("Location (latitude, longitude) ==> \(item.latitude ?? 0.0)  \(item.longitude ?? 0.0)   ")
+        let swipeAction = UIContextualAction(style: .normal, title: "Change Location"){(_,_,_) in
+            print("objectId = \(self.locations[indexPath.row].objectId)")
+            print("Location (latitude, longitude) ==> \(item.latitude)  \(item.longitude)")
             let newVC = CreateLocationController()
             self.present(newVC, animated: true)
         }
-        temp2.image = #imageLiteral(resourceName: "25_png")
-        temp2.backgroundColor = UIColor.blue
-        let temp = UISwipeActionsConfiguration(actions: [temp2])
-        return temp
+        swipeAction.image = #imageLiteral(resourceName: "25_png")
+        swipeAction.backgroundColor = UIColor.blue
+//        let temp = UISwipeActionsConfiguration(actions: [swipeAction])
+        return UISwipeActionsConfiguration(actions: [swipeAction])
     }
     
     @objc func handleSwipe(){
-        print("hello")
-        
         let newVC = CreateLocationController()
         present(newVC, animated: true)
     }

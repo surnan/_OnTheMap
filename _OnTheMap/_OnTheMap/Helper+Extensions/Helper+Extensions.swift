@@ -8,27 +8,6 @@
 
 import Foundation
 
-//extension String {
-//    var isValidURL: Bool {
-//        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-//        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.endIndex.encodedOffset)) {
-//            // it is a link, if the match covers the whole string
-//            return match.range.length == self.endIndex.encodedOffset
-//        } else {
-//            return false
-//        }
-//    }
-//    
-//    func prependHTTPifNeeded()-> String{
-//        let first4 = self.prefix(4)
-//        if first4 != "http" {
-//            return "http://" + self
-//        } else {
-//            return self
-//        }
-//    }
-//}
-
 extension String {
     var _isValidURL: Bool {
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)

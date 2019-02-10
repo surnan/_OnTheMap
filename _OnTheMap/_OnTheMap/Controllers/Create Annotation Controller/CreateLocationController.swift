@@ -16,7 +16,6 @@ protocol CreateLocationControllerDelegate {
 }
 
 class CreateLocationController: UIViewController, UITextFieldDelegate, CreateLocationControllerDelegate{
-    
     var globalLocation = CLLocation()
     
     func getCLLocation()->CLLocation {

@@ -32,12 +32,6 @@ class UserInfoClient {
         UserInfoClient.mediaURL = mediaURL
         UserInfoClient.longitude = location.coordinate.longitude
         UserInfoClient.latitude = location.coordinate.longitude
-        
-        
-//        print(UserInfoClient.mapString)
-//        print(UserInfoClient.mediaURL)
-//        print(UserInfoClient.longitude)
-//        print(UserInfoClient.latitude)
     }
     
     class func getUserInfoClient()->(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, longitude: Double, latitude: Double){

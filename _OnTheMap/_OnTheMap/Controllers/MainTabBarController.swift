@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController {
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
-        activity.style = .whiteLarge
+        activity.style = .gray
         return activity
     }()
     
@@ -21,19 +21,15 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-
+        view.backgroundColor = .white
         view.addSubview(myActivityMonitor)
         myActivityMonitor.center = view.center
         myActivityMonitor.startAnimating()
 
-        
-        
-        
         ParseClient.getStudents { (data, err) in
             if err == nil{
-                Students.all = data
-                Students.loadPins()
+                Students.allStudentLocations = data
+                Students.loadValidLocations()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
                 self.myActivityMonitor.stopAnimating()
@@ -60,8 +56,6 @@ class MainTabBarController: UITabBarController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: .done, target: self, action: #selector(handleAddBarButton)),
                                               UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: .done, target: self, action: #selector(handleRefreshBarButton)),
         ]
-        
-        
     }
     
     @objc func handleLogout(){
@@ -77,13 +71,13 @@ class MainTabBarController: UITabBarController {
     @objc func handleRefreshBarButton(){
         ParseClient.getStudents { (data, err) in
             if err == nil{
-                Students.all = data
-                Students.loadPins()
+                Students.allStudentLocations = data
+                Students.loadValidLocations()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
                 self.myActivityMonitor.stopAnimating()
             } else {
-                print("OH BOY")
+                print("handleRefresh unable failed ParseClient.getStudents")
             }
         }
         

@@ -31,7 +31,6 @@ class LoginController: UIViewController {
         textField.borderStyle = .roundedRect
 //        textField.borderStyle = .line
 
-
         textField.clearsOnBeginEditing = true
         let textAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.strokeColor : UIColor.white,
@@ -40,27 +39,19 @@ class LoginController: UIViewController {
         ]
         textField.defaultTextAttributes = textAttributes
         textField.attributedText = NSMutableAttributedString(string: "Email", attributes: textAttributes)
-//        textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border. Don't want to center
+        //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border. Don't want to center
         //doesn't work with borderStyle = .roundedRect.  The entire textField shift right.  alignment relative to the rest of stackView is "off"
-        
         textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
-        
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
-        
         return textField
     }()
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
-        
-        
         textField.borderStyle = .roundedRect
-//        textField.borderStyle = .line
-        
         textField.clearsOnBeginEditing = true
         let textAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.strokeColor : UIColor.white,
@@ -71,10 +62,8 @@ class LoginController: UIViewController {
         textField.attributedText = NSMutableAttributedString(string: "Password", attributes: textAttributes)
 //        textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         textField.isSecureTextEntry = true
-        
         textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
@@ -87,7 +76,6 @@ class LoginController: UIViewController {
         button.setTitle("Log In", for: .normal)
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button
@@ -98,10 +86,8 @@ class LoginController: UIViewController {
         button.backgroundColor = UIColor.darkBlue
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("FACEBOOK", for: .normal)
-        
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button

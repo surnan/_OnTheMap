@@ -156,7 +156,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         
         if exists {
 //            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
-              let item = Students.uniques.filter{$0.objectId == temp2!}.first
+              let item = Students.validLocations.filter{$0.objectId == temp2!}.first
             
             let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
