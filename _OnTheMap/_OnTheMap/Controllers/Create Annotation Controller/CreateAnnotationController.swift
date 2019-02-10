@@ -28,6 +28,21 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         return button
     }()
     
+    
+    let deletePLISTButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.lightSteelBlue1
+        button.clipsToBounds = true
+        let attributes1: [NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
+        ]
+        button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: attributes1), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleSubmitButton), for: .touchUpInside)
+        return button
+    }()
+    
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +79,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     override func viewDidLoad() {
         mapView.delegate = self
         inputLinkTextField.delegate = self
-        [mapView, inputLinkTextField, submitButton].forEach{view.addSubview($0)}
+        [mapView, inputLinkTextField, submitButton, deletePLISTButton].forEach{view.addSubview($0)}
         
         setupTopBar()
         
@@ -84,11 +99,17 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
             submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: height * -1 * 0.15)
+            submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: height * -1 * 0.15),
+            
+            deletePLISTButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            deletePLISTButton.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: 10)
             ])
         
         submitButton.layoutIfNeeded()
         submitButton.layer.cornerRadius = 0.075 * submitButton.bounds.size.width
+        
+        deletePLISTButton.layoutIfNeeded()
+        deletePLISTButton.layer.cornerRadius = 0.075 * submitButton.bounds.size.width
         
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getCLLocation().coordinate {
@@ -104,6 +125,11 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         }
     }
     
+    
+    
+    @objc func handleDeletePLIST(){
+    
+    }
     
     @objc func handleSubmitButton(){
         guard let mapString = delegate?.getMapString(),
