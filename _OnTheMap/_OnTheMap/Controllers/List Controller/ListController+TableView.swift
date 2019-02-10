@@ -53,7 +53,7 @@ extension ListController {
         let item = locations[indexPath.row]
         
         let temp2 = UIContextualAction(style: .normal, title: "Move"){(_,_,_) in
-            print("objectId = \(self.locations[indexPath.row].objectId)")
+            print("objectId = \(self.locations[indexPath.row].objectId ?? "")")
             print("Location (latitude, longitude) ==> \(item.latitude ?? 0.0)  \(item.longitude ?? 0.0)   ")
             let newVC = CreateLocationController()
             self.present(newVC, animated: true)

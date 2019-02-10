@@ -39,7 +39,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         ]
         button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: attributes1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleSubmitButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleDeletePLIST), for: .touchUpInside)
         return button
     }()
     
@@ -125,10 +125,11 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
         }
     }
     
-    
+    let key = "asdfasdfDaKey"
     
     @objc func handleDeletePLIST(){
-    
+        UserDefaults.standard.removeObject(forKey: key)
+        inputLinkTextField.text = ""
     }
     
     @objc func handleSubmitButton(){
@@ -139,10 +140,24 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
                 return
         }
         mediaURL = mediaURL._prependHTTPifNeeded()
-        let exists = true
+        
+        ////////////////////////////////////////////////////////////////////////
+        let temp2 = UserDefaults.standard.object(forKey: key) as? String
+        if temp2 == nil {
+            print("temp = nil")
+        } else {
+            print("temp = NOT nil")
+        }
+        
+        let exists = temp2 != nil //Before exists was hard-coded to true
+        ////////////////////////////////////////////////////////////////////////
+        
+        
+        
         if exists {
-            print("ParseClient.PUT")
-            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
+//            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
+              let item = Students.uniques.filter{$0.objectId == temp2!}.first
+            
             let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
                 if err == nil{
@@ -152,7 +167,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
                 }
             }
         } else {
-            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(success:error:))
+            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
         }
         view.window!.rootViewController?.dismiss(animated: true, completion: nil)
         //  dismiss(animated: true, completion: nil)  //including this line & the "dismiss" above will bring us back to the login window
@@ -160,9 +175,10 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
     
     
     
-    func handlePostStudentLocation(success: Bool, error: Error?){
-        if success {
+    func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
+        if let item = item {
             print("StudentLocation Added")
+            UserDefaults.standard.set(item.objectId, forKey: key)
         } else {
             print(error?.localizedDescription as Any)
             print(error ?? "")

@@ -76,10 +76,10 @@ class ParseClient {
         }
     }
     
-    class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?)->Void){
+    class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-                                          firstName: "Waldo",
-                                          lastName: "Found",
+                                          firstName: "Anthony",
+                                          lastName: "Logan",
                                           mapString: mapString,
                                           mediaURL: mediaURL,
                                           latitude: latitude,
@@ -87,20 +87,26 @@ class ParseClient {
         
         taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
             if let err = error {
-                completion(false, err)
+                DispatchQueue.main.async {
+                    completion(nil, err)
+                }
                 return
             }
             
             
             guard let data = data else {
                 print("Data returned from taskForPostRequest is nil and returned error was also nil")
-                completion(false, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
                 return
             }
             
             print("data.createdAt = \(data.createdAt)")
             print("data.objectId = \(data.objectId)")
-            completion(true, nil)
+            DispatchQueue.main.async {
+                completion(data, nil)
+            }
             return
         }
     }
