@@ -80,8 +80,8 @@ class ParseClient {
     
     class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-                                                             firstName: "Robin",
-                                                             lastName: "Jatzko",
+                                                             firstName: "Ted",
+                                                             lastName: "Williams",
                                                              mapString: mapString,
                                                              mediaURL: mediaURL,
                                                              latitude: latitude,

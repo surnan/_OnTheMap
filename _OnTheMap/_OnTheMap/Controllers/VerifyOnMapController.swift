@@ -12,8 +12,11 @@ import MapKit
 
 class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
+    
     let key = "asdfasdfDaKey"  //NSUserDefaults
     var delegate: AddLocationControllerDelegate?
+    
+
     
     var mapView: MKMapView = {
         var mapView = MKMapView()
@@ -122,26 +125,20 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    
+    
+    
     func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
-        if let item = item {
+        if let postStudentLocationResponseObject = item {
             print("1 - StudentLocation Added")
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(item.objectId, forKey: self.key)
-            }
-            
+            UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: self.key)
         } else {
             print(error?.localizedDescription as Any)
             print(error ?? "")
         }
-        
-        DispatchQueue.main.async {
-            let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
-            //        let  vc =  self.navigationController?.viewControllers[1]
-            self.navigationController?.popToViewController(vc!, animated: true)
-
-        }
-        
-        
+        let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+        //        let  vc =  self.navigationController?.viewControllers[1]
+        self.navigationController?.popToViewController(vc!, animated: true)
     }
 
 
