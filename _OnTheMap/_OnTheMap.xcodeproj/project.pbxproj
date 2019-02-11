@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
 		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
 		8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* Helper+Extensions.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
 		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* Helper+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper+Extensions.swift"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				845BA44F22077FD700F6D80E /* List Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				845BA42C2207248C00F6D80E /* Map Controller */,
+				842AE06D2210F52000A87358 /* AddLocationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
+				842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,
 				845BA4512207807500F6D80E /* ListController+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,

@@ -6,7 +6,7 @@
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     var _isValidURL: Bool {
@@ -23,3 +23,19 @@ extension String {
         }
     }
 }
+
+
+let grey25textAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.gray,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
+
+let black25textAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.black,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
+
+let white25textAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.white,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
