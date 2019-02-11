@@ -40,20 +40,6 @@ extension ListController {
             UIApplication.shared.open(backupURL)
         }
     }
-
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let item = locations[indexPath.row]
-        let swipeAction = UIContextualAction(style: .normal, title: "Change Location"){(_,_,_) in
-            print("objectId = \(self.locations[indexPath.row].objectId)")
-            print("Location (latitude, longitude) ==> \(item.latitude)  \(item.longitude)")
-            let newVC = CreateLocationController()
-            self.present(newVC, animated: true)
-        }
-        swipeAction.image = #imageLiteral(resourceName: "25_png")
-        swipeAction.backgroundColor = UIColor.blue
-//        let temp = UISwipeActionsConfiguration(actions: [swipeAction])
-        return UISwipeActionsConfiguration(actions: [swipeAction])
-    }
     
     @objc func handleSwipe(){
         let newVC = CreateLocationController()

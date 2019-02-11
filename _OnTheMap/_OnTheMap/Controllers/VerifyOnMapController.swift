@@ -48,7 +48,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         ]
         button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: attributes1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleFinish), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handledDeletePLIST), for: .touchUpInside)
         return button
     }()
     
@@ -74,6 +74,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         if let coordinate = delegate?.getLoction().coordinate {
             annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
+            mapView.mapType = .standard
             mapView.setCenter(coordinate, animated: true)
         } else {
             print("Unable to obtain coordinate from delegate")
@@ -82,29 +83,58 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     
     @objc func handleFinish(){
-        print("Hello World")
-        
-        
-        self.navigationController?.popToRootViewController(animated: true)
+        pushOrPost()
+//        self.navigationController?.popToRootViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
     
+    
+    func pushOrPost(){
+        
+        guard let delegate = delegate else {
+            print("Delegate is UNDEFINED!!.  No pointer back to VerifyOnMapController")
+            return
+        }
+        
+        let mapString = delegate.getMapString()
+        let mediaURL = delegate.getURLString()
+        let location = delegate.getLoction()
+        
+        let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+        if storedObjectID == nil {
+            print("No PLIST")
+            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
+        } else {
+            print("PLIST EXISTS")
+            let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
+            let temp = PutRequest(uniqueKey: (object_VerifiedPostedStudentInfoResponse?.uniqueKey)! ,
+                                  firstName: (object_VerifiedPostedStudentInfoResponse?.firstName)!,
+                                  lastName: (object_VerifiedPostedStudentInfoResponse?.lastName)!,
+                                  mapString: mapString, mediaURL: mediaURL,
+                                  latitude: location.coordinate.latitude,
+                                  longitude: location.coordinate.longitude)
+            ParseClient.changingStudentLocation(objectID: (object_VerifiedPostedStudentInfoResponse?.objectId)!, temp: temp) { (_, _) in}
+        }
+    }
+    
+    func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
+        if let item = item {
+            print("1 - StudentLocation Added")
+            UserDefaults.standard.set(item.objectId, forKey: key)
+        } else {
+            print(error?.localizedDescription as Any)
+            print(error ?? "")
+        }
+    }
+
+
     @objc func handledDeletePLIST(){
         print("handleDelete -- run")
         UserDefaults.standard.removeObject(forKey: key)
     }
     
-    
-    
-    func setupTopBar(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(handleCancel))
-    }
-    
-    @objc func handleCancel(){
-        dismiss(animated: true, completion: nil)
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
-    
+
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
@@ -120,66 +150,4 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         }
         return pinView
     }
-    
-
-    
-    
-    
-    
-    func handleIsStringToLocationValid(success: Bool, error: Error?){
-        if success {
-            print("GOOD ADDRESS")
-            let temp2 = UserDefaults.standard.object(forKey: key) as? String
-            if temp2 == nil {
-                print("temp = nil")
-            } else {
-                print("temp = NOT nil")
-            }
-            
-            let exists = temp2 != nil
-            
-            let mapString = delegate?.getMapString()
-            let mediaURL = delegate?.getURLString()
-            let globalLocation = delegate?.getLoction()
-            
-            if exists {
-                //            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
-                let item = Students.validLocations.filter{$0.objectId == temp2!}.first
-                
-                let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString!, mediaURL: mediaURL!, latitude: globalLocation!.coordinate.latitude, longitude: globalLocation!.coordinate.longitude)
-                ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
-                    if err == nil{
-                        print("success")
-                    } else {
-                        print("failure")
-                    }
-                    self.dismiss(animated: true, completion: nil)
-                }
-            } else {
-                ParseClient.postStudentLocation(mapString: mapString!, mediaURL: mediaURL!, latitude: globalLocation!.coordinate.latitude, longitude: globalLocation!.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
-            }
-            
-            
-        } else {
-            print("Error when trying to convert string to valid CLLocation = \(String(describing: error?.localizedDescription))")
-            let alertController = UIAlertController(title: "Invalid Location", message: "Unable to find location on map", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true)
-        }
-    }
-    
-    
-    func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
-        if let item = item {
-            print("StudentLocation Added")
-            UserDefaults.standard.set(item.objectId, forKey: key)
-            self.navigationController?.popToRootViewController(animated: true)
-        } else {
-            print(error?.localizedDescription as Any)
-            print(error ?? "")
-        }
-    }
-    
-    
-    
 }
