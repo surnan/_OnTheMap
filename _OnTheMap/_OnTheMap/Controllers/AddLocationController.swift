@@ -14,7 +14,10 @@ import MapKit
 class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
     let customUIHeightSize: CGFloat = 55
     let cornerRadiusSize: CGFloat = 5
+    let key = "asdfasdfDaKey"  //NSUserDefaults
     
+    var mapString = ""
+    var mediaURL = ""
     var globalLocation = CLLocation()
     
     lazy var locationTextField: UITextField = {
@@ -32,6 +35,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
+        textField.autocapitalizationType = .none
         textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSAttributedString(string: "Enter a Website", attributes: grey25textAttributes)
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
@@ -109,16 +113,84 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     
     //MARK:- Handlers
     @objc func handleFindLocation(){
+        
+        
+        guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
+        
+        mediaURL = temp
         isStringToLocationValid(testString: locationTextField.text ?? "", completion: handleIsStringToLocationValid(success:error:))
-        _ = isStringToURLValid(testString: urlTextField.text ?? "")
+        
+        print("READY FOR NEXT STAGE!!!!!")
+        
         
     }
+    
+    func handleIsStringToLocationValid(success: Bool, error: Error?){
+        if success {
+            print("GOOD ADDRESS")
+            
+            let temp2 = UserDefaults.standard.object(forKey: key) as? String
+            if temp2 == nil {
+                print("temp = nil")
+            } else {
+                print("temp = NOT nil")
+            }
+            
+            let exists = temp2 != nil
+            
+            
+            
+            if exists {
+                //            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
+                let item = Students.validLocations.filter{$0.objectId == temp2!}.first
+                
+                let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: globalLocation.coordinate.latitude, longitude: globalLocation.coordinate.longitude)
+                ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
+                    if err == nil{
+                        print("success")
+                    } else {
+                        print("failure")
+                    }
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: globalLocation.coordinate.latitude, longitude: globalLocation.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
+            }
+            
+            
+        } else {
+            print("Error when trying to convert string to valid CLLocation = \(String(describing: error?.localizedDescription))")
+            let alertController = UIAlertController(title: "Invalid Location", message: "Unable to find location on map", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true)
+        }
+    }
+    
+    
+    func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
+        if let item = item {
+            print("StudentLocation Added")
+            UserDefaults.standard.set(item.objectId, forKey: key)
+        } else {
+            print(error?.localizedDescription as Any)
+            print(error ?? "")
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func isStringToURLValid(testString: String)-> String?{
         if testString._isValidURL {
             return testString._prependHTTPifNeeded()
         } else {
-            let alertController = UIAlertController(title: "Invalid Entry", message: "Unable to convert website entry to valid URL", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Invalid URL", message: "Unable to convert entry to valid URL", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alertController, animated: true)
             return nil
@@ -143,20 +215,10 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         }
     }
     
-    func handleIsStringToLocationValid(success: Bool, error: Error?){
-        if success {
-            print("GOOD ADDRESS")
-        } else {
-            print("Error when trying to convert string to valid CLLocation = \(String(describing: error?.localizedDescription))")
-            let alertController = UIAlertController(title: "Invalid Entry", message: "Unable to find location on map", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true)
-        }
-    }
-    
-    
     @objc func handleDeletePLIST(){
-        print("deleting PLIST")
+        UserDefaults.standard.removeObject(forKey: key)
+        urlTextField.text = ""
+        locationTextField.text = ""
     }
 
     
