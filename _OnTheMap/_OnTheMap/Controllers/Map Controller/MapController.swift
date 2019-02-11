@@ -9,15 +9,37 @@
 import UIKit
 import MapKit
 
-class MapController:UIViewController, MKMapViewDelegate{
+
+protocol MapControllerDelegate {
+    func startActivityIndicator()
+    func stopActivityIndicator()
+}
+
+class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
+    
+    
+    func startActivityIndicator(){
+        myActivityMonitor.startAnimating()
+        mapView.alpha = 0.5
+    }
+    
+    func stopActivityIndicator(){
+        myActivityMonitor.stopAnimating()
+        mapView.alpha = 1.0
+    }
+    
+    
+    
+    
+    var myActivityMonitor: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.style = .whiteLarge
+        return activity
+    }()
+    
     
     //MARK:- Declarations for MapController+MapKit
-    
-    
-    
-    
-    
-    
     var locations = [[String:Any]]()
     var annotations = [MKPointAnnotation]()
     
@@ -37,7 +59,14 @@ class MapController:UIViewController, MKMapViewDelegate{
 //        setupOverlay()
         
         view.backgroundColor = UIColor.black
-        mapView.alpha = 0.5
+//        mapView.alpha = 0.5
+        
+        
+        
+        BigTest.shared.mapDelegate = self
+        
+        
+        
         
     }
     
@@ -49,6 +78,12 @@ class MapController:UIViewController, MKMapViewDelegate{
             mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             ])
+        
+        
+        view.addSubview(myActivityMonitor)
+        myActivityMonitor.center = view.center
+//        myActivityMonitor.startAnimating()
+        
     }
 
     

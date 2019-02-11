@@ -15,12 +15,12 @@ class MainTabBarController: UITabBarController{
     let key = "asdfasdfDaKey"  //NSUserDefaults
     
     
-    var myActivityMonitor: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.hidesWhenStopped = true
-        activity.style = .whiteLarge
-        return activity
-    }()
+//    var myActivityMonitor: UIActivityIndicatorView = {
+//        let activity = UIActivityIndicatorView()
+//        activity.hidesWhenStopped = true
+//        activity.style = .whiteLarge
+//        return activity
+//    }()
     
     var mapView: MKMapView = {
         var mapView = MKMapView()
@@ -49,7 +49,12 @@ class MainTabBarController: UITabBarController{
                 self.coverView.removeFromSuperview()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
-                self.myActivityMonitor.stopAnimating()
+                
+//                self.myActivityMonitor.stopAnimating()
+                BigTest.shared.mapDelegate?.stopActivityIndicator()
+                BigTest.shared.listDelegate?.stopActivityIndicator()
+                
+                
             } else {
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
@@ -104,7 +109,12 @@ class MainTabBarController: UITabBarController{
                 Students.loadValidLocations()
                 self.setupBottomToolBar()
                 self.setupTopToolBar()
-                self.myActivityMonitor.stopAnimating()
+                
+//                self.myActivityMonitor.stopAnimating()
+                BigTest.shared.mapDelegate?.stopActivityIndicator()
+                BigTest.shared.listDelegate?.stopActivityIndicator()
+                
+                
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
@@ -124,8 +134,23 @@ class MainTabBarController: UITabBarController{
             coverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coverView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
-        view.addSubview(myActivityMonitor)
-        myActivityMonitor.center = view.center
-        myActivityMonitor.startAnimating()
+//        view.addSubview(myActivityMonitor)
+//        myActivityMonitor.center = view.center
+        
+        
+        
+//        myActivityMonitor.startAnimating()
+        BigTest.shared.mapDelegate?.startActivityIndicator()
+        BigTest.shared.listDelegate?.startActivityIndicator()
+        
+        
+        
     }
+}
+
+
+class BigTest{
+    static let shared = BigTest()
+    var mapDelegate: MapControllerDelegate?
+    var listDelegate: ListControllerDelegate?
 }
