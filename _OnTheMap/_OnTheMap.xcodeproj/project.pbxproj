@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
+		842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06F2211410200A87358 /* VerifyOnMapController.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
 		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
 		8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* Helper+Extensions.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
+		842AE06F2211410200A87358 /* VerifyOnMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOnMapController.swift; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
 		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* Helper+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper+Extensions.swift"; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				845BA42C2207248C00F6D80E /* Map Controller */,
 				842AE06D2210F52000A87358 /* AddLocationController.swift */,
+				842AE06F2211410200A87358 /* VerifyOnMapController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				845BA4512207807500F6D80E /* ListController+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* UdacityRequest.swift in Sources */,
+				842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */,
 				848928712204F89400BF9BF6 /* UdacityResponse.swift in Sources */,
 				848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */,
 				8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */,

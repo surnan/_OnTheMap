@@ -11,7 +11,28 @@ import CoreLocation
 import MapKit
 
 
-class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
+protocol AddLocationControllerDelegate{
+    func getMapString()-> String
+    func getURLString()-> String
+    func getLoction()-> CLLocation
+}
+
+
+class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, AddLocationControllerDelegate {
+    func getURLString() -> String {
+        return urlTextField.text ?? ""
+    }
+    
+    func getLoction() -> CLLocation {
+        return globalLocation
+    }
+    
+    func getMapString()-> String{
+        return locationTextField.text ?? ""
+    }
+    
+    
+    
     let customUIHeightSize: CGFloat = 55
     let cornerRadiusSize: CGFloat = 5
     let key = "asdfasdfDaKey"  //NSUserDefaults
@@ -118,7 +139,28 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
         
         mediaURL = temp
-        isStringToLocationValid(testString: locationTextField.text ?? "", completion: handleIsStringToLocationValid(success:error:))
+//        isStringToLocationValid(testString: locationTextField.text ?? "", completion: handleIsStringToLocationValid(success:error:))
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(locationTextField.text ?? "") { [unowned self] (clplacement, error) in
+            guard let placemarks = clplacement, let location = placemarks.first?.location else {
+                print("UNABLE to convert to CLL Coordinates")
+                return
+            }
+            
+            self.globalLocation = location
+                
+            DispatchQueue.main.async {
+                let newVC = VerifyOnMapController()
+                newVC.delegate = self
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }
+        }
+        
+//        let newVC = VerifyOnMapController()
+//        newVC.delegate = self
+//        navigationController?.pushViewController(newVC, animated: true)
+        
         
         print("READY FOR NEXT STAGE!!!!!")
         
@@ -128,7 +170,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     func handleIsStringToLocationValid(success: Bool, error: Error?){
         if success {
             print("GOOD ADDRESS")
-            
             let temp2 = UserDefaults.standard.object(forKey: key) as? String
             if temp2 == nil {
                 print("temp = nil")
@@ -223,10 +264,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
 
     
     
-    func getMapString()-> String{
-        return locationTextField.text!
-    }
-    
+
     func getCLLocation()-> CLLocation{
         return CLLocation()
     }

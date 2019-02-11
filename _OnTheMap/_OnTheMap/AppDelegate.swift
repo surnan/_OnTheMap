@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // window?.rootViewController = UINavigationController(rootViewController: AddLocationController())
         // window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())
         window?.rootViewController = UINavigationController(rootViewController: LoginController())
+//        window?.rootViewController = UINavigationController(rootViewController: VerifyOnMapController())
         return true
     }
 
