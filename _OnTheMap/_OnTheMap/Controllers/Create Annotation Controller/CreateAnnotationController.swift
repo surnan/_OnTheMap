@@ -159,7 +159,7 @@ class CreateAnnotationController:UIViewController, MKMapViewDelegate, UITextFiel
               let item = Students.validLocations.filter{$0.objectId == temp2!}.first
             
             let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
+            ParseClient.changingStudentLocation(objectID: (item?.objectId)!, encodable: temp) { (data, err) in
                 if err == nil{
                     print("success")
                 } else {

@@ -84,19 +84,14 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     @objc func handleFinish(){
         pushOrPost()
-        let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
-//        let  vc =  self.navigationController?.viewControllers[1]
-        self.navigationController?.popToViewController(vc!, animated: true)
     }
     
     
     func pushOrPost(){
-        
         guard let delegate = delegate else {
             print("Delegate is UNDEFINED!!.  No pointer back to VerifyOnMapController")
             return
         }
-        
         let mapString = delegate.getMapString()
         let mediaURL = delegate.getURLString()
         let location = delegate.getLoction()
@@ -104,47 +99,29 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
-            print("No PLIST")
-//            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
-            
             ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.longitude, longitude: coord.longitude) { (data, error) in
                 let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
                 //        let  vc =  self.navigationController?.viewControllers[1]
                 self.navigationController?.popToViewController(vc!, animated: true)
             }
-            
-            
         } else {
-            print("PLIST EXISTS")
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
-            
             guard let object = object_VerifiedPostedStudentInfoResponse else {
                 print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
                 return
             }
-            
-//            let temp = PutRequest(uniqueKey: (object_VerifiedPostedStudentInfoResponse?.uniqueKey)! ,
-//                                  firstName: (object_VerifiedPostedStudentInfoResponse?.firstName)!,
-//                                  lastName: (object_VerifiedPostedStudentInfoResponse?.lastName)!,
-//                                  mapString: mapString, mediaURL: mediaURL,
-//                                  latitude: location.coordinate.latitude,
-//                                  longitude: location.coordinate.longitude)
-            
-            let temp2 = PutRequest(uniqueKey: object.uniqueKey,
+            let putRequestObject = PutRequest(uniqueKey: object.uniqueKey,
                                    firstName: object.firstName,
                                    lastName: object.lastName,
                                    mapString: mapString,
                                    mediaURL: mediaURL,
                                    latitude: location.coordinate.latitude,
                                    longitude: location.coordinate.longitude)
-            
-            // ParseClient.changingStudentLocation(objectID: (object_VerifiedPostedStudentInfoResponse?.objectId)!, temp: temp) { (_, _) in}
-            ParseClient.changingStudentLocation(objectID: (object.objectId), temp: temp2) { (_, _) in
+            ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { (_, _) in
                 
                 let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
                 //        let  vc =  self.navigationController?.viewControllers[1]
                 self.navigationController?.popToViewController(vc!, animated: true)
-                
             }
         }
     }

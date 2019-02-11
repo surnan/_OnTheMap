@@ -186,7 +186,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
                 let item = Students.validLocations.filter{$0.objectId == temp2!}.first
                 
                 let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: globalLocation.coordinate.latitude, longitude: globalLocation.coordinate.longitude)
-                ParseClient.changingStudentLocation(objectID: (item?.objectId)!, temp: temp) { (data, err) in
+                ParseClient.changingStudentLocation(objectID: (item?.objectId)!, encodable: temp) { (data, err) in
                     if err == nil{
                         print("success")
                     } else {

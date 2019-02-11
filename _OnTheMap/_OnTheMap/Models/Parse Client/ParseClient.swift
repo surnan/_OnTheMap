@@ -148,10 +148,10 @@ class ParseClient {
     }
     
     
-    class func changingStudentLocation(objectID: String, temp: PutRequest, completion: @escaping (Bool, Error?)->Void){
+    class func changingStudentLocation(objectID: String, encodable: PutRequest, completion: @escaping (Bool, Error?)->Void){
         let url = Endpoints.changeStudentLocation(objectID).url
 
-        taskForPutStudentLocation(url: url, temp: temp) { (success, err) in
+        taskForPutStudentLocation(url: url, encodable: encodable) { (success, err) in
             if success {
                 completion(true, nil)
                 return
@@ -162,7 +162,7 @@ class ParseClient {
         }
     }
     
-    class func taskForPutStudentLocation(url: URL, temp: PutRequest, completion: @escaping (Bool, Error?)->Void ){
+    class func taskForPutStudentLocation(url: URL, encodable: PutRequest, completion: @escaping (Bool, Error?)->Void ){
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -170,7 +170,7 @@ class ParseClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
-        let body = try JSONEncoder().encode(temp)
+        let body = try JSONEncoder().encode(encodable)
         request.httpBody = body
         } catch {
             print("unable to encode")
