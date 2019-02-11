@@ -38,7 +38,11 @@ class MainTabBarController: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupTempMapView()
+        
+        self.setupBottomToolBar()   //////////////////////////////////////////
+        self.setupTopToolBar()      //////////////////////////////////////////
+        setupTempMapView()          //////////////////////////////////////////
+        
         
         ParseClient.getStudents { (data, err) in
             if err == nil{
@@ -47,8 +51,8 @@ class MainTabBarController: UITabBarController{
                 self.navigationController?.navigationBar.isHidden = false
                 self.mapView.removeFromSuperview()
                 self.coverView.removeFromSuperview()
-                self.setupBottomToolBar()
-                self.setupTopToolBar()
+//                self.setupBottomToolBar()
+//                self.setupTopToolBar()
                 
 //                self.myActivityMonitor.stopAnimating()
                 BigTest.shared.mapDelegate?.stopActivityIndicator()
@@ -103,6 +107,11 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleRefreshBarButton(){
+        
+        BigTest.shared.mapDelegate?.startActivityIndicator()
+        BigTest.shared.listDelegate?.startActivityIndicator()
+
+        
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
@@ -125,8 +134,8 @@ class MainTabBarController: UITabBarController{
         view.addSubview(mapView)
         view.addSubview(coverView)
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coverView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -140,6 +149,7 @@ class MainTabBarController: UITabBarController{
         
         
 //        myActivityMonitor.startAnimating()
+ 
         BigTest.shared.mapDelegate?.startActivityIndicator()
         BigTest.shared.listDelegate?.startActivityIndicator()
         
