@@ -76,28 +76,12 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         return button
     }()
     
-    lazy var deletePLISTButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.orange
-        //        button.setAttributedTitle(NSAttributedString(string: "delete PLIST", attributes: white25textAttributes), for: .normal)
-        button.setTitle("DELETE PLIST", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(handleDeletePLIST), for: .touchUpInside)
-        button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
-        button.layer.cornerRadius = cornerRadiusSize
-        button.clipsToBounds = true
-        return button
-    }()
-    
     let locationImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "icon_world"))
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    
-    
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
@@ -114,9 +98,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             return stack
         }()
         
-        [locationTextField, urlTextField, findLocationButton, deletePLISTButton].forEach{stackView.addArrangedSubview($0)}
+        [locationTextField, urlTextField, findLocationButton].forEach{stackView.addArrangedSubview($0)}
         [stackView, locationImageView].forEach{view.addSubview($0)}
-        
         
         NSLayoutConstraint.activate([
             locationImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -126,7 +109,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             locationTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             urlTextField.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             findLocationButton.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
-            deletePLISTButton.widthAnchor.constraint(equalTo: locationTextField.widthAnchor)
             ])
     }
     
@@ -134,97 +116,23 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     
     //MARK:- Handlers
     @objc func handleFindLocation(){
-        
-        
         guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
-        
         mediaURL = temp
-//        isStringToLocationValid(testString: locationTextField.text ?? "", completion: handleIsStringToLocationValid(success:error:))
-        
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(locationTextField.text ?? "") { [unowned self] (clplacement, error) in
             guard let placemarks = clplacement, let location = placemarks.first?.location else {
                 print("UNABLE to convert to CLL Coordinates")
                 return
             }
-            
             self.globalLocation = location
-                
             DispatchQueue.main.async {
                 let newVC = VerifyOnMapController()
                 newVC.delegate = self
                 self.navigationController?.pushViewController(newVC, animated: true)
             }
         }
-        
-//        let newVC = VerifyOnMapController()
-//        newVC.delegate = self
-//        navigationController?.pushViewController(newVC, animated: true)
-        
-        
         print("READY FOR NEXT STAGE!!!!!")
-        
-        
     }
-    
-    func handleIsStringToLocationValid(success: Bool, error: Error?){
-        if success {
-            print("GOOD ADDRESS")
-            let temp2 = UserDefaults.standard.object(forKey: key) as? String
-            if temp2 == nil {
-                print("temp = nil")
-            } else {
-                print("temp = NOT nil")
-            }
-            
-            let exists = temp2 != nil
-            
-            
-            
-            if exists {
-                //            let item = Students.uniques.filter{$0.objectId == "HD8uJHTH7o"}.first
-                let item = Students.validLocations.filter{$0.objectId == temp2!}.first
-                
-                let temp = PutRequest(uniqueKey: (item?.uniqueKey)! , firstName: (item?.firstName)!, lastName: (item?.lastName)!, mapString: mapString, mediaURL: mediaURL, latitude: globalLocation.coordinate.latitude, longitude: globalLocation.coordinate.longitude)
-                ParseClient.changingStudentLocation(objectID: (item?.objectId)!, encodable: temp) { (data, err) in
-                    if err == nil{
-                        print("success")
-                    } else {
-                        print("failure")
-                    }
-                    self.dismiss(animated: true, completion: nil)
-                }
-            } else {
-                ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: globalLocation.coordinate.latitude, longitude: globalLocation.coordinate.longitude, completion: handlePostStudentLocation(item:error:))
-            }
-            
-            
-        } else {
-            print("Error when trying to convert string to valid CLLocation = \(String(describing: error?.localizedDescription))")
-            let alertController = UIAlertController(title: "Invalid Location", message: "Unable to find location on map", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true)
-        }
-    }
-    
-    
-    func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
-        if let item = item {
-            print("StudentLocation Added")
-            UserDefaults.standard.set(item.objectId, forKey: key)
-        } else {
-            print(error?.localizedDescription as Any)
-            print(error ?? "")
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     func isStringToURLValid(testString: String)-> String?{
@@ -255,22 +163,4 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             return
         }
     }
-    
-    @objc func handleDeletePLIST(){
-        UserDefaults.standard.removeObject(forKey: key)
-        urlTextField.text = ""
-        locationTextField.text = ""
-    }
-
-    
-    
-
-    func getCLLocation()-> CLLocation{
-        return CLLocation()
-    }
-    
-    //MARK:- UITextField Delegate Functions
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        textField.placeholder = nil
-//    }
 }
