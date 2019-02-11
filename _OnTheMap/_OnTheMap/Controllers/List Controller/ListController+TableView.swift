@@ -30,6 +30,20 @@ extension ListController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        let item = locations[indexPath.row]
+        print("item = \(item)")
+        
+        
+        
+        
+        
+        
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+
+        print("\nLocations.count ---> \(locations.count)")
         var stringToURL = locations[indexPath.row].mediaURL
         let backupURL = URL(string: "https://www.google.com/search?q=" + stringToURL)!
         if stringToURL._isValidURL {

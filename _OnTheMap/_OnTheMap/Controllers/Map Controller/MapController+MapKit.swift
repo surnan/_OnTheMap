@@ -55,11 +55,20 @@ extension MapController {
     
     
     //MARK:- MKMapViewDelegagate -- MAP Specific functions
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier, for: annotation)
+//        annotationView.clusteringIdentifier = "identifier"
+//        return annotationView
+//    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+//            pinView?.clusteringIdentifier = "identifier"
+            pinView?.displayPriority = .defaultHigh
             pinView!.canShowCallout = true
             pinView!.tintColor = .blue
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -71,6 +80,7 @@ extension MapController {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("\n\nAnnotations.Count ---> \(annotations.count)")
         guard var _stringToURL = view.annotation?.subtitle as? String else {
             //MediaURL field is empty
             UIApplication.shared.open(URL(string: "https://www.google.com")!)
@@ -85,4 +95,33 @@ extension MapController {
             UIApplication.shared.open(backupURL)
         }
     }
+    
+
+    ///*  COPYPASTA
+// func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+// if (view.annotation!.isKindOfClass(FBAnnotationCluster) == true){
+// let annotation = view.annotation! as? FBAnnotationCluster
+//
+// var itemListFromAnnotation = [Item]()
+//
+// for annotation in (annotation?.annotations)! {
+// let itemAnnotation = annotation as? ItemAnnotation
+// itemListFromAnnotation.append((itemAnnotation?.item)!)
+// }
+//
+// if let d = delegate{
+// d.itemClusterAnnotationPressed(itemListFromAnnotation)
+// }
+// }
+// if (view.annotation!.isKindOfClass(ItemAnnotation) == true){
+//
+// mapView.deselectAnnotation(view.annotation, animated: false)
+//
+// let annotation = view.annotation! as? ItemAnnotation
+// if let annotation = annotation, let item = annotation.item, d = delegate{
+// d.itemAnnotationPressed(item)
+// }
+// }
+// }
+ //*/
 }

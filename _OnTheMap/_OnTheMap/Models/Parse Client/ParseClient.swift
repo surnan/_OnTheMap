@@ -65,7 +65,9 @@ class ParseClient {
     }
     
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void){
-        let url = ParseClient.Endpoints.addStudentLocation.url
+        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
+        //        let url = ParseClient.Endpoints.addStudentLocation.url
+        
         taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
                 return completion([], err)
@@ -78,35 +80,29 @@ class ParseClient {
     
     class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-                                          firstName: "Bryan",
-                                          lastName: "Thomas",
-                                          mapString: mapString,
-                                          mediaURL: mediaURL,
-                                          latitude: latitude,
-                                          longitude: longitude)
+                                                             firstName: "Robin",
+                                                             lastName: "Jatzko",
+                                                             mapString: mapString,
+                                                             mediaURL: mediaURL,
+                                                             latitude: latitude,
+                                                             longitude: longitude)
         
         taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
             if let err = error {
-                DispatchQueue.main.async {
-                    completion(nil, err)
-                }
+                completion(nil, err)
                 return
             }
             
             
             guard let data = data else {
                 print("Data returned from taskForPostRequest is nil and returned error was also nil")
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+                completion(nil, error)
                 return
             }
             
             print("data.createdAt = \(data.createdAt)")
             print("data.objectId = \(data.objectId)")
-            DispatchQueue.main.async {
-                completion(data, nil)
-            }
+            completion(data, nil)
             return
         }
     }
@@ -118,30 +114,38 @@ class ParseClient {
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         do {
             let body =  try JSONEncoder().encode(body)
             request.httpBody =   body
-//            print(body)
         } catch {
             print("Unable to encode JSON Body for ParseClient.PostStudentLocation with StudentLocationRequest object")
+            DispatchQueue.main.async {
+                completion(nil, error)
+            }
             return
         }
         
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
-                completion(nil, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
                 return
             }
             
             do {
                 let dataObject = try JSONDecoder().decode(decodeType, from: data)
-                completion(dataObject, nil)
+                DispatchQueue.main.async {
+                    completion(dataObject, nil)
+                }
                 return
             } catch {
                 print("Unable to convert data into decodable within taskForPostRequest")
-                completion(nil, error)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
                 return
             }
             }.resume()
@@ -150,13 +154,17 @@ class ParseClient {
     
     class func changingStudentLocation(objectID: String, encodable: PutRequest, completion: @escaping (Bool, Error?)->Void){
         let url = Endpoints.changeStudentLocation(objectID).url
-
+        
         taskForPutStudentLocation(url: url, encodable: encodable) { (success, err) in
             if success {
-                completion(true, nil)
+                DispatchQueue.main.async {
+                    completion(true, nil)
+                }
                 return
             } else {
-                completion(false, err)
+                DispatchQueue.main.async {
+                    completion(false, err)
+                }
                 return
             }
         }
@@ -170,21 +178,25 @@ class ParseClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
-        let body = try JSONEncoder().encode(encodable)
-        request.httpBody = body
+            let body = try JSONEncoder().encode(encodable)
+            request.httpBody = body
         } catch {
             print("unable to encode")
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error == nil {
-                completion(true, nil)
+                DispatchQueue.main.async {
+                    completion(true, nil)
+                }
                 return
             } else {
-                completion(false, error)
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
                 return
             }
-        }.resume()
+            }.resume()
     }
 }
 

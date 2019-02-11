@@ -99,11 +99,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
-            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.longitude, longitude: coord.longitude) { (data, error) in
-                let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
-                //        let  vc =  self.navigationController?.viewControllers[1]
-                self.navigationController?.popToViewController(vc!, animated: true)
-            }
+            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
             guard let object = object_VerifiedPostedStudentInfoResponse else {
@@ -129,11 +125,23 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
         if let item = item {
             print("1 - StudentLocation Added")
-            UserDefaults.standard.set(item.objectId, forKey: key)
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(item.objectId, forKey: self.key)
+            }
+            
         } else {
             print(error?.localizedDescription as Any)
             print(error ?? "")
         }
+        
+        DispatchQueue.main.async {
+            let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+            //        let  vc =  self.navigationController?.viewControllers[1]
+            self.navigationController?.popToViewController(vc!, animated: true)
+
+        }
+        
+        
     }
 
 
