@@ -11,6 +11,10 @@ import MapKit
 
 
 class MainTabBarController: UITabBarController{
+    
+    let key = "asdfasdfDaKey"  //NSUserDefaults
+    
+    
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
@@ -25,7 +29,7 @@ class MainTabBarController: UITabBarController{
     }()
     
     var coverView: UIView = {
-       var myView = UIView()
+        var myView = UIView()
         myView.backgroundColor = UIColor.grey125Half
         myView.translatesAutoresizingMaskIntoConstraints = false
         return myView
@@ -35,7 +39,7 @@ class MainTabBarController: UITabBarController{
         super.viewDidLoad()
         view.backgroundColor = .white
         setupTempMapView()
-
+        
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
@@ -77,19 +81,20 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleAddBarButton(){
-//        let newVC = UINavigationController(rootViewController: CreateLocationController())
-//        present(newVC, animated: true)
         
-        
-//        let newVC = UINavigationController(rootViewController: AddLocationController())
-//        present(newVC, animated: true)
-        
-//        let newVC =  UINavigationController(rootViewController: AddLocationController())
-//        presentDetail(newVC)
-        
-        let newVC = AddLocationController()
-        navigationController?.pushViewController(newVC, animated: true)
-        
+        let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+        if storedObjectID != nil {
+            let myAlertController = UIAlertController(title: "Confrmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
+            myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {_ in
+                let newVC = AddLocationController()
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }))
+            myAlertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            present(myAlertController, animated: true)
+        } else {
+            let newVC = AddLocationController()
+            navigationController?.pushViewController(newVC, animated: true)
+        }
     }
     
     @objc func handleRefreshBarButton(){

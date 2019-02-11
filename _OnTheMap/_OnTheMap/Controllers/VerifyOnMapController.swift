@@ -105,32 +105,51 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
             ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
         
-            let myAlertController = UIAlertController(title: "Confirmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
-            myAlertController.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { _ in
-                let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
-                guard let object = object_VerifiedPostedStudentInfoResponse else {
-                    print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
-                    return
-                }
-                let putRequestObject = PutRequest(uniqueKey: object.uniqueKey,
-                                                  firstName: object.firstName,
-                                                  lastName: object.lastName,
-                                                  mapString: mapString,
-                                                  mediaURL: mediaURL,
-                                                  latitude: location.coordinate.latitude,
-                                                  longitude: location.coordinate.longitude)
-                ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { (_, _) in
-                    
-                    let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
-                    //        let  vc =  self.navigationController?.viewControllers[1]
-                    self.navigationController?.popToViewController(vc!, animated: true)
-                }
-            }))
-            myAlertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in
+            let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
+            guard let object = object_VerifiedPostedStudentInfoResponse else {
+                print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
+                return
+            }
+            let putRequestObject = PutRequest(uniqueKey: object.uniqueKey,
+                                              firstName: object.firstName,
+                                              lastName: object.lastName,
+                                              mapString: mapString,
+                                              mediaURL: mediaURL,
+                                              latitude: location.coordinate.latitude,
+                                              longitude: location.coordinate.longitude)
+            ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { (_, _) in
+                
                 let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+                //        let  vc =  self.navigationController?.viewControllers[1]
                 self.navigationController?.popToViewController(vc!, animated: true)
-            }))
-            present(myAlertController, animated: true)
+            }
+
+//            let myAlertController = UIAlertController(title: "Confirmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
+//            myAlertController.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { _ in
+//                let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
+//                guard let object = object_VerifiedPostedStudentInfoResponse else {
+//                    print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
+//                    return
+//                }
+//                let putRequestObject = PutRequest(uniqueKey: object.uniqueKey,
+//                                                  firstName: object.firstName,
+//                                                  lastName: object.lastName,
+//                                                  mapString: mapString,
+//                                                  mediaURL: mediaURL,
+//                                                  latitude: location.coordinate.latitude,
+//                                                  longitude: location.coordinate.longitude)
+//                ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { (_, _) in
+//                    
+//                    let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+//                    //        let  vc =  self.navigationController?.viewControllers[1]
+//                    self.navigationController?.popToViewController(vc!, animated: true)
+//                }
+//            }))
+//            myAlertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in
+//                let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+//                self.navigationController?.popToViewController(vc!, animated: true)
+//            }))
+//            present(myAlertController, animated: true)
         }
     }
     
