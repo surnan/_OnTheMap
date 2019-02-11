@@ -84,6 +84,9 @@ class MainTabBarController: UITabBarController{
 //        let newVC = UINavigationController(rootViewController: AddLocationController())
 //        present(newVC, animated: true)
         
+//        let newVC =  UINavigationController(rootViewController: AddLocationController())
+//        presentDetail(newVC)
+        
         let newVC = AddLocationController()
         navigationController?.pushViewController(newVC, animated: true)
         

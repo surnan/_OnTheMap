@@ -18,10 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        // window?.rootViewController = UINavigationController(rootViewController: AddLocationController())
-        // window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())
+        
+//         window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())
         window?.rootViewController = UINavigationController(rootViewController: LoginController())
-//        window?.rootViewController = UINavigationController(rootViewController: VerifyOnMapController())
         return true
     }
 
