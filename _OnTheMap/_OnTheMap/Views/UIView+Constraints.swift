@@ -9,48 +9,49 @@
 import UIKit
 
 extension UIView {
-    
-    func fillSafeView(){
+    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, trailing: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero ){
         translatesAutoresizingMaskIntoConstraints = false
-        topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        
+        if let top = top {
+            topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
+        }
+        
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom).isActive = true
+        }
+        
+        if let leading = leading {
+            leadingAnchor.constraint(equalTo: leading, constant: padding.left).isActive = true
+        }
+        
+        if let trailing = trailing {
+            trailingAnchor.constraint(equalTo: trailing, constant: -padding.right).isActive = true
+        }
+        
+        if size.height != 0 {
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+        
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
     }
-    
     
     func anchorSize(to view: UIView){
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
-    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?,
-                padding: UIEdgeInsets = .zero, size: CGSize = .zero){
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        if let top = top {
-            top.constraint(equalTo: top, constant: padding.top).isActive = true
-        }
-        
-        if let bottom = bottom {
-            bottom.constraint(equalTo: bottom, constant: -padding.bottom).isActive = true
-        }
-        
-        if let leading = leading {
-            leading.constraint(equalTo: leading, constant: padding.left).isActive = true
-        }
-        
-        if let trailing = trailing {
-            trailing.constraint(equalTo: trailing, constant: -padding.right).isActive = true
-        }
-        
-        if size.width != 0 {
-            widthAnchor.constraint(equalToConstant: size.width).isActive = true
-        }
-        
-        if size.height != 0 {
-            heightAnchor.constraint(equalToConstant: size.height).isActive = true
-        }
+    func fillSuperview(){
+        anchor(top: superview?.topAnchor, leading: superview?.leadingAnchor, trailing: superview?.trailingAnchor, bottom: superview?.bottomAnchor)
     }
+    
+    func centerToSuperView(){
+        
+        guard let centerX = superview?.centerXAnchor, let centerY = superview?.centerYAnchor else {return}
+        
+        centerXAnchor.constraint(equalTo: centerX).isActive = true
+        centerYAnchor.constraint(equalTo: centerY).isActive = true
+    }
+    
 }

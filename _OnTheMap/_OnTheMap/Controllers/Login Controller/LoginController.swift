@@ -11,13 +11,7 @@ import UIKit
 class LoginController: UIViewController {
     
     
-    var myActivityMonitor: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.hidesWhenStopped = true
-        activity.style = .whiteLarge
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
-    }()
+    
     
     
     let customFontSize: CGFloat = 25
@@ -26,21 +20,12 @@ class LoginController: UIViewController {
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor.white
-
         textField.borderStyle = .roundedRect
-//        textField.borderStyle = .line
-
         textField.clearsOnBeginEditing = true
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.white,
-            NSAttributedString.Key.foregroundColor : UIColor.gray,
-            NSAttributedString.Key.font: UIFont(name: "Georgia", size: customFontSize) as Any
-        ]
-        textField.defaultTextAttributes = textAttributes
-        textField.attributedText = NSMutableAttributedString(string: "Email", attributes: textAttributes)
-        //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border. Don't want to center
-        //doesn't work with borderStyle = .roundedRect.  The entire textField shift right.  alignment relative to the rest of stackView is "off"
+        textField.defaultTextAttributes = grey25textAttributes
+        textField.attributedText = NSMutableAttributedString(string: "Email", attributes: grey25textAttributes)
+        //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border.
+        //But doesn't work with borderStyle = .roundedRect.  Rectangle Border shifts with text
         textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -50,17 +35,10 @@ class LoginController: UIViewController {
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor.white
         textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.strokeColor : UIColor.white,
-            NSAttributedString.Key.foregroundColor : UIColor.gray,
-            NSAttributedString.Key.font: UIFont(name: "Georgia", size: customFontSize) as Any
-        ]
-        textField.defaultTextAttributes = textAttributes
-        textField.attributedText = NSMutableAttributedString(string: "Password", attributes: textAttributes)
-//        textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+        textField.defaultTextAttributes = grey25textAttributes
+        textField.attributedText = NSMutableAttributedString(string: "Password", attributes: grey25textAttributes)
         textField.isSecureTextEntry = true
         textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
@@ -76,6 +54,7 @@ class LoginController: UIViewController {
         button.setTitle("Log In", for: .normal)
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button
@@ -120,30 +99,30 @@ class LoginController: UIViewController {
         return label
     }()
     
-    let newView: UIView = {
+    let greyShadeSuperView: UIView = {
         let _view = UIView()
         _view.backgroundColor = UIColor.grey196Half
         _view.translatesAutoresizingMaskIntoConstraints = false
         return _view
     }()
     
+    var myActivityMonitor: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.style = .whiteLarge
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
+    }()
     
     
     //MARK:- CODE STARTS HERE
     private func setupUI(){
         emailTextField.text = "4suresh@gmail.com"
         passwordTextField.text = "atDZ8=Gm%=VU"
-        
         [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
-        
-//        view.addSubview(myActivityMonitor)
         view.addSubview(loginStack)
-        NSLayoutConstraint.activate([
-            loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            loginStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            loginStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            ])
-        loginButton.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
+        loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
     }
 
     
@@ -162,7 +141,7 @@ class LoginController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        newView.removeFromSuperview()
+        greyShadeSuperView.removeFromSuperview()
         myActivityMonitor.stopAnimating()
         navigationController?.navigationBar.isHidden = false
     }

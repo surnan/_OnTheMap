@@ -20,16 +20,9 @@ extension LoginController{
             return
         }
         
-        view.addSubview(newView)
-        newView.addSubview(myActivityMonitor)
-        
-        newView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        newView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        newView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        newView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
+        greyShadeSuperView.fillSuperview()
+        myActivityMonitor.centerToSuperView()
 
         
         myActivityMonitor.startAnimating()
