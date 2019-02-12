@@ -17,7 +17,6 @@ protocol MapControllerDelegate {
 
 class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     
-    
     func startActivityIndicator(){
         myActivityMonitor.startAnimating()
         mapView.alpha = 0.5
@@ -28,9 +27,7 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         mapView.alpha = 1.0
     }
     
-    
-    
-    
+
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
@@ -56,18 +53,8 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         mapView.delegate = self
         setupMap()
         setupUI()
-//        setupOverlay()
-        
         view.backgroundColor = UIColor.black
-//        mapView.alpha = 0.5
-        
-        
-        
         BigTest.shared.mapDelegate = self
-        
-        
-        
-        
     }
     
     func setupUI(){
@@ -78,28 +65,7 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
             mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             ])
-        
-        
         view.addSubview(myActivityMonitor)
         myActivityMonitor.center = view.center
-//        myActivityMonitor.startAnimating()
-        
     }
-
-    
-    
-    
-    
-    
-//    func setupOverlay(){
-//        let worldRect = MKMapRect.world
-//        let point1 = MKMapRect.world.origin
-//        let point2 = MKMapPoint(x: point1.x + worldRect.size.width, y: point1.y)
-//        let point3 = MKMapPoint(x: point2.x, y: point2.y + worldRect.size.height)
-//        let point4 = MKMapPoint(x: point1.x, y: point3.y)
-//        var points = [point1, point2, point3, point4]
-//        let polygon = MKPolygon(points: &points, count: points.count)
-//        mapView.addOverlay(polygon)
-//    }
-    
 }

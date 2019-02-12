@@ -15,13 +15,6 @@ class MainTabBarController: UITabBarController{
     let key = "asdfasdfDaKey"  //NSUserDefaults
     
     
-//    var myActivityMonitor: UIActivityIndicatorView = {
-//        let activity = UIActivityIndicatorView()
-//        activity.hidesWhenStopped = true
-//        activity.style = .whiteLarge
-//        return activity
-//    }()
-    
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,30 +28,22 @@ class MainTabBarController: UITabBarController{
         return myView
     }()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        self.setupBottomToolBar()   //////////////////////////////////////////
-        self.setupTopToolBar()      //////////////////////////////////////////
-        setupTempMapView()          //////////////////////////////////////////
-        
+        self.setupBottomToolBar()   //Make toolbar visible before network call
+        self.setupTopToolBar()      //Update the NavigationPane from LoginController
         
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
                 self.navigationController?.navigationBar.isHidden = false
-                self.mapView.removeFromSuperview()
-                self.coverView.removeFromSuperview()
-//                self.setupBottomToolBar()
-//                self.setupTopToolBar()
-                
-//                self.myActivityMonitor.stopAnimating()
+                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
                 BigTest.shared.mapDelegate?.stopActivityIndicator()
                 BigTest.shared.listDelegate?.stopActivityIndicator()
-                
-                
             } else {
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
@@ -119,33 +104,6 @@ class MainTabBarController: UITabBarController{
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
         }
-    }
-    
-    func setupTempMapView(){
-        view.addSubview(mapView)
-        view.addSubview(coverView)
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            coverView.topAnchor.constraint(equalTo: view.topAnchor),
-            coverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            coverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            coverView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            ])
-//        view.addSubview(myActivityMonitor)
-//        myActivityMonitor.center = view.center
-        
-        
-        
-//        myActivityMonitor.startAnimating()
- 
-        BigTest.shared.mapDelegate?.startActivityIndicator()
-        BigTest.shared.listDelegate?.startActivityIndicator()
-        
-        
-        
     }
 }
 

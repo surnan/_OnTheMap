@@ -95,33 +95,4 @@ extension MapController {
             UIApplication.shared.open(backupURL)
         }
     }
-    
-
-    ///*  COPYPASTA
-// func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-// if (view.annotation!.isKindOfClass(FBAnnotationCluster) == true){
-// let annotation = view.annotation! as? FBAnnotationCluster
-//
-// var itemListFromAnnotation = [Item]()
-//
-// for annotation in (annotation?.annotations)! {
-// let itemAnnotation = annotation as? ItemAnnotation
-// itemListFromAnnotation.append((itemAnnotation?.item)!)
-// }
-//
-// if let d = delegate{
-// d.itemClusterAnnotationPressed(itemListFromAnnotation)
-// }
-// }
-// if (view.annotation!.isKindOfClass(ItemAnnotation) == true){
-//
-// mapView.deselectAnnotation(view.annotation, animated: false)
-//
-// let annotation = view.annotation! as? ItemAnnotation
-// if let annotation = annotation, let item = annotation.item, d = delegate{
-// d.itemAnnotationPressed(item)
-// }
-// }
-// }
- //*/
 }

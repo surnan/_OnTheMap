@@ -127,7 +127,8 @@ class LoginController: UIViewController {
         return _view
     }()
     
-
+    
+    
     //MARK:- CODE STARTS HERE
     private func setupUI(){
         emailTextField.text = "4suresh@gmail.com"
@@ -163,6 +164,6 @@ class LoginController: UIViewController {
         super.viewDidAppear(animated)
         newView.removeFromSuperview()
         myActivityMonitor.stopAnimating()
-//        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
     }
 }
