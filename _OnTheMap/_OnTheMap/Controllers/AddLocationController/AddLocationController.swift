@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
 import MapKit
-
 
 protocol AddLocationControllerDelegate{
     func getMapString()-> String
@@ -19,23 +17,17 @@ protocol AddLocationControllerDelegate{
 
 
 class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, AddLocationControllerDelegate {
-    func getURLString() -> String {
-        return urlTextField.text ?? ""
-    }
     
-    func getLoction() -> CLLocation {
-        return globalLocation
-    }
-    
-    func getMapString()-> String{
-        return locationTextField.text ?? ""
-    }
+    //MARK:- Protocol Functions
+    func getURLString() -> String {return urlTextField.text ?? ""}
+    func getLoction() -> CLLocation {return globalLocation }
+    func getMapString()-> String {return locationTextField.text ?? ""}
     
     
-    
+    //MARK:- Local Variables
     let customUIHeightSize: CGFloat = 55
     let cornerRadiusSize: CGFloat = 5
-    let key = "asdfasdfDaKey"  //NSUserDefaults
+//    let key = "asdfasdfDaKey"  //NSUserDefaults
     
     var mapString = ""
     var mediaURL = ""
@@ -45,8 +37,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
-        textField.defaultTextAttributes = black25textAttributes
         textField.clearButtonMode = .whileEditing
+        textField.defaultTextAttributes = black25textAttributes
         textField.attributedText = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
@@ -66,7 +58,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var findLocationButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.steelBlue
-        //        button.setAttributedTitle(NSAttributedString(string: "FIND LOCATION", attributes: white25textAttributes), for: .normal)
         button.setTitle("FIND LOCATION", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(handleFindLocation), for: .touchUpInside)
@@ -87,7 +78,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         view.backgroundColor = UIColor.white
         urlTextField.delegate = self
         locationTextField.delegate = self
-        
         let stackView: UIStackView = {
             let stack = UIStackView()
             stack.axis = .vertical
@@ -97,10 +87,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             stack.translatesAutoresizingMaskIntoConstraints = false
             return stack
         }()
-        
         [locationTextField, urlTextField, findLocationButton].forEach{stackView.addArrangedSubview($0)}
         [stackView, locationImageView].forEach{view.addSubview($0)}
-        
         NSLayoutConstraint.activate([
             locationImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             locationImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -110,57 +98,5 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             urlTextField.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             findLocationButton.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             ])
-    }
-    
-    
-    
-    //MARK:- Handlers
-    @objc func handleFindLocation(){
-        guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
-        mediaURL = temp
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(locationTextField.text ?? "") { [unowned self] (clplacement, error) in
-            guard let placemarks = clplacement, let location = placemarks.first?.location else {
-                print("UNABLE to convert to CLL Coordinates")
-                return
-            }
-            self.globalLocation = location
-            DispatchQueue.main.async {
-                let newVC = VerifyOnMapController()
-                newVC.delegate = self
-                self.navigationController?.pushViewController(newVC, animated: true)
-            }
-        }
-        print("READY FOR NEXT STAGE!!!!!")
-    }
-    
-    
-    func isStringToURLValid(testString: String)-> String?{
-        if testString._isValidURL {
-            return testString._prependHTTPifNeeded()
-        } else {
-            let alertController = UIAlertController(title: "Invalid URL", message: "Unable to convert entry to valid URL", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true)
-            return nil
-        }
-    }
-    
-    func isStringToLocationValid(testString: String, completion: @escaping (Bool, Error?)-> Void){
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(testString) { [unowned self] (clplacement, error) in
-            guard let placemarks = clplacement, let location = placemarks.first?.location else {
-                print("UNABLE to convert to CLL Coordinates")
-                DispatchQueue.main.async {
-                    completion(false, error)
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.globalLocation = location
-                completion(true, nil)
-            }
-            return
-        }
     }
 }

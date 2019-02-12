@@ -10,7 +10,6 @@
 		840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */; };
 		840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */; };
 		840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */; };
-		840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDD2212994F00929BE5 /* UNSYNC.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06F2211410200A87358 /* VerifyOnMapController.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
@@ -41,13 +40,14 @@
 		849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */; };
 		849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEAA1220FAF4E009B0E91 /* PutRequest.swift */; };
 		84D067432207EF5D000D8564 /* CreateAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D067422207EF5D000D8564 /* CreateAnnotationController.swift */; };
+		84F272A42212A3A8000F9542 /* AddLocationController+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272A32212A3A8000F9542 /* AddLocationController+Handlers.swift */; };
+		84F272A62212A494000F9542 /* AddLocationController+validateFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272A52212A494000F9542 /* AddLocationController+validateFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringKeys.swift; sourceTree = "<group>"; };
 		840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
 		840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorSingleton.swift; sourceTree = "<group>"; };
-		840D5DDD2212994F00929BE5 /* UNSYNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNSYNC.swift; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		842AE06F2211410200A87358 /* VerifyOnMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOnMapController.swift; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
@@ -80,6 +80,8 @@
 		849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationCell.swift; sourceTree = "<group>"; };
 		849DEAA1220FAF4E009B0E91 /* PutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutRequest.swift; sourceTree = "<group>"; };
 		84D067422207EF5D000D8564 /* CreateAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAnnotationController.swift; sourceTree = "<group>"; };
+		84F272A32212A3A8000F9542 /* AddLocationController+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocationController+Handlers.swift"; sourceTree = "<group>"; };
+		84F272A52212A494000F9542 /* AddLocationController+validateFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocationController+validateFunc.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +139,6 @@
 				844DFED12204F42900742437 /* Info.plist */,
 				844DFEC52204F42800742437 /* AppDelegate.swift */,
 				8439D00F220CB6C00057CE6E /* Helper+Extensions */,
-				840D5DDD2212994F00929BE5 /* UNSYNC.swift */,
 			);
 			path = _OnTheMap;
 			sourceTree = "<group>";
@@ -170,7 +171,7 @@
 				845BA44F22077FD700F6D80E /* AnnotationTable Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				845BA42C2207248C00F6D80E /* Map Controller */,
-				842AE06D2210F52000A87358 /* AddLocationController.swift */,
+				84F272A22212A362000F9542 /* AddLocationController */,
 				842AE06F2211410200A87358 /* VerifyOnMapController.swift */,
 			);
 			path = Controllers;
@@ -245,6 +246,16 @@
 				84D067422207EF5D000D8564 /* CreateAnnotationController.swift */,
 			);
 			path = "Create Annotation Controller";
+			sourceTree = "<group>";
+		};
+		84F272A22212A362000F9542 /* AddLocationController */ = {
+			isa = PBXGroup;
+			children = (
+				842AE06D2210F52000A87358 /* AddLocationController.swift */,
+				84F272A32212A3A8000F9542 /* AddLocationController+Handlers.swift */,
+				84F272A52212A494000F9542 /* AddLocationController+validateFunc.swift */,
+			);
+			path = AddLocationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,17 +335,18 @@
 				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
 				840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */,
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
-				840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
 				8439D011220CB6F20057CE6E /* Stringr+Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
 				842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */,
+				84F272A62212A494000F9542 /* AddLocationController+validateFunc.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,
 				840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */,
 				845BA4512207807500F6D80E /* AnnotationTableController+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* UdacityRequest.swift in Sources */,
+				84F272A42212A3A8000F9542 /* AddLocationController+Handlers.swift in Sources */,
 				842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */,
 				848928712204F89400BF9BF6 /* UdacityResponse.swift in Sources */,
 				848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */,
