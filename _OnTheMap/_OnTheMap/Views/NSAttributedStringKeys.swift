@@ -23,5 +23,16 @@ let white25textAttributes: [NSAttributedString.Key: Any] = [
     NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
 ]
 
+let steelBlue4_25 : [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.steelBlue4,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
+
+let orange_25 : [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.orange,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
+
+
     let customUIHeightSize: CGFloat = 55
     let cornerRadiusSize: CGFloat = 5

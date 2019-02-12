@@ -40,6 +40,8 @@
 		849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */; };
 		849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEAA1220FAF4E009B0E91 /* PutRequest.swift */; };
 		84F272AD2212ADA8000F9542 /* AddLocationConttroller+Handle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272AC2212ADA8000F9542 /* AddLocationConttroller+Handle.swift */; };
+		84F272B12212B867000F9542 /* VerifyOnMapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272B02212B867000F9542 /* VerifyOnMapController+MapKit.swift */; };
+		84F272B32212B8C1000F9542 /* VerifyOnMap+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272B22212B8C1000F9542 /* VerifyOnMap+Handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationCell.swift; sourceTree = "<group>"; };
 		849DEAA1220FAF4E009B0E91 /* PutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutRequest.swift; sourceTree = "<group>"; };
 		84F272AC2212ADA8000F9542 /* AddLocationConttroller+Handle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocationConttroller+Handle.swift"; sourceTree = "<group>"; };
+		84F272B02212B867000F9542 /* VerifyOnMapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerifyOnMapController+MapKit.swift"; sourceTree = "<group>"; };
+		84F272B22212B8C1000F9542 /* VerifyOnMap+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerifyOnMap+Handlers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				842AE06F2211410200A87358 /* VerifyOnMapController.swift */,
+				84F272B02212B867000F9542 /* VerifyOnMapController+MapKit.swift */,
+				84F272B22212B8C1000F9542 /* VerifyOnMap+Handlers.swift */,
 			);
 			path = VerifyOnMapController;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
 				840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
+				84F272B12212B867000F9542 /* VerifyOnMapController+MapKit.swift in Sources */,
 				8439D011220CB6F20057CE6E /* Stringr+Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
@@ -358,6 +365,7 @@
 				848D44772204FD6400BF3EF9 /* MapController.swift in Sources */,
 				843CA25F220D644000B09A66 /* postStudentLocationResponse.swift in Sources */,
 				848D4483220614DB00BF3EF9 /* Students.swift in Sources */,
+				84F272B32212B8C1000F9542 /* VerifyOnMap+Handlers.swift in Sources */,
 				8489286A2204F88500BF9BF6 /* ParseRequest.swift in Sources */,
 				849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */,
 				8489285D2204F78A00BF9BF6 /* LoginController+Button.swift in Sources */,
