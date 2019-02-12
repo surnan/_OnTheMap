@@ -30,12 +30,12 @@ class ParseClient {
         }
     }
     
-    class func taskForGetResponse<Decoder: Decodable>(url: URL, decoder: Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
+    @discardableResult class func taskForGetResponse<Decoder: Decodable>(url: URL, decoder: Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void) -> URLSessionTask{
         var request = URLRequest(url: url)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 DispatchQueue.main.async {
                     completion(nil, error)
@@ -61,14 +61,15 @@ class ParseClient {
                 }
                 return
             }
-            }.resume()
+        }
+        task.resume()
+        return task
     }
     
-    class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void){
-//        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
-                let url = ParseClient.Endpoints.addStudentLocation.url
-        
-        taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
+    class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void)-> URLSessionTask{
+        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
+//        let url = ParseClient.Endpoints.addStudentLocation.url
+        let task = taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
                 return completion([], err)
             }
@@ -76,6 +77,7 @@ class ParseClient {
             completion(data.results, nil)
             return
         }
+        return task
     }
     
     class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){

@@ -12,6 +12,8 @@ import MapKit
 
 class MainTabBarController: UITabBarController{
 
+    var currentSearchTask: URLSessionTask?
+    
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,8 +33,16 @@ class MainTabBarController: UITabBarController{
         view.backgroundColor = .white
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
-        ParseClient.getStudents { (data, err) in
+
+
+        if currentSearchTask != nil {
+            currentSearchTask?.cancel()
+            print("Cancelled search Request")
+        }
+        
+        currentSearchTask = ParseClient.getStudents { (data, err) in
             if err == nil{
+                print("CURRENT SEARCH TASK RUNNING NOW")
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
                 self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
