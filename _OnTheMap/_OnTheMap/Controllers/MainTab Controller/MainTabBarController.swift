@@ -54,12 +54,10 @@ class MainTabBarController: UITabBarController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.backgroundColor = .white
-        
-        myActivityMonitor.centerToSuperView()
+//        myActivityMonitor.centerToSuperView()
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
-
-
+        
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")
@@ -157,7 +155,6 @@ class MainTabBarController: UITabBarController{
                 self.setupBottomToolBar() //let mapController = MapController()
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-                
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
