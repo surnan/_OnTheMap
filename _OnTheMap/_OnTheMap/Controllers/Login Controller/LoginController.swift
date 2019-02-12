@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
 
 class LoginController: UIViewController {
     
@@ -106,15 +108,27 @@ class LoginController: UIViewController {
         return activity
     }()
     
+     let facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
+    
+    
     
     //MARK:- CODE STARTS HERE
     private func setupUI(){
         emailTextField.text = shazam
         passwordTextField.text = openSesame
-        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
+        
+        facebookLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        
+//        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookButton, facebookLoginButton].forEach{loginStack.addArrangedSubview($0)}
+        
+        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{loginStack.addArrangedSubview($0)}
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
+        
+        
+        facebookLoginButton.heightAnchor.constraint(equalTo: loginButton.heightAnchor).isActive = true
+        
     }
 
     
@@ -124,6 +138,41 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         setupUI()
+        
+        
+        
+        
+        
+        
+        
+//        let loginButton = LoginButton(readPermissions: [.publicProfile])
+//        view.addSubview(loginButton)
+//        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        loginButton.topAnchor.constraint(equalTo: loginStack.bottomAnchor, constant: 50).isActive = true
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     
