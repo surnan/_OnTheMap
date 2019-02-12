@@ -22,3 +22,14 @@ let white25textAttributes: [NSAttributedString.Key: Any] = [
     NSAttributedString.Key.foregroundColor : UIColor.white,
     NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
 ]
+
+
+let steelBlue425textAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.steelBlue4,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]
+
+let orange25TextAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.foregroundColor : UIColor.white,
+    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
+]

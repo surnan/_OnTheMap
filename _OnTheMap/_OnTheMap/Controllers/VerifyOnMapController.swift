@@ -13,10 +13,8 @@ import MapKit
 class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     
-    let key = "asdfasdfDaKey"  //NSUserDefaults
+//    let key = "asdfasdfDaKey"  //NSUserDefaults
     var delegate: AddLocationControllerDelegate?
-    
-
     
     var mapView: MKMapView = {
         var mapView = MKMapView()
@@ -30,11 +28,11 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         button.backgroundColor = UIColor.lightSteelBlue1
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        let attributes1: [NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
-            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
-        ]
-        button.setAttributedTitle(NSAttributedString(string: "  FINISH  ", attributes: attributes1), for: .normal)
+//        let attributes1: [NSAttributedString.Key:Any] = [
+//            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+//            NSAttributedString.Key.foregroundColor : UIColor.steelBlue4
+//        ]
+        button.setAttributedTitle(NSAttributedString(string: "  FINISH  ", attributes: steelBlue425textAttributes), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleFinish), for: .touchUpInside)
         return button
@@ -45,11 +43,11 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         button.backgroundColor = UIColor.lightSteelBlue1
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        let attributes1: [NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
-            NSAttributedString.Key.foregroundColor : UIColor.orange
-        ]
-        button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: attributes1), for: .normal)
+//        let attributes1: [NSAttributedString.Key:Any] = [
+//            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 25) as Any,
+//            NSAttributedString.Key.foregroundColor : UIColor.orange
+//        ]
+        button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: orange25TextAttributes), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handledDeletePLIST), for: .touchUpInside)
         return button
@@ -58,21 +56,31 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         mapView.delegate = self
-        [mapView, finishButton, deletePLISTButton].forEach{view.addSubview($0)}
-        
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            finishButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -20),
-            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            deletePLISTButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -20),
-            deletePLISTButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            deletePLISTButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            ])
-        
+//        [mapView, finishButton, deletePLISTButton].forEach{view.addSubview($0)}
+//
+//        NSLayoutConstraint.activate([
+//            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//
+//
+//
+//            finishButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -20),
+//            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//
+//
+//
+//            deletePLISTButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -20),
+//            deletePLISTButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            deletePLISTButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            ])
+
+        mapView.fillSuperview()
+        finishButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: mapView.bottomAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
+        deletePLISTButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: finishButton.bottomAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20), size: .zero)
+                
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getLoction().coordinate {
             annotation.coordinate = coordinate
@@ -159,7 +167,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
         if let postStudentLocationResponseObject = item {
             print("1 - StudentLocation Added")
-            UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: self.key)
+            UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
         } else {
             print(error?.localizedDescription as Any)
             print(error ?? "")
