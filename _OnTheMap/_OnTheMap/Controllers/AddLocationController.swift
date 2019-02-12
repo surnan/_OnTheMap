@@ -19,24 +19,16 @@ protocol AddLocationControllerDelegate{
 
 
 class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, AddLocationControllerDelegate {
-    func getURLString() -> String {
-        return urlTextField.text ?? ""
-    }
+    //MARK:- Protocol Functions
+    func getURLString() -> String {return urlTextField.text ?? ""}
+    func getLoction() -> CLLocation {return globalLocation}
+    func getMapString()-> String{return locationTextField.text ?? ""}
     
-    func getLoction() -> CLLocation {
-        return globalLocation
-    }
-    
-    func getMapString()-> String{
-        return locationTextField.text ?? ""
-    }
-    
-    
+    //MARK:- Local Variables
     
     let customUIHeightSize: CGFloat = 55
     let cornerRadiusSize: CGFloat = 5
-    let key = "asdfasdfDaKey"  //NSUserDefaults
-    
+
     var mapString = ""
     var mediaURL = ""
     var globalLocation = CLLocation()
@@ -45,8 +37,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
-        textField.defaultTextAttributes = black25textAttributes
         textField.clearButtonMode = .whileEditing
+        textField.defaultTextAttributes = black25textAttributes
         textField.attributedText = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
@@ -66,7 +58,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var findLocationButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.steelBlue
-        //        button.setAttributedTitle(NSAttributedString(string: "FIND LOCATION", attributes: white25textAttributes), for: .normal)
         button.setTitle("FIND LOCATION", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(handleFindLocation), for: .touchUpInside)
