@@ -25,8 +25,9 @@ class MainTabBarController: UITabBarController{
         return myView
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         view.backgroundColor = .white
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
@@ -41,6 +42,26 @@ class MainTabBarController: UITabBarController{
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
         }
+        
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        view.backgroundColor = .white
+//        self.setupBottomToolBar()                   //Make toolbar visible before network call
+//        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
+//        ParseClient.getStudents { (data, err) in
+//            if err == nil{
+//                Students.allStudentLocations = data
+//                Students.loadValidLocations()
+//                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+//                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+//                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+//            } else {
+//                print("ParseClient not returning expected results\n  \(String(describing: err))")
+//            }
+//        }
     }
     
     func setupBottomToolBar(){

@@ -16,15 +16,24 @@ protocol AnnotationTableControllerDelegate {
 
 class AnnotationTableController:UITableViewController, AnnotationTableControllerDelegate{
     
+    let greyShadeSuperView: UIView = {
+        let _view = UIView()
+        _view.backgroundColor = UIColor.grey196Half
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.isHidden = true
+        return _view
+    }()
+    
     //MARK:- Protocol Functions
     func startActivityIndicator(){
+        greyShadeSuperView.isHidden = false
         myActivityMonitor.startAnimating()
     }
     
     func stopActivityIndicator(){
         myActivityMonitor.stopAnimating()
+        greyShadeSuperView.isHidden = true
     }
-    
     
     //MARK:- Swift Functions
     override func viewDidAppear(_ animated: Bool) {
@@ -52,9 +61,9 @@ class AnnotationTableController:UITableViewController, AnnotationTableController
         loadLocationsArray()    //MapController().ViewDidLoad  ==> preloads 'Class Students' and it's the default opening tab
         print("locations.count --> \(locations.count)")        
         tableView.register(AnnotationCell.self, forCellReuseIdentifier: listReuseID)
-        
-        view.addSubview(myActivityMonitor)
-        myActivityMonitor.centerToSuperView()
+        view.addSubview(greyShadeSuperView); greyShadeSuperView.fillSuperview()
+        greyShadeSuperView.insertSubview(myActivityMonitor, at: 0)
+        myActivityMonitor.centerToSuperView() 
     }
     
     //Mark:- Maybe it's time to consider new view & indicator like LoginController
