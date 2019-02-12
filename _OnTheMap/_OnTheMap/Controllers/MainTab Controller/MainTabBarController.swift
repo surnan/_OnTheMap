@@ -12,12 +12,12 @@ import MapKit
 
 class MainTabBarController: UITabBarController{
 
-    var currentSearchTask: URLSessionTask?
-    
-    var mapView: MKMapView = {
-        var mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        return mapView
+    var myActivityMonitor: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.style = .whiteLarge
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
     }()
     
     var coverView: UIView = {
@@ -26,11 +26,36 @@ class MainTabBarController: UITabBarController{
         myView.translatesAutoresizingMaskIntoConstraints = false
         return myView
     }()
+    
+    func setupTempMapView(){
+        coverView.insertSubview(myActivityMonitor, at: 0)
+        view.addSubview(coverView)
+        NSLayoutConstraint.activate([
+            coverView.topAnchor.constraint(equalTo: view.topAnchor),
+            coverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            coverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coverView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+        myActivityMonitor.startAnimating()
+    }
+
+    var currentSearchTask: URLSessionTask?
+    
+    var mapView: MKMapView = {
+        var mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        return mapView
+    }()
+
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.backgroundColor = .white
+        
+        myActivityMonitor.centerToSuperView()
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
 
@@ -40,6 +65,7 @@ class MainTabBarController: UITabBarController{
             print("Cancelled search Request")
         }
         
+        setupTempMapView()
         currentSearchTask = ParseClient.getStudents { (data, err) in
             if err == nil{
                 print("CURRENT SEARCH TASK RUNNING NOW")
@@ -48,6 +74,8 @@ class MainTabBarController: UITabBarController{
                 self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+                self.myActivityMonitor.stopAnimating()
+                self.coverView.removeFromSuperview()
             } else {
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
@@ -117,13 +145,19 @@ class MainTabBarController: UITabBarController{
     @objc func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
-        ParseClient.getStudents { (data, err) in
+        
+        if currentSearchTask != nil {
+            currentSearchTask?.cancel()
+            print("Cancelled search Request")
+        }
+        currentSearchTask = ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
                 self.setupBottomToolBar() //let mapController = MapController()
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+                
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
