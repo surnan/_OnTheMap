@@ -117,8 +117,8 @@ class LoginController: UIViewController {
     
     //MARK:- CODE STARTS HERE
     private func setupUI(){
-        emailTextField.text = "4suresh@gmail.com"
-        passwordTextField.text = "atDZ8=Gm%=VU"
+        emailTextField.text = shazam
+        passwordTextField.text = openSesame
         [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
