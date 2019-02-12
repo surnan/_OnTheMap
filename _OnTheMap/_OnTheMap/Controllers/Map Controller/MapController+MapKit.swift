@@ -33,6 +33,8 @@ extension MapController {
             tempAnnotation.subtitle = mediaURL
             annotations.append(tempAnnotation)
         }
+//        mapView.isHidden = false
+//        secretMapView.isHidden = true
     }
     
     func loadLocationsArray(){
@@ -51,6 +53,12 @@ extension MapController {
             ]
             locations.append(temp)
         }
+    }
+    
+    
+    func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
+//        mapView.isHidden = false
+//        secretMapView.isHidden = true
     }
     
     
@@ -90,4 +98,12 @@ extension MapController {
             UIApplication.shared.open(backupURL2)
         }
     }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        print("Do i get here?")
+        mapView.isHidden = false
+        secretMapView.isHidden = true
+        mapView.reloadInputViews()
+    }
+    
 }

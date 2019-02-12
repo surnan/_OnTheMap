@@ -15,23 +15,26 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .red
         
+        self.setupBottomToolBar()
+        self.setupTopToolBar()
+
         
-        ParseClient.getStudents { (data, err) in
-            if err == nil{
-                Students.all = data
-                Students.loadPins()
-                //                self.viewControllers = controllers
-                //                self.setupMap()
-                self.setupBottomToolBar()
-                self.setupTopToolBar()
-            } else {
-                print("OH BOY")
-            }
-        }
-//        setupBottomToolBar()
-//        setupTopToolBar()
+//        ParseClient.getStudents { (data, err) in
+//            if err == nil{
+//                Students.all = data
+//                Students.loadPins()
+//                //                self.viewControllers = controllers
+//                //                self.setupMap()
+//                self.setupBottomToolBar()
+//                self.setupTopToolBar()
+//            } else {
+//                print("OH BOY")
+//            }
+//        }
+////        setupBottomToolBar()
+////        setupTopToolBar()
     }
     
     func setupBottomToolBar(){
