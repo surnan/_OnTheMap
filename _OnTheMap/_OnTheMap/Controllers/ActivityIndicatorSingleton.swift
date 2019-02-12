@@ -14,5 +14,5 @@ import Foundation
 class ActivityIndicatorSingleton{
     static let shared = ActivityIndicatorSingleton()
     var mapDelegate: MapControllerDelegate?
-    var listDelegate: ListControllerDelegate?
+    var AnnotationTableDelegate: AnnotationTableControllerDelegate?
 }

@@ -36,7 +36,7 @@ class MainTabBarController: UITabBarController{
                 Students.loadValidLocations()
                 self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-                ActivityIndicatorSingleton.shared.listDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
             } else {
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
@@ -47,7 +47,7 @@ class MainTabBarController: UITabBarController{
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
         let mapController = MapController()
-        let listController = ListController()
+        let listController = AnnotationTableController()
         mapController.tabBarItem = mapIcon
         listController.tabBarItem = listIcon
         let controllers = [mapController, listController]
@@ -85,14 +85,14 @@ class MainTabBarController: UITabBarController{
     
     @objc func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
-        ActivityIndicatorSingleton.shared.listDelegate?.startActivityIndicator()
+        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
                 self.setupBottomToolBar() //let mapController = MapController()
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-                ActivityIndicatorSingleton.shared.listDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
