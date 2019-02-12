@@ -65,8 +65,8 @@ class ParseClient {
     }
     
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void){
-        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
-        //        let url = ParseClient.Endpoints.addStudentLocation.url
+//        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
+                let url = ParseClient.Endpoints.addStudentLocation.url
         
         taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {

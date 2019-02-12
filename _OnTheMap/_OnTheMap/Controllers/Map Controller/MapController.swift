@@ -54,7 +54,7 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         setupMap()
         setupUI()
         view.backgroundColor = UIColor.black
-        BigTest.shared.mapDelegate = self
+        
     }
     
     func setupUI(){
@@ -68,4 +68,10 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         view.addSubview(myActivityMonitor)
         myActivityMonitor.center = view.center
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        BigTest.shared.mapDelegate = self
+    }
+    
 }

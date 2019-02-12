@@ -26,12 +26,16 @@ class ListController:UITableViewController, ListControllerDelegate{
     }
     
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        BigTest.shared.listDelegate = self
+    }
     
     var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
         activity.style = .gray
+//        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
@@ -51,10 +55,17 @@ class ListController:UITableViewController, ListControllerDelegate{
         tableView.register(ListCell.self, forCellReuseIdentifier: listReuseID)
         
         view.addSubview(myActivityMonitor)
-        myActivityMonitor.center = view.center
-//        myActivityMonitor.startAnimating()
+
+        myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        BigTest.shared.listDelegate = self
         
+//        myActivityMonitor.center = view.center
+    }
+    
+    
+    override func viewWillLayoutSubviews() {
+        self.myActivityMonitor.translatesAutoresizingMaskIntoConstraints = true
+        self.myActivityMonitor.frame = self.view.bounds
     }
 }
