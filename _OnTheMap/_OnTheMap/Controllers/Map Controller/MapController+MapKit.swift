@@ -19,17 +19,17 @@ extension MapController {
     
     func convertLocationsToAnnotations(){
         for dictionary in locations {
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let latitude = CLLocationDegrees(dictionary[locationsIndex.latitude.rawValue] as! Double)
+            let longitude = CLLocationDegrees(dictionary[locationsIndex.longitude.rawValue] as! Double)
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
+            let firstName = dictionary[locationsIndex.firstName.rawValue] as! String
+            let lastName = dictionary[locationsIndex.lastName.rawValue] as! String
+            let mediaURL = dictionary[locationsIndex.mediaURL.rawValue] as! String
             
             let tempAnnotation = MKPointAnnotation()
             tempAnnotation.coordinate = coordinate
-            tempAnnotation.title = "\(first) \(last)"
+            tempAnnotation.title = "\(firstName) \(lastName)"
             tempAnnotation.subtitle = mediaURL
             annotations.append(tempAnnotation)
         }
@@ -37,31 +37,24 @@ extension MapController {
     
     func loadLocationsArray(){
         Students.validLocations.forEach {
-            let temp: [String:Any] = [
-                "objectId": $0.objectId,
-                "uniqueKey": $0.uniqueKey,
-                "firstName": $0.firstName,
-                "lastName": $0.lastName,
-                "mapString": $0.mapString,
-                "mediaURL": $0.mediaURL,
-                "latitude": $0.latitude,
-                "longitude": $0.longitude,
-                "createdAt": $0.createdAt,
-                "updatedAt": $0.updatedAt
+            let tempAnnotation: [String:Any] = [
+                locationsIndex.objectId.rawValue: $0.objectId,
+                locationsIndex.uniqueKey.rawValue: $0.uniqueKey,
+                locationsIndex.firstName.rawValue: $0.firstName,
+                locationsIndex.lastName.rawValue: $0.lastName,
+                locationsIndex.mapString.rawValue: $0.mapString,
+                locationsIndex.mediaURL.rawValue: $0.mediaURL,
+                locationsIndex.latitude.rawValue: $0.latitude,
+                locationsIndex.longitude.rawValue: $0.longitude,
+                locationsIndex.createdAt.rawValue: $0.createdAt,
+                locationsIndex.updatedAt.rawValue: $0.updatedAt
             ]
-            locations.append(temp)
+            locations.append(tempAnnotation)
         }
     }
     
     
     //MARK:- MKMapViewDelegagate -- MAP Specific functions
-    
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier, for: annotation)
-//        annotationView.clusteringIdentifier = "identifier"
-//        return annotationView
-//    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
@@ -82,11 +75,10 @@ extension MapController {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("\n\nAnnotations.Count ---> \(annotations.count)")
         guard var _stringToURL = view.annotation?.subtitle as? String else {
-            //MediaURL field is empty
-            UIApplication.shared.open(URL(string: "https://www.google.com")!)
+            UIApplication.shared.open(URL(string: "https://www.google.com")!)     //MediaURL = empty.  Load google
             return
         }
-        let backupURL = URL(string: "https://www.google.com/search?q=" + _stringToURL)!
+        let backupURL = URL(string: "https://www.google.com/search?q=" + _stringToURL)!  //URL is invalid, convert string to google search query
         if _stringToURL._isValidURL {
             _stringToURL = _stringToURL._prependHTTPifNeeded()
             let url = URL(string: _stringToURL) ?? backupURL

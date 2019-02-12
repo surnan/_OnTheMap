@@ -38,16 +38,18 @@ extension UIView {
     }
     
     func anchorSize(to view: UIView){
+        translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
     func fillSuperview(){
+        translatesAutoresizingMaskIntoConstraints = false
         anchor(top: superview?.topAnchor, leading: superview?.leadingAnchor, trailing: superview?.trailingAnchor, bottom: superview?.bottomAnchor)
     }
     
     func centerToSuperView(){
-        
+        translatesAutoresizingMaskIntoConstraints = false
         guard let centerX = superview?.centerXAnchor, let centerY = superview?.centerYAnchor else {return}
         
         centerXAnchor.constraint(equalTo: centerX).isActive = true

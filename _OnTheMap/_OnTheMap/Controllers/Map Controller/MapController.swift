@@ -17,6 +17,7 @@ protocol MapControllerDelegate {
 
 class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     
+    //MARK:- Protocol Functions
     func startActivityIndicator(){
         myActivityMonitor.startAnimating()
         mapView.alpha = 0.5
@@ -34,44 +35,41 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         activity.style = .whiteLarge
         return activity
     }()
+
     
-    
-    //MARK:- Declarations for MapController+MapKit
+    //MARK:- Local Variables
     var locations = [[String:Any]]()
-    var annotations = [MKPointAnnotation]()
+    enum locationsIndex:String {
+        case objectId
+        case uniqueKey
+        case firstName
+        case lastName
+        case mapString
+        case mediaURL
+        case latitude
+        case longitude
+        case createdAt
+        case updatedAt
+    }
     
-    //MARK:- File Specific
-    var mapView: MKMapView = {
-        var mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        return mapView
-    }()
+    
+    var annotations = [MKPointAnnotation]()
+    var mapView = MKMapView()
+    
     
     //MARK:- Swift VC Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        setupMap()
-        setupUI()
         view.backgroundColor = UIColor.black
-        
-    }
-    
-    func setupUI(){
-        view.addSubview(mapView)
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            ])
-        view.addSubview(myActivityMonitor)
-        myActivityMonitor.center = view.center
+        [mapView, myActivityMonitor].forEach{view.addSubview($0)}
+        mapView.fillSuperview()
+        myActivityMonitor.centerToSuperView()
+        setupMap()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         ActivityIndicatorSingleton.shared.mapDelegate = self
     }
-    
 }
