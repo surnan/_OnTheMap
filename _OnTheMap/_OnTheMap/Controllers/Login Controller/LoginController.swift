@@ -10,14 +10,6 @@ import UIKit
 
 class LoginController: UIViewController {
     
-    
-    
-    
-    
-    let customFontSize: CGFloat = 25
-    let customUIHeightSize: CGFloat = 55
-    let cornerRadiusSize: CGFloat = 5
-    
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect

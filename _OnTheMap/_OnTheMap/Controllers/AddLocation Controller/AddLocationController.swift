@@ -17,7 +17,6 @@ protocol AddLocationControllerDelegate{
     func getLoction()-> CLLocation
 }
 
-
 class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, AddLocationControllerDelegate {
     //MARK:- Protocol Functions
     func getURLString() -> String {return urlTextField.text ?? ""}
@@ -25,9 +24,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     func getMapString()-> String{return locationTextField.text ?? ""}
     
     //MARK:- Local Variables
-    
-    let customUIHeightSize: CGFloat = 55
-    let cornerRadiusSize: CGFloat = 5
 
     var mapString = ""
     var mediaURL = ""
@@ -101,57 +97,5 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             urlTextField.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             findLocationButton.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             ])
-    }
-    
-    
-    
-    //MARK:- Handlers
-    @objc func handleFindLocation(){
-        guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
-        mediaURL = temp
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(locationTextField.text ?? "") { [unowned self] (clplacement, error) in
-            guard let placemarks = clplacement, let location = placemarks.first?.location else {
-                print("UNABLE to convert to CLL Coordinates")
-                return
-            }
-            self.globalLocation = location
-            DispatchQueue.main.async {
-                let newVC = VerifyOnMapController()
-                newVC.delegate = self
-                self.navigationController?.pushViewController(newVC, animated: true)
-            }
-        }
-        print("READY FOR NEXT STAGE!!!!!")
-    }
-    
-    
-    func isStringToURLValid(testString: String)-> String?{
-        if testString._isValidURL {
-            return testString._prependHTTPifNeeded()
-        } else {
-            let alertController = UIAlertController(title: "Invalid URL", message: "Unable to convert entry to valid URL", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true)
-            return nil
-        }
-    }
-    
-    func isStringToLocationValid(testString: String, completion: @escaping (Bool, Error?)-> Void){
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(testString) { [unowned self] (clplacement, error) in
-            guard let placemarks = clplacement, let location = placemarks.first?.location else {
-                print("UNABLE to convert to CLL Coordinates")
-                DispatchQueue.main.async {
-                    completion(false, error)
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.globalLocation = location
-                completion(true, nil)
-            }
-            return
-        }
     }
 }

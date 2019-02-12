@@ -22,3 +22,6 @@ let white25textAttributes: [NSAttributedString.Key: Any] = [
     NSAttributedString.Key.foregroundColor : UIColor.white,
     NSAttributedString.Key.font: UIFont(name: "Georgia", size: 25) as Any
 ]
+
+    let customUIHeightSize: CGFloat = 55
+    let cornerRadiusSize: CGFloat = 5
