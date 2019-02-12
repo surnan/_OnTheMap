@@ -90,7 +90,6 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleAddBarButton(){
-        
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID != nil {
             let myAlertController = UIAlertController(title: "Confrmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
@@ -107,23 +106,15 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleRefreshBarButton(){
-        
         BigTest.shared.mapDelegate?.startActivityIndicator()
         BigTest.shared.listDelegate?.startActivityIndicator()
-
-        
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
-                self.setupBottomToolBar()
-                self.setupTopToolBar()
-                
-//                self.myActivityMonitor.stopAnimating()
+                self.setupBottomToolBar() //let mapController = MapController()
                 BigTest.shared.mapDelegate?.stopActivityIndicator()
                 BigTest.shared.listDelegate?.stopActivityIndicator()
-                
-                
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
