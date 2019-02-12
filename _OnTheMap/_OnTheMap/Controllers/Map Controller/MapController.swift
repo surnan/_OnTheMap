@@ -71,7 +71,7 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        BigTest.shared.mapDelegate = self
+        ActivityIndicatorSingleton.shared.mapDelegate = self
     }
     
 }

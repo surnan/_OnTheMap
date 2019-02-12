@@ -28,7 +28,7 @@ class ListController:UITableViewController, ListControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        BigTest.shared.listDelegate = self
+        ActivityIndicatorSingleton.shared.listDelegate = self
     }
     
     var myActivityMonitor: UIActivityIndicatorView = {

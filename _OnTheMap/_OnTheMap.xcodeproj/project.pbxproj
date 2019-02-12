@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */; };
+		840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */; };
+		840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06F2211410200A87358 /* VerifyOnMapController.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
 		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
-		8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* Helper+Extensions.swift */; };
+		8439D011220CB6F20057CE6E /* Stringr+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* Stringr+Extensions.swift */; };
 		843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */; };
 		843CA25F220D644000B09A66 /* postStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25E220D644000B09A66 /* postStudentLocationResponse.swift */; };
 		844DFEC62204F42800742437 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DFEC52204F42800742437 /* AppDelegate.swift */; };
@@ -40,11 +43,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringKeys.swift; sourceTree = "<group>"; };
+		840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
+		840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorSingleton.swift; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		842AE06F2211410200A87358 /* VerifyOnMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOnMapController.swift; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
 		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
-		8439D010220CB6F20057CE6E /* Helper+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper+Extensions.swift"; sourceTree = "<group>"; };
+		8439D010220CB6F20057CE6E /* Stringr+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stringr+Extensions.swift"; sourceTree = "<group>"; };
 		843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationRequest.swift; sourceTree = "<group>"; };
 		843CA25E220D644000B09A66 /* postStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postStudentLocationResponse.swift; sourceTree = "<group>"; };
 		844DFEC22204F42800742437 /* _OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = _OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +104,8 @@
 		8439D00F220CB6C00057CE6E /* Helper+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8439D010220CB6F20057CE6E /* Helper+Extensions.swift */,
+				8439D010220CB6F20057CE6E /* Stringr+Extensions.swift */,
+				840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */,
 			);
 			path = "Helper+Extensions";
 			sourceTree = "<group>";
@@ -155,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				8489285E2204F79600BF9BF6 /* MainTabBarController.swift */,
+				840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */,
 				84D067412207EEA4000D8564 /* Create Annotation Controller */,
 				845BA44F22077FD700F6D80E /* List Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
@@ -172,6 +180,7 @@
 				844DFECE2204F42900742437 /* LaunchScreen.storyboard */,
 				848928732204F8C100BF9BF6 /* UIColor+Extension.swift */,
 				848928742204F8C100BF9BF6 /* UIView+Constraints.swift */,
+				840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,12 +319,15 @@
 				844DFEC62204F42800742437 /* AppDelegate.swift in Sources */,
 				8489285C2204F78A00BF9BF6 /* LoginController.swift in Sources */,
 				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
+				840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */,
+				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
-				8439D011220CB6F20057CE6E /* Helper+Extensions.swift in Sources */,
+				8439D011220CB6F20057CE6E /* Stringr+Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
 				842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,
+				840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */,
 				845BA4512207807500F6D80E /* ListController+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* UdacityRequest.swift in Sources */,

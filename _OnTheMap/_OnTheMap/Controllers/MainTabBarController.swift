@@ -11,10 +11,7 @@ import MapKit
 
 
 class MainTabBarController: UITabBarController{
-    
-    let key = "asdfasdfDaKey"  //NSUserDefaults
-    
-    
+
     var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,23 +24,19 @@ class MainTabBarController: UITabBarController{
         myView.translatesAutoresizingMaskIntoConstraints = false
         return myView
     }()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        self.setupBottomToolBar()   //Make toolbar visible before network call
-        self.setupTopToolBar()      //Update the NavigationPane from LoginController
-        
+        self.setupBottomToolBar()                   //Make toolbar visible before network call
+        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
-                self.navigationController?.navigationBar.isHidden = false
                 self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-                BigTest.shared.mapDelegate?.stopActivityIndicator()
-                BigTest.shared.listDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.listDelegate?.stopActivityIndicator()
             } else {
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
@@ -91,25 +84,18 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleRefreshBarButton(){
-        BigTest.shared.mapDelegate?.startActivityIndicator()
-        BigTest.shared.listDelegate?.startActivityIndicator()
+        ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
+        ActivityIndicatorSingleton.shared.listDelegate?.startActivityIndicator()
         ParseClient.getStudents { (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
                 self.setupBottomToolBar() //let mapController = MapController()
-                BigTest.shared.mapDelegate?.stopActivityIndicator()
-                BigTest.shared.listDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.listDelegate?.stopActivityIndicator()
             } else {
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
         }
     }
-}
-
-
-class BigTest{
-    static let shared = BigTest()
-    var mapDelegate: MapControllerDelegate?
-    var listDelegate: ListControllerDelegate?
 }
