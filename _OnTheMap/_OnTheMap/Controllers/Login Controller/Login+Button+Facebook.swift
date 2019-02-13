@@ -43,6 +43,28 @@ extension LoginController{
         UdacityClient.logout {}
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case .failed(let err):
+            print(err)
+        case .cancelled:
+            print("cancelled")
+        case .success(_,_,_):
+            print("success")
+            preparingToLoadMainTabController()
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        print("logged out")
+        UdacityClient.logout {}
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
+    
+    
 }
 
 let standardButtonHeight: CGFloat = customUIHeightSize
