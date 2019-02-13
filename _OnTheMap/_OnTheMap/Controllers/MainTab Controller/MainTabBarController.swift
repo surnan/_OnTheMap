@@ -8,6 +8,10 @@
 
 import UIKit
 import MapKit
+import FacebookCore
+import FacebookLogin
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 
 class MainTabBarController: UITabBarController{
@@ -121,6 +125,11 @@ class MainTabBarController: UITabBarController{
     
     @objc func handleLogout(){
         UdacityClient.logout()
+        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+        
         navigationController?.popViewController(animated: true)
     }
     

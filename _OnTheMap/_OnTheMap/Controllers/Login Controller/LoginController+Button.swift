@@ -40,10 +40,44 @@ extension LoginController{
             }
         }
     }
+    
+    
+    //MARK:- Facebook protocol functions
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
+        greyShadeSuperView.fillSuperview()
+        myActivityMonitor.centerToSuperView()
+        
+        
+        myActivityMonitor.startAnimating()
+        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
+            if err == nil {
+                self.myActivityMonitor.stopAnimating()
+                self.navigationController?.pushViewController(MainTabBarController(), animated: false)
+            } else {
+                let alertController = UIAlertController(title: "Login Error", message: "Invalid combination for name and password", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true)
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        UdacityClient.logout()
+//        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    
+    
+    
+    
 }
 
 
-let standardButtonHeight: CGFloat = 50
+//let standardButtonHeight: CGFloat = 50
+
+let standardButtonHeight: CGFloat = customUIHeightSize
 
 class FacebookButton: FBSDKLoginButton {
     
@@ -79,5 +113,4 @@ class FacebookButton: FBSDKLoginButton {
         let titleRect = CGRect(x: titleX, y: 0, width: contentRect.width - titleX - titleX, height: contentRect.height)
         return titleRect
     }
-    
 }
