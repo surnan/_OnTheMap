@@ -58,7 +58,6 @@ class MainTabBarController: UITabBarController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.backgroundColor = .white
-//        myActivityMonitor.centerToSuperView()
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
         if currentSearchTask != nil {
@@ -114,7 +113,15 @@ class MainTabBarController: UITabBarController{
     @objc private func handleAddBarButton(){
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID != nil {
-            let myAlertController = UIAlertController(title: "Confrmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
+            
+            let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
+            guard let object = object_VerifiedPostedStudentInfoResponse else {
+                print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
+                return
+            }
+            
+            
+            let myAlertController = UIAlertController(title: "Confirmation Needed", message: "\(object.firstName) \(object.lastName) already has a student location posted. Do you wish to overwrite?", preferredStyle: .alert)
             myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {[weak self] _ in
                 let newVC = AddLocationController()
                 self?.navigationController?.pushViewController(newVC, animated: true)

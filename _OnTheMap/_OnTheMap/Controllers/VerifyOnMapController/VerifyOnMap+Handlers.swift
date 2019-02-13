@@ -22,7 +22,7 @@ extension VerifyOnMapController {
             firstName.removeLast()
             lastName.removeFirst()
             print("good news. Name = \(firstName)  \(lastName)")
-            ParseClient.postStudentLocation(firstname: String(firstName), lastName: String(lastName), mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
+            ParseClient.postStudentLocation(firstname: String(firstName), lastName: String(lastName), mapString: mapString, mediaURL: mediaURL._prependHTTPifNeeded(), latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             print("User ented invalid String without space.  Not a valid name")
             let anotherAlertController = UIAlertController(title: "Invalid Name Entry", message: "At least one space is needed to differentiate first and last names", preferredStyle: .alert)
@@ -43,6 +43,7 @@ extension VerifyOnMapController {
          location = delegate.getLoction()
          coord = location.coordinate
         
+        
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
             
@@ -50,6 +51,7 @@ extension VerifyOnMapController {
             myAlerController.addTextField { [weak self](input) in
                 input.placeholder = "Please Enter Full Name"
                 input.clearButtonMode = UITextField.ViewMode.whileEditing
+                input.autocapitalizationType = .words
                 self?.field = input
                 print("field = \(self?.field?.text ?? "")  && input = \(input.text ?? "")"  )
             }
@@ -72,7 +74,7 @@ extension VerifyOnMapController {
                                               firstName: object.firstName,
                                               lastName: object.lastName,
                                               mapString: mapString,
-                                              mediaURL: mediaURL,
+                                              mediaURL: mediaURL._prependHTTPifNeeded(),
                                               latitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude)
             ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { [weak self](_, _) in

@@ -66,6 +66,6 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         } else {
             print("Unable to obtain coordinate from delegate")
         }
-//        deletePLISTButton.isHidden = false
+        deleteNSUserDefaultsButton.isHidden = false
     }
 }
