@@ -12,6 +12,8 @@ import MapKit
 
 class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
+    var field: UITextField?
+    
     var delegate: AddLocationControllerDelegate?
     var mapView = MKMapView()
     

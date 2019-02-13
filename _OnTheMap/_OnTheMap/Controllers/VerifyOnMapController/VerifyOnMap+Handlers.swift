@@ -13,6 +13,27 @@ extension VerifyOnMapController {
         pushOrPost()
     }
     
+    func getFirstLastNames(potentialName: String?)->(String?, String?){
+//    func getFirstLastNames(testString: UITextField?)->(String?, String?){
+    
+        guard let testString = potentialName else {return (nil, nil)}
+        
+        if let index = testString.firstIndex(of: " ") {
+            var firstName = testString.prefix(through: index)
+            var lastName = testString.suffix(from: index)
+            firstName.removeLast()
+            lastName.removeFirst()
+            print("good news. Name = \(firstName)  \(lastName)")
+            return  (String(firstName), String(lastName))
+        } else {
+            print("Bad news.  Not a valid name")
+            return (nil, nil)
+        }
+    }
+    
+    
+    
+//    var field: UITextField?
     
     func pushOrPost(){
         guard let delegate = delegate else {
@@ -26,6 +47,23 @@ extension VerifyOnMapController {
         
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
+            
+            let myAlerController = UIAlertController(title: "New Student Location", message: "Please enter full name for new student location.  First space will be used to separated first and last names", preferredStyle: .alert)
+            myAlerController.addTextField { (input) in
+                input.placeholder = "Please Enter Full Name"
+                input.clearButtonMode = UITextField.ViewMode.whileEditing
+                self.field = input
+                print("field = \(self.field?.text ?? "")  && input = \(input.text ?? "")"  )
+            }
+            
+            func yesHandler(actionTarget: UIAlertAction){
+                _ = getFirstLastNames(potentialName: field?.text)
+            }
+            
+            myAlerController.addAction(UIAlertAction(title: "Save", style: .default, handler: yesHandler))
+            myAlerController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(myAlerController, animated: true)
+            
             ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             
