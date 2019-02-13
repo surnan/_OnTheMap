@@ -15,6 +15,23 @@ import FBSDKLoginKit
 extension LoginController{
     
     //MARK:- Actions
+    fileprivate func preparingToLoadMainTabController() {
+        [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
+        greyShadeSuperView.fillSuperview()
+        myActivityMonitor.centerToSuperView()
+        myActivityMonitor.startAnimating()
+        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
+            if err == nil {
+                self.myActivityMonitor.stopAnimating()
+                self.navigationController?.pushViewController(MainTabBarController(), animated: false)
+            } else {
+                let alertController = UIAlertController(title: "Login Error", message: "Invalid combination for name and password", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertController, animated: true)
+            }
+        }
+    }
+    
     @objc func handleLoginButton(_ sender: UIButton){
         if passwordTextField.text == "" || emailTextField.text == "" {
             let alertController = UIAlertController(title: "Login Error", message: "Both fields are mandatory", preferredStyle: .alert)
@@ -22,65 +39,24 @@ extension LoginController{
             self.present(alertController, animated: true)
             return
         }
-        
-        [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
-        greyShadeSuperView.fillSuperview()
-        myActivityMonitor.centerToSuperView()
-
-        
-        myActivityMonitor.startAnimating()
-        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
-            if err == nil {
-                self.myActivityMonitor.stopAnimating()
-                self.navigationController?.pushViewController(MainTabBarController(), animated: false)
-            } else {
-                let alertController = UIAlertController(title: "Login Error", message: "Invalid combination for name and password", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertController, animated: true)
-            }
-        }
+        preparingToLoadMainTabController()
     }
     
     
     //MARK:- Facebook protocol functions
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
-        greyShadeSuperView.fillSuperview()
-        myActivityMonitor.centerToSuperView()
-        
-        
-        myActivityMonitor.startAnimating()
-        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
-            if err == nil {
-                self.myActivityMonitor.stopAnimating()
-                self.navigationController?.pushViewController(MainTabBarController(), animated: false)
-            } else {
-                let alertController = UIAlertController(title: "Login Error", message: "Invalid combination for name and password", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertController, animated: true)
-            }
-        }
+        preparingToLoadMainTabController()
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         UdacityClient.logout {}
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
-    
-    
-    
-    
 }
-
-
-//let standardButtonHeight: CGFloat = 50
 
 let standardButtonHeight: CGFloat = customUIHeightSize
 
 class FacebookButton: FBSDKLoginButton {
-    
     override func updateConstraints() {
         // deactivate height constraints added by the facebook sdk (we'll force our own instrinsic height)
         for contraint in constraints {
@@ -107,7 +83,6 @@ class FacebookButton: FBSDKLoginButton {
         if isHidden || bounds.isEmpty {
             return .zero
         }
-        
         let imageRect = self.imageRect(forContentRect: contentRect)
         let titleX = imageRect.maxX
         let titleRect = CGRect(x: titleX, y: 0, width: contentRect.width - titleX - titleX, height: contentRect.height)
