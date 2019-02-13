@@ -13,10 +13,10 @@ extension VerifyOnMapController {
         pushOrPost()
     }
     
-    func getFirstLastNames(potentialName: String?)->(String?, String?){
+    func getFirstLastNames(potentialName: String?){
 //    func getFirstLastNames(testString: UITextField?)->(String?, String?){
     
-        guard let testString = potentialName else {return (nil, nil)}
+        guard let testString = potentialName else {return}
         
         if let index = testString.firstIndex(of: " ") {
             var firstName = testString.prefix(through: index)
@@ -24,10 +24,13 @@ extension VerifyOnMapController {
             firstName.removeLast()
             lastName.removeFirst()
             print("good news. Name = \(firstName)  \(lastName)")
-            return  (String(firstName), String(lastName))
+            //            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             print("Bad news.  Not a valid name")
-            return (nil, nil)
+            
+            let anotherAlertController = UIAlertController(title: "Invalid Name Entry", message: "At least one space is needed to differentiate first and last names", preferredStyle: .alert)
+            anotherAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(anotherAlertController, animated: true)
         }
     }
     
@@ -48,7 +51,7 @@ extension VerifyOnMapController {
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
             
-            let myAlerController = UIAlertController(title: "New Student Location", message: "Please enter full name for new student location.  First space will be used to separated first and last names", preferredStyle: .alert)
+            let myAlerController = UIAlertController(title: "New Student Location", message: "Please enter full name for new student location.  First space will be used to separate first and last names", preferredStyle: .alert)
             myAlerController.addTextField { (input) in
                 input.placeholder = "Please Enter Full Name"
                 input.clearButtonMode = UITextField.ViewMode.whileEditing
@@ -64,7 +67,7 @@ extension VerifyOnMapController {
             myAlerController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(myAlerController, animated: true)
             
-            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
+//            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults

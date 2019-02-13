@@ -67,7 +67,7 @@ class ParseClient {
     }
     
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void)-> URLSessionTask{
-//        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
+        //        let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
         let url = ParseClient.Endpoints.addStudentLocation.url
         let task = taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
@@ -80,14 +80,16 @@ class ParseClient {
         return task
     }
     
-    class func postStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
+    class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-                                                             firstName: "Lawrence",
-                                                             lastName: "Simmons",
+                                                             firstName: firstname,
+                                                             lastName: lastName,
                                                              mapString: mapString,
                                                              mediaURL: mediaURL,
                                                              latitude: latitude,
                                                              longitude: longitude)
+        //                                                             firstName: "Lawrence",
+        //                                                             lastName: "Simmons",
         
         taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
             if let err = error {
