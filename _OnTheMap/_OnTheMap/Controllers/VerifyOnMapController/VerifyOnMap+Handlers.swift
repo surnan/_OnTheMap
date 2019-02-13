@@ -14,8 +14,6 @@ extension VerifyOnMapController {
     }
     
     func getFirstLastNames(potentialName: String?){
-//    func getFirstLastNames(testString: UITextField?)->(String?, String?){
-    
         guard let testString = potentialName else {return}
         
         if let index = testString.firstIndex(of: " ") {
@@ -24,7 +22,7 @@ extension VerifyOnMapController {
             firstName.removeLast()
             lastName.removeFirst()
             print("good news. Name = \(firstName)  \(lastName)")
-            //            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
+            ParseClient.postStudentLocation(firstname: String(firstName), lastName: String(lastName), mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             print("Bad news.  Not a valid name")
             
@@ -34,19 +32,18 @@ extension VerifyOnMapController {
         }
     }
     
-    
-    
-//    var field: UITextField?
-    
+
     func pushOrPost(){
         guard let delegate = delegate else {
             print("Delegate is UNDEFINED!!.  No pointer back to VerifyOnMapController")
             return
         }
-        let mapString = delegate.getMapString()
-        let mediaURL = delegate.getURLString()
-        let location = delegate.getLoction()
-        let coord = location.coordinate
+
+         mapString = delegate.getMapString()
+         mediaURL = delegate.getURLString()
+         location = delegate.getLoction()
+         coord = location.coordinate
+        
         
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
@@ -66,8 +63,6 @@ extension VerifyOnMapController {
             myAlerController.addAction(UIAlertAction(title: "Save", style: .default, handler: yesHandler))
             myAlerController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(myAlerController, animated: true)
-            
-//            ParseClient.postStudentLocation(mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
             
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults

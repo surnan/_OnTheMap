@@ -32,10 +32,10 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var locationTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.clearsOnBeginEditing = true
+//        textField.clearsOnBeginEditing = true
         textField.clearButtonMode = .whileEditing
         textField.defaultTextAttributes = black25textAttributes
-        textField.attributedText = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
+        textField.attributedPlaceholder = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
     }()
@@ -43,7 +43,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var urlTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.clearsOnBeginEditing = true
+//        textField.clearsOnBeginEditing = true
+        textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSAttributedString(string: "Enter a Website", attributes: grey25textAttributes)
@@ -70,10 +71,23 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         return imageView
     }()
     
+    
+    
+    func setupNavigationPane(){
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        navigationItem.title = "Add Location"
+    }
+    
+    @objc func handleCancel(){
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
         urlTextField.delegate = self
         locationTextField.delegate = self
+        
+        setupNavigationPane()
         
         let stackView: UIStackView = {
             let stack = UIStackView()

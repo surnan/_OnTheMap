@@ -17,12 +17,18 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     var delegate: AddLocationControllerDelegate?
     var mapView = MKMapView()
     
+    var mapString = ""
+    var mediaURL = ""
+    var location = CLLocation()
+    var coord = CLLocationCoordinate2D()
+    
+    
     let finishButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightSteelBlue1
+        button.backgroundColor = UIColor.steelBlue
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
-        button.setAttributedTitle(NSAttributedString(string: "  FINISH  ", attributes: steelBlue4_25), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "  FINISH  ", attributes: white25textAttributes), for: .normal)
         button.addTarget(self, action: #selector(handleFinish), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -33,7 +39,10 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         button.backgroundColor = UIColor.lightSteelBlue1
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.setAttributedTitle(NSAttributedString(string: "  Delete PLIST  ", attributes: orange_25), for: .normal)
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.black.cgColor
+        button.isHidden = true
+        button.setAttributedTitle(NSAttributedString(string: "Add Entry.  No Overwrite ", attributes: orange_25), for: .normal)
         button.addTarget(self, action: #selector(handledDeletePLIST), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -42,6 +51,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         mapView.delegate = self
+        navigationItem.title = "Add Location"
         [mapView, finishButton, deletePLISTButton].forEach{view.addSubview($0)}
         mapView.fillSuperview()
         finishButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: mapView.bottomAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
@@ -56,5 +66,6 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         } else {
             print("Unable to obtain coordinate from delegate")
         }
+//        deletePLISTButton.isHidden = false
     }
 }

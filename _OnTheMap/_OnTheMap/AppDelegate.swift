@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)  //For FaceBook
         window = UIWindow()
         window?.makeKeyAndVisible()
-//         window?.rootViewController =  UINavigationController(rootViewController: MainTabBarController())
         window?.rootViewController = UINavigationController(rootViewController: LoginController())
         return true
     }

@@ -20,16 +20,7 @@ extension LoginController{
         greyShadeSuperView.fillSuperview()
         myActivityMonitor.centerToSuperView()
         myActivityMonitor.startAnimating()
-        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { (err) in
-            if err == nil {
-                self.myActivityMonitor.stopAnimating()
-                self.navigationController?.pushViewController(MainTabBarController(), animated: false)
-            } else {
-                let alertController = UIAlertController(title: "Login Error", message: "Invalid combination for name and password", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertController, animated: true)
-            }
-        }
+        navigationController?.pushViewController(MainTabBarController(), animated: false)
     }
     
     @objc func handleLoginButton(_ sender: UIButton){

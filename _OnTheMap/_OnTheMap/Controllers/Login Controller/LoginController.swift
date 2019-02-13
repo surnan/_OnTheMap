@@ -134,6 +134,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         view.backgroundColor = UIColor.white
         temp.delegate = self
         setupUI()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
     }
     
     override func viewDidAppear(_ animated: Bool) {
