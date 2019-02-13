@@ -105,8 +105,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     //MARK:- CODE STARTS HERE
     private func setupUI(){
-        emailTextField.text = shazam
-        passwordTextField.text = openSesame
         [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, myFacebookButton].forEach{loginStack.addArrangedSubview($0)}
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
