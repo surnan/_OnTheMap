@@ -10,17 +10,32 @@ import UIKit
 import FacebookCore
 import FBSDKLoginKit
 
-class LoginController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.clearsOnBeginEditing = true
+        textField.clearButtonMode = .whileEditing
         textField.defaultTextAttributes = grey25textAttributes
-        textField.attributedText = NSMutableAttributedString(string: "Email", attributes: grey25textAttributes)
+        textField.attributedPlaceholder = NSMutableAttributedString(string: "Email", attributes: grey25textAttributes)
         //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border.
         //But doesn't work with borderStyle = .roundedRect.  Rectangle Border shifts with text
         textField.layer.cornerRadius = cornerRadiusSize
+        textField.clipsToBounds = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
+        return textField
+    }()
+    
+    lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.borderStyle = .roundedRect
+        textField.clearsOnBeginEditing = true
+        textField.defaultTextAttributes = grey25textAttributes
+        textField.attributedPlaceholder = NSMutableAttributedString(string: "Password", attributes: grey25textAttributes)
+        textField.isSecureTextEntry = true
+        textField.layer.cornerRadius = cornerRadiusSize
+        textField.clearButtonMode = .whileEditing
         textField.clipsToBounds = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
@@ -69,19 +84,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return activity
     }()
     
-    lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.clearsOnBeginEditing = true
-        textField.defaultTextAttributes = grey25textAttributes
-        textField.attributedText = NSMutableAttributedString(string: "Password", attributes: grey25textAttributes)
-        textField.isSecureTextEntry = true
-        textField.layer.cornerRadius = cornerRadiusSize
-        textField.clipsToBounds = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
-        return textField
-    }()
     
     private lazy var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
         var button = UIButton()
@@ -132,6 +134,10 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         setupUI()
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -145,4 +151,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         myActivityMonitor.stopAnimating()
         navigationController?.navigationBar.isHidden = false
     }
+    
+
 }
