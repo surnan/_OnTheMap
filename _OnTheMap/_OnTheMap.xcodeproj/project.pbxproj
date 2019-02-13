@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		66621B1B6A0B6C9C47A3D2D8 /* Pods__OnTheMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2D5232DCA28D5BB23BF32B /* Pods__OnTheMap.framework */; };
 		840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */; };
-		840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */; };
+		840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD922128DEA00929BE5 /* NSUserDefaultsKey.swift */; };
 		840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */; };
 		840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDD2212994F00929BE5 /* UNSYNC.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
@@ -22,7 +22,7 @@
 		844DFEC62204F42800742437 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DFEC52204F42800742437 /* AppDelegate.swift */; };
 		844DFECD2204F42900742437 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844DFECC2204F42900742437 /* Assets.xcassets */; };
 		844DFED02204F42900742437 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844DFECE2204F42900742437 /* LaunchScreen.storyboard */; };
-		845BA4512207807500F6D80E /* AnnotationTableController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BA4502207807500F6D80E /* AnnotationTableController+TableView.swift */; };
+		845BA4512207807500F6D80E /* Annotation+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845BA4502207807500F6D80E /* Annotation+TableView.swift */; };
 		8489285C2204F78A00BF9BF6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489285A2204F78A00BF9BF6 /* LoginController.swift */; };
 		8489285D2204F78A00BF9BF6 /* Loginr+Button+Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489285B2204F78A00BF9BF6 /* Loginr+Button+Facebook.swift */; };
 		8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489285E2204F79600BF9BF6 /* MainTabBarController.swift */; };
@@ -40,14 +40,14 @@
 		848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D448622062C6000BF3EF9 /* MapController+MapKit.swift */; };
 		849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */; };
 		849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEAA1220FAF4E009B0E91 /* PutRequest.swift */; };
-		84F272AD2212ADA8000F9542 /* AddLocationConttroller+Handle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272AC2212ADA8000F9542 /* AddLocationConttroller+Handle.swift */; };
+		84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272AC2212ADA8000F9542 /* AddLocation+Handle.swift */; };
 		84F272B32212B8C1000F9542 /* VerifyOnMap+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272B22212B8C1000F9542 /* VerifyOnMap+Handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5CAB8239B5D2C3EF1B672DC5 /* Pods-_OnTheMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-_OnTheMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-_OnTheMap/Pods-_OnTheMap.release.xcconfig"; sourceTree = "<group>"; };
 		840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringKeys.swift; sourceTree = "<group>"; };
-		840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
+		840D5DD922128DEA00929BE5 /* NSUserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsKey.swift; sourceTree = "<group>"; };
 		840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorSingleton.swift; sourceTree = "<group>"; };
 		840D5DDD2212994F00929BE5 /* UNSYNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNSYNC.swift; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		844DFECC2204F42900742437 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		844DFECF2204F42900742437 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844DFED12204F42900742437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		845BA4502207807500F6D80E /* AnnotationTableController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnnotationTableController+TableView.swift"; sourceTree = "<group>"; };
+		845BA4502207807500F6D80E /* Annotation+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Annotation+TableView.swift"; sourceTree = "<group>"; };
 		8489285A2204F78A00BF9BF6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		8489285B2204F78A00BF9BF6 /* Loginr+Button+Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Loginr+Button+Facebook.swift"; sourceTree = "<group>"; };
 		8489285E2204F79600BF9BF6 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		848D448622062C6000BF3EF9 /* MapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapController+MapKit.swift"; sourceTree = "<group>"; };
 		849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationCell.swift; sourceTree = "<group>"; };
 		849DEAA1220FAF4E009B0E91 /* PutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutRequest.swift; sourceTree = "<group>"; };
-		84F272AC2212ADA8000F9542 /* AddLocationConttroller+Handle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocationConttroller+Handle.swift"; sourceTree = "<group>"; };
+		84F272AC2212ADA8000F9542 /* AddLocation+Handle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocation+Handle.swift"; sourceTree = "<group>"; };
 		84F272B22212B8C1000F9542 /* VerifyOnMap+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VerifyOnMap+Handlers.swift"; sourceTree = "<group>"; };
 		9403CF63766314290E9E8C66 /* Pods-_OnTheMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-_OnTheMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-_OnTheMap/Pods-_OnTheMap.debug.xcconfig"; sourceTree = "<group>"; };
 		BC2D5232DCA28D5BB23BF32B /* Pods__OnTheMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods__OnTheMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				8439D010220CB6F20057CE6E /* Stringr+Extensions.swift */,
-				840D5DD922128DEA00929BE5 /* NSUserDefaults.swift */,
+				840D5DD922128DEA00929BE5 /* NSUserDefaultsKey.swift */,
 			);
 			path = "Helper+Extensions";
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				848D44782204FD7300BF3EF9 /* AnnotationTableController.swift */,
-				845BA4502207807500F6D80E /* AnnotationTableController+TableView.swift */,
+				845BA4502207807500F6D80E /* Annotation+TableView.swift */,
 				849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */,
 			);
 			path = "AnnotationTable Controller";
@@ -247,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				842AE06D2210F52000A87358 /* AddLocationController.swift */,
-				84F272AC2212ADA8000F9542 /* AddLocationConttroller+Handle.swift */,
+				84F272AC2212ADA8000F9542 /* AddLocation+Handle.swift */,
 			);
 			path = "AddLocation Controller";
 			sourceTree = "<group>";
@@ -416,11 +416,11 @@
 			files = (
 				849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */,
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
-				84F272AD2212ADA8000F9542 /* AddLocationConttroller+Handle.swift in Sources */,
+				84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */,
 				844DFEC62204F42800742437 /* AppDelegate.swift in Sources */,
 				8489285C2204F78A00BF9BF6 /* LoginController.swift in Sources */,
 				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
-				840D5DDA22128DEA00929BE5 /* NSUserDefaults.swift in Sources */,
+				840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */,
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
 				840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
@@ -430,7 +430,7 @@
 				842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,
 				840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */,
-				845BA4512207807500F6D80E /* AnnotationTableController+TableView.swift in Sources */,
+				845BA4512207807500F6D80E /* Annotation+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* UdacityRequest.swift in Sources */,
 				842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */,

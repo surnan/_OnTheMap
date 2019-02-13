@@ -29,7 +29,7 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     }
     
 
-    var myActivityMonitor: UIActivityIndicatorView = {
+    private var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
         activity.style = .whiteLarge

@@ -13,7 +13,7 @@ extension VerifyOnMapController {
         pushOrPost()
     }
     
-    func getFirstLastNames(potentialName: String?){
+    private func getFirstLastNames(potentialName: String?){
         guard let testString = potentialName else {return}
         
         if let index = testString.firstIndex(of: " ") {
@@ -24,8 +24,7 @@ extension VerifyOnMapController {
             print("good news. Name = \(firstName)  \(lastName)")
             ParseClient.postStudentLocation(firstname: String(firstName), lastName: String(lastName), mapString: mapString, mediaURL: mediaURL, latitude: coord.latitude, longitude: coord.longitude, completion: handlePostStudentLocation(item:error:))
         } else {
-            print("Bad news.  Not a valid name")
-            
+            print("User ented invalid String without space.  Not a valid name")
             let anotherAlertController = UIAlertController(title: "Invalid Name Entry", message: "At least one space is needed to differentiate first and last names", preferredStyle: .alert)
             anotherAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(anotherAlertController, animated: true)
@@ -33,7 +32,7 @@ extension VerifyOnMapController {
     }
     
 
-    func pushOrPost(){
+    private func pushOrPost(){
         guard let delegate = delegate else {
             print("Delegate is UNDEFINED!!.  No pointer back to VerifyOnMapController")
             return
@@ -44,16 +43,15 @@ extension VerifyOnMapController {
          location = delegate.getLoction()
          coord = location.coordinate
         
-        
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID == nil {
             
             let myAlerController = UIAlertController(title: "New Student Location", message: "Please enter full name for new student location.  First space will be used to separate first and last names", preferredStyle: .alert)
-            myAlerController.addTextField { (input) in
+            myAlerController.addTextField { [weak self](input) in
                 input.placeholder = "Please Enter Full Name"
                 input.clearButtonMode = UITextField.ViewMode.whileEditing
-                self.field = input
-                print("field = \(self.field?.text ?? "")  && input = \(input.text ?? "")"  )
+                self?.field = input
+                print("field = \(self?.field?.text ?? "")  && input = \(input.text ?? "")"  )
             }
             
             func yesHandler(actionTarget: UIAlertAction){
@@ -77,11 +75,11 @@ extension VerifyOnMapController {
                                               mediaURL: mediaURL,
                                               latitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude)
-            ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { (_, _) in
+            ParseClient.changingStudentLocation(objectID: (object.objectId), encodable: putRequestObject) { [weak self](_, _) in
                 
-                let  vc =  self.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
-                //        let  vc =  self.navigationController?.viewControllers[1]
-                self.navigationController?.popToViewController(vc!, animated: true)
+                let  vc =  self?.navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
+                //        let  vc =  self?.navigationController?.viewControllers[1]
+                self?.navigationController?.popToViewController(vc!, animated: true)
             }
         }
     }
@@ -101,7 +99,7 @@ extension VerifyOnMapController {
     
     
     @objc func handledDeletePLIST(){
-        print("handleDelete -- run")
+        print("handleDelete was run.  NSUserDefaults object deleted")
         UserDefaults.standard.removeObject(forKey: key)
     }
 }

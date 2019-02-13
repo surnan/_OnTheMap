@@ -17,16 +17,16 @@ extension AddLocationController {
         guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
         mediaURL = temp
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(locationTextField.text ?? "") { [unowned self] (clplacement, error) in
+        geoCoder.geocodeAddressString(locationTextField.text ?? "") { [weak self] (clplacement, error) in
             guard let placemarks = clplacement, let location = placemarks.first?.location else {
                 print("UNABLE to convert to CLL Coordinates")
                 return
             }
-            self.globalLocation = location
+            self?.globalLocation = location
             DispatchQueue.main.async {
                 let newVC = VerifyOnMapController()
                 newVC.delegate = self
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self?.navigationController?.pushViewController(newVC, animated: true)
             }
         }
     }

@@ -9,7 +9,7 @@
 import Foundation
 
 class UdacityClient {
-    struct UserInfo {
+    private struct UserInfo {
         static var username = ""
         static var password = ""
         static var accountRegistered = false
@@ -18,7 +18,7 @@ class UdacityClient {
         static var sessionExpiration = ""
     }
     
-    enum Endpoints {
+    private enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         case postingSession
         case deletingSession
@@ -62,11 +62,12 @@ class UdacityClient {
         return
     }
     
+    //Used by  class func setupFromAnnotationController(mapString: String, mediaURL: String, location: CLLocation){
     class func getAccountKey()-> String {
         return UserInfo.accountKey
     }
     
-    class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
+    private class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
         var request = URLRequest(url: Endpoints.postingSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")

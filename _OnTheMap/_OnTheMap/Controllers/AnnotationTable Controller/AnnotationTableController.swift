@@ -43,7 +43,7 @@ class AnnotationTableController:UITableViewController, AnnotationTableController
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate = self
     }
     
-    var myActivityMonitor: UIActivityIndicatorView = {
+    private var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
         activity.style = .gray

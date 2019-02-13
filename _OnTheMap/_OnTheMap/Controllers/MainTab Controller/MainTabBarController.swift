@@ -16,7 +16,7 @@ import FBSDKLoginKit
 
 class MainTabBarController: UITabBarController{
 
-    var myActivityMonitor: UIActivityIndicatorView = {
+    private var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
         activity.style = .whiteLarge
@@ -24,14 +24,14 @@ class MainTabBarController: UITabBarController{
         return activity
     }()
     
-    var coverView: UIView = {
+    private var coverView: UIView = {
         var myView = UIView()
         myView.backgroundColor = UIColor.grey125Half
         myView.translatesAutoresizingMaskIntoConstraints = false
         return myView
     }()
     
-    func setupTempMapView(){
+    private func setupTempMapView(){
         coverView.insertSubview(myActivityMonitor, at: 0)
         view.addSubview(coverView)
         NSLayoutConstraint.activate([
@@ -45,9 +45,9 @@ class MainTabBarController: UITabBarController{
         myActivityMonitor.startAnimating()
     }
 
-    var currentSearchTask: URLSessionTask?
+    private var currentSearchTask: URLSessionTask?
     
-    var mapView: MKMapView = {
+    private var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
@@ -84,7 +84,7 @@ class MainTabBarController: UITabBarController{
     }
     
     
-    func setupBottomToolBar(){
+    private func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
         let mapController = MapController()
@@ -95,7 +95,7 @@ class MainTabBarController: UITabBarController{
         self.viewControllers = controllers
     }
     
-    func setupTopToolBar(){
+    private func setupTopToolBar(){
         navigationItem.title = "On The Map"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LOGOUT", style: .done, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: .done, target: self, action: #selector(handleAddBarButton)),
@@ -103,7 +103,7 @@ class MainTabBarController: UITabBarController{
         ]
     }
     
-    @objc func handleLogout(){
+    @objc private func handleLogout(){
         UdacityClient.logout {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
@@ -111,13 +111,13 @@ class MainTabBarController: UITabBarController{
         }
     }
     
-    @objc func handleAddBarButton(){
+    @objc private func handleAddBarButton(){
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID != nil {
             let myAlertController = UIAlertController(title: "Confrmation Needed", message: "User Location has already been posted. Do you wish to overwrite?", preferredStyle: .alert)
-            myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {_ in
+            myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {[weak self] _ in
                 let newVC = AddLocationController()
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self?.navigationController?.pushViewController(newVC, animated: true)
             }))
             myAlertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             present(myAlertController, animated: true)
@@ -127,18 +127,18 @@ class MainTabBarController: UITabBarController{
         }
     }
     
-    @objc func handleRefreshBarButton(){
+    @objc private func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")
         }
-        currentSearchTask = ParseClient.getStudents { (data, err) in
+        currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
             if err == nil{
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
-                self.setupBottomToolBar() //let mapController = MapController()
+                self?.setupBottomToolBar() //let mapController = MapController()
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
             } else {

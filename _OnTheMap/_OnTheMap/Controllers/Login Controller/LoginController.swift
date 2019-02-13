@@ -27,7 +27,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return textField
     }()
     
-    var loginStack: UIStackView = {
+    private var loginStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 8
@@ -35,7 +35,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return stack
     }()
     
-    var logoImage: UIImageView = {
+    private var logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "logo-u")
         imageView.tintColor = UIColor.white
@@ -44,7 +44,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return imageView
     }()
     
-    var loginLabel: UILabel = {
+    private var loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Login To Udacity"
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -83,7 +83,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return textField
     }()
     
-    lazy var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
+    private lazy var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
         var button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
@@ -95,7 +95,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return button
     }()
     
-    let myFacebookButton: FacebookButton = {
+    private let myFacebookButton: FacebookButton = {
        let button = FacebookButton()
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
@@ -128,6 +128,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+        //line below prevents us from showing unnecessary bar button item until Tab Controller fully loads
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .done, target: self, action: nil)
         myFacebookButton.delegate = self
         setupUI()
         let loginManager = FBSDKLoginManager()

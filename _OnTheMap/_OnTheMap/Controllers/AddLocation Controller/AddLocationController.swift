@@ -50,7 +50,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         return textField
     }()
     
-    lazy var findLocationButton: UIButton = {
+    private lazy var findLocationButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("FIND LOCATION", for: .normal)
@@ -62,7 +62,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         return button
     }()
     
-    let locationImageView: UIImageView = {
+    private let locationImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "icon_world"))
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,12 +71,12 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     
     
     
-    func setupNavigationPane(){
+    private func setupNavigationPane(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.title = "Add Location"
     }
     
-    @objc func handleCancel(){
+    @objc private func handleCancel(){
         navigationController?.popViewController(animated: true)
     }
     

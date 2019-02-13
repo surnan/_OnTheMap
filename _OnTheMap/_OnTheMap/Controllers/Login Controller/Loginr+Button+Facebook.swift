@@ -15,7 +15,7 @@ import FBSDKLoginKit
 extension LoginController{
     
     //MARK:- Actions
-    fileprivate func preparingToLoadMainTabController() {
+    private func preparingToLoadMainTabController() {
         [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
         greyShadeSuperView.fillSuperview()
         myActivityMonitor.centerToSuperView()
@@ -46,7 +46,6 @@ extension LoginController{
 }
 
 let standardButtonHeight: CGFloat = customUIHeightSize
-
 class FacebookButton: FBSDKLoginButton {
     override func updateConstraints() {
         // deactivate height constraints added by the facebook sdk (we'll force our own instrinsic height)

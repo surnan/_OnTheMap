@@ -15,7 +15,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     var field: UITextField?
     
     var delegate: AddLocationControllerDelegate?
-    var mapView = MKMapView()
+    private var mapView = MKMapView()
     
     var mapString = ""
     var mediaURL = ""
@@ -23,7 +23,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     var coord = CLLocationCoordinate2D()
     
     
-    let finishButton: UIButton = {
+    private let finishButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.layer.cornerRadius = cornerRadiusSize
@@ -34,7 +34,7 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         return button
     }()
     
-    let deletePLISTButton: UIButton = {
+    private let deleteNSUserDefaultsButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightSteelBlue1
         button.layer.cornerRadius = 10
@@ -52,10 +52,10 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         mapView.delegate = self
         navigationItem.title = "Add Location"
-        [mapView, finishButton, deletePLISTButton].forEach{view.addSubview($0)}
+        [mapView, finishButton, deleteNSUserDefaultsButton].forEach{view.addSubview($0)}
         mapView.fillSuperview()
         finishButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: mapView.bottomAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
-        deletePLISTButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: finishButton.topAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
+        deleteNSUserDefaultsButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: finishButton.topAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
         
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getLoction().coordinate {

@@ -51,7 +51,6 @@ extension UIView {
     func centerToSuperView(){
         translatesAutoresizingMaskIntoConstraints = false
         guard let centerX = superview?.centerXAnchor, let centerY = superview?.centerYAnchor else {return}
-        
         centerXAnchor.constraint(equalTo: centerX).isActive = true
         centerYAnchor.constraint(equalTo: centerY).isActive = true
     }

@@ -17,7 +17,7 @@ extension MapController {
         self.mapView.addAnnotations(annotations)  //There's a singular & plural for 'addAnnotation'.  OMG
     }
     
-    func convertLocationsToAnnotations(){
+    private func convertLocationsToAnnotations(){
         for dictionary in locations {
             let latitude = CLLocationDegrees(dictionary[locationsIndex.latitude.rawValue] as! Double)
             let longitude = CLLocationDegrees(dictionary[locationsIndex.longitude.rawValue] as! Double)
@@ -35,7 +35,7 @@ extension MapController {
         }
     }
     
-    func loadLocationsArray(){
+    private func loadLocationsArray(){
         Students.validLocations.forEach {
             let tempAnnotation: [String:Any] = [
                 locationsIndex.objectId.rawValue: $0.objectId,
