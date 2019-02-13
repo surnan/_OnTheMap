@@ -87,8 +87,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         var button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
-         button.layer.cornerRadius = cornerRadiusSize //5
-//          button.layer.cornerRadius = 3
+        button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,10 +95,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         return button
     }()
     
-//    let temp = FacebookButton() //Override Class
-    
-    
-    let temp: FacebookButton = {
+    let myFacebookButton: FacebookButton = {
        let button = FacebookButton()
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
@@ -111,7 +107,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     private func setupUI(){
         emailTextField.text = shazam
         passwordTextField.text = openSesame
-        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, temp].forEach{loginStack.addArrangedSubview($0)}
+        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, myFacebookButton].forEach{loginStack.addArrangedSubview($0)}
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
@@ -132,7 +128,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        temp.delegate = self
+        myFacebookButton.delegate = self
         setupUI()
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()

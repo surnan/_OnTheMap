@@ -12,42 +12,6 @@ class Students {
     static var allStudentLocations = [PostedStudentInfoResponse]()
     static var validLocations = [VerifiedPostedStudentInfoResponse]()
     
-    
-   /*
-    class func loadValidLocations(){
-        
-        
-        //        let nonNilArray = self.allStudentLocations.filter{
-        //            guard $0.firstName != nil,
-        //                $0.lastName != nil,
-        //                $0.objectId != nil,
-        //                $0.uniqueKey != nil,
-        //                $0.mapString != nil,
-        //                $0.mediaURL != nil,
-        //                $0.latitude != nil,
-        //                $0.longitude != nil,
-        //                $0.createdAt != nil,
-        //                $0.updatedAt != nil      else {return false}
-        //            return true
-        //        }
-        
-        validLocations = self.allStudentLocations.map{
-            VerifiedPostedStudentInfoResponse(objectId: $0.objectId ?? "",
-                                              uniqueKey: $0.uniqueKey ?? "",
-                                              firstName: $0.firstName ?? "",
-                                              lastName: $0.lastName ?? "",
-                                              mapString: $0.mapString ?? "",
-                                              mediaURL: $0.mediaURL ?? "",
-                                              latitude: $0.latitude ?? 0.0,
-                                              longitude: $0.longitude ?? 0.0,
-                                              createdAt: $0.createdAt ?? "",
-                                              updatedAt: $0.updatedAt ?? "")
-        }
-    }
-}
-*/
-
-
     class func loadValidLocations(){
         let nonNilArray = self.allStudentLocations.filter{
             guard $0.firstName != nil,

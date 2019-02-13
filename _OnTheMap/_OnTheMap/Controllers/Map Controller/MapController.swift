@@ -52,10 +52,8 @@ class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
         case updatedAt
     }
     
-    
     var annotations = [MKPointAnnotation]()
     var mapView = MKMapView()
-    
     
     //MARK:- Swift VC Functions
     override func viewDidLoad() {

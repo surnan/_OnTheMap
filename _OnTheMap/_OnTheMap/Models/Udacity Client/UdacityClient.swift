@@ -38,7 +38,6 @@ class UdacityClient {
     }
     
     
-//    class func logout(){
     class func logout(completion: @escaping ()-> Void){
         var request = URLRequest(url: Endpoints.deletingSession.url)
         request.httpMethod = "DELETE"
@@ -50,8 +49,6 @@ class UdacityClient {
         if let xsrfCookie = xsrfCookie {
             request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
         }
-        
-        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil { // Handle error…
                 return
@@ -63,33 +60,18 @@ class UdacityClient {
         print("Logged out")
         completion()
         return
-        
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { data, response, error in
-//            if error != nil { // Handle error…
-//                return
-//            }
-//            let range = (5..<data!.count)
-//            let newData = data?.subdata(in: range) /* subset response data! */
-//            print(String(data: newData!, encoding: .utf8)!)
-//        }
-//        task.resume()
-        
-        
     }
     
     class func getAccountKey()-> String {
         return UserInfo.accountKey
     }
     
-    class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type,
-                                                                      completion: @escaping (Decoder?, Error?)-> Void){
+    class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
         var request = URLRequest(url: Endpoints.postingSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(encodable)
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 DispatchQueue.main.async {
@@ -97,17 +79,14 @@ class UdacityClient {
                 }
                 return
             }
-            
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(nil, error)
                 }
                 return
             }
-            
             let range = (5..<data.count)
             let newData = data.subdata(in: range)
-            
             do {
                 let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
                 DispatchQueue.main.async {

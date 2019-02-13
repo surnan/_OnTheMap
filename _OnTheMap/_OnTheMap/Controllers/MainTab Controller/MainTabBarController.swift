@@ -61,7 +61,6 @@ class MainTabBarController: UITabBarController{
 //        myActivityMonitor.centerToSuperView()
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
-        
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")
@@ -105,17 +104,11 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleLogout(){
-//        UdacityClient.logout()
-
         UdacityClient.logout {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
+            self.navigationController?.popViewController(animated: true)
         }
-        
-        
-        
-        
-        navigationController?.popViewController(animated: true)
     }
     
     @objc func handleAddBarButton(){
@@ -137,7 +130,6 @@ class MainTabBarController: UITabBarController{
     @objc func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
-        
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")

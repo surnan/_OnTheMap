@@ -88,24 +88,16 @@ class ParseClient {
                                                              mediaURL: mediaURL,
                                                              latitude: latitude,
                                                              longitude: longitude)
-        //                                                             firstName: "Lawrence",
-        //                                                             lastName: "Simmons",
-        
         taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
             if let err = error {
                 completion(nil, err)
                 return
             }
-            
-            
             guard let data = data else {
                 print("Data returned from taskForPostRequest is nil and returned error was also nil")
                 completion(nil, error)
                 return
             }
-            
-            print("data.createdAt = \(data.createdAt)")
-            print("data.objectId = \(data.objectId)")
             completion(data, nil)
             return
         }
@@ -118,7 +110,6 @@ class ParseClient {
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         do {
             let body =  try JSONEncoder().encode(body)
             request.httpBody =   body
@@ -129,8 +120,6 @@ class ParseClient {
             }
             return
         }
-        
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 DispatchQueue.main.async {
@@ -138,7 +127,6 @@ class ParseClient {
                 }
                 return
             }
-            
             do {
                 let dataObject = try JSONDecoder().decode(decodeType, from: data)
                 DispatchQueue.main.async {
@@ -158,7 +146,6 @@ class ParseClient {
     
     class func changingStudentLocation(objectID: String, encodable: PutRequest, completion: @escaping (Bool, Error?)->Void){
         let url = Endpoints.changeStudentLocation(objectID).url
-        
         taskForPutStudentLocation(url: url, encodable: encodable) { (success, err) in
             if success {
                 DispatchQueue.main.async {
@@ -180,14 +167,12 @@ class ParseClient {
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         do {
             let body = try JSONEncoder().encode(encodable)
             request.httpBody = body
         } catch {
             print("unable to encode")
         }
-        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error == nil {
                 DispatchQueue.main.async {

@@ -15,6 +15,8 @@ protocol AnnotationTableControllerDelegate {
 }
 
 class AnnotationTableController:UITableViewController, AnnotationTableControllerDelegate{
+    var locations = [VerifiedPostedStudentInfoResponse]()
+    let listReuseID = "asdfasdfasdfasdf"
     
     let greyShadeSuperView: UIView = {
         let _view = UIView()
@@ -47,10 +49,7 @@ class AnnotationTableController:UITableViewController, AnnotationTableController
         activity.style = .gray
         return activity
     }()
-    
-    var locations = [VerifiedPostedStudentInfoResponse]()
-    let listReuseID = "asdfasdfasdfasdf"
-    
+   
     func loadLocationsArray(){
         locations = Students.validLocations
     }

@@ -32,7 +32,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var locationTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-//        textField.clearsOnBeginEditing = true
         textField.clearButtonMode = .whileEditing
         textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
@@ -43,7 +42,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     lazy var urlTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-//        textField.clearsOnBeginEditing = true
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.defaultTextAttributes = black25textAttributes
@@ -86,9 +84,7 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         view.backgroundColor = UIColor.white
         urlTextField.delegate = self
         locationTextField.delegate = self
-        
         setupNavigationPane()
-        
         let stackView: UIStackView = {
             let stack = UIStackView()
             stack.axis = .vertical
@@ -98,10 +94,8 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             stack.translatesAutoresizingMaskIntoConstraints = false
             return stack
         }()
-        
         [locationTextField, urlTextField, findLocationButton].forEach{stackView.addArrangedSubview($0)}
         [stackView, locationImageView].forEach{view.addSubview($0)}
-        
         NSLayoutConstraint.activate([
             locationImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             locationImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
