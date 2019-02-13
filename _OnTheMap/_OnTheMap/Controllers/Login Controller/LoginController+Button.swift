@@ -63,8 +63,8 @@ extension LoginController{
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        UdacityClient.logout()
-//        navigationController?.popViewController(animated: true)
+        UdacityClient.logout {}
+        navigationController?.popToRootViewController(animated: true)
     }
     
     

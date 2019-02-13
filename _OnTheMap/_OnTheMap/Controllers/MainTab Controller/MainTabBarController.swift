@@ -82,27 +82,8 @@ class MainTabBarController: UITabBarController{
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
         }
-        
-        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        view.backgroundColor = .white
-//        self.setupBottomToolBar()                   //Make toolbar visible before network call
-//        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
-//        ParseClient.getStudents { (data, err) in
-//            if err == nil{
-//                Students.allStudentLocations = data
-//                Students.loadValidLocations()
-//                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-//                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-//                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-//            } else {
-//                print("ParseClient not returning expected results\n  \(String(describing: err))")
-//            }
-//        }
-    }
     
     func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
@@ -124,10 +105,14 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc func handleLogout(){
-        UdacityClient.logout()
+//        UdacityClient.logout()
+
+        UdacityClient.logout {
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+        }
         
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
+        
         
         
         navigationController?.popViewController(animated: true)

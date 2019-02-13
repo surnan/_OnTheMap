@@ -38,7 +38,8 @@ class UdacityClient {
     }
     
     
-    class func logout(){
+//    class func logout(){
+    class func logout(completion: @escaping ()-> Void){
         var request = URLRequest(url: Endpoints.deletingSession.url)
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -49,17 +50,31 @@ class UdacityClient {
         if let xsrfCookie = xsrfCookie {
             request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
         }
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
+        
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil { // Handle error…
                 return
             }
             let range = (5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(String(data: newData!, encoding: .utf8)!)
-        }
-        task.resume()
+        }.resume()
         print("Logged out")
+        completion()
+        return
+        
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { data, response, error in
+//            if error != nil { // Handle error…
+//                return
+//            }
+//            let range = (5..<data!.count)
+//            let newData = data?.subdata(in: range) /* subset response data! */
+//            print(String(data: newData!, encoding: .utf8)!)
+//        }
+//        task.resume()
+        
         
     }
     
