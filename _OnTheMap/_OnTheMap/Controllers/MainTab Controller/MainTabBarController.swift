@@ -103,6 +103,12 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc private func handleLogout(){
+        
+        
+        FBSDKAccessToken.setCurrent(nil)
+        FBSDKProfile.setCurrent(nil)
+        FBSDKLoginManager().logOut()
+        
         UdacityClient.logout {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()

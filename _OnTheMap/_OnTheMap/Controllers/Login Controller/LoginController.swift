@@ -11,7 +11,7 @@ import FacebookCore
 import FBSDKLoginKit
 import FacebookLogin
 
-class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate, LoginButtonDelegate {
+class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegate {
 
     
     
@@ -99,15 +99,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDe
         button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button
     }()
+
     
-    var myFacebookButton: FacebookButton = {
-       let button = FacebookButton()
-        button.layer.cornerRadius = cornerRadiusSize
-        button.clipsToBounds = true
-        return button
-    }()
-    
-    lazy var anotherFacebookButton: LoginButton = {
+    lazy var facebookLoginButton: LoginButton = {
         let button = LoginButton(readPermissions: [.publicProfile])
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
@@ -118,8 +112,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDe
     
     //MARK:- CODE STARTS HERE
     private func setupUI(){
-//        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, myFacebookButton].forEach{loginStack.addArrangedSubview($0)}
-        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, anotherFacebookButton].forEach{loginStack.addArrangedSubview($0)}
+        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{loginStack.addArrangedSubview($0)}
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
@@ -142,8 +135,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDe
         view.backgroundColor = UIColor.white
         //line below prevents us from showing unnecessary bar button item until Tab Controller fully loads
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .done, target: self, action: nil)
-        myFacebookButton.delegate = self
-        anotherFacebookButton.delegate = self
+        facebookLoginButton.delegate = self
         setupUI()
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -153,6 +145,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

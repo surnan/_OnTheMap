@@ -11,7 +11,6 @@
 		840D5DD822128CDC00929BE5 /* NSAttributedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */; };
 		840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DD922128DEA00929BE5 /* NSUserDefaultsKey.swift */; };
 		840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */; };
-		840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D5DDD2212994F00929BE5 /* UNSYNC.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06F2211410200A87358 /* VerifyOnMapController.swift */; };
 		8436E4B122146FC2002175F2 /* Login+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B022146FC2002175F2 /* Login+UITextField.swift */; };
@@ -51,7 +50,6 @@
 		840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringKeys.swift; sourceTree = "<group>"; };
 		840D5DD922128DEA00929BE5 /* NSUserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsKey.swift; sourceTree = "<group>"; };
 		840D5DDB22128EE100929BE5 /* ActivityIndicatorSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorSingleton.swift; sourceTree = "<group>"; };
-		840D5DDD2212994F00929BE5 /* UNSYNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNSYNC.swift; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		842AE06F2211410200A87358 /* VerifyOnMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOnMapController.swift; sourceTree = "<group>"; };
 		8436E4B022146FC2002175F2 /* Login+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Login+UITextField.swift"; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 				844DFED12204F42900742437 /* Info.plist */,
 				844DFEC52204F42800742437 /* AppDelegate.swift */,
 				8439D00F220CB6C00057CE6E /* Helper+Extensions */,
-				840D5DDD2212994F00929BE5 /* UNSYNC.swift */,
 			);
 			path = _OnTheMap;
 			sourceTree = "<group>";
@@ -428,7 +425,6 @@
 				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
 				840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */,
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
-				840D5DDE2212994F00929BE5 /* UNSYNC.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
 				8439D011220CB6F20057CE6E /* String and TextField +Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
