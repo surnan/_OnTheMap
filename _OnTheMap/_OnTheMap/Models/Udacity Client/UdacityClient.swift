@@ -56,7 +56,7 @@ class UdacityClient {
             let range = (5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(String(data: newData!, encoding: .utf8)!)
-        }.resume()
+            }.resume()
         print("Logged out")
         completion()
         return
@@ -67,7 +67,7 @@ class UdacityClient {
         return UserInfo.accountKey
     }
     
-    private class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, completion: @escaping (Decoder?, Error?)-> Void){
+    private class func postRequest<WillEncode: Encodable, Decoder: Decodable, UdacityErrorDecoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, udacityErrorDecoder: UdacityErrorDecoder.Type, completion: @escaping (Decoder?, UdacityErrorDecoder?, Error?)-> Void){
         var request = URLRequest(url: Endpoints.postingSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -76,13 +76,13 @@ class UdacityClient {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 DispatchQueue.main.async {
-                    completion(nil, error)
+                    completion(nil, nil, error)
                 }
                 return
             }
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(nil, error)
+                    completion(nil, nil, error)
                 }
                 return
             }
@@ -91,38 +91,72 @@ class UdacityClient {
             do {
                 let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
                 DispatchQueue.main.async {
-                    completion(dataObject, nil)
+                    completion(dataObject, nil, nil)
                 }
                 return
             } catch let decodeErr {
                 print("Unable to decode\n\(decodeErr)")
-                DispatchQueue.main.async {
-                    completion(nil, decodeErr)
+                
+                do {
+                    let udacityErrorResponseObject = try JSONDecoder().decode(udacityErrorDecoder.self, from: newData)
+                    DispatchQueue.main.async {
+                        completion(nil, udacityErrorResponseObject, nil)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(nil, nil, error)
+                    }
                 }
+                
+                
+                //                DispatchQueue.main.async {
+                //                    completion(nil, decodeErr)
+                //                }
                 return
             }
             }.resume()
     }
     
     
-    class func authenticateSession(name: String, password: String, completion: @escaping (Error?)-> Void){
+    class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void){
         let url = Endpoints.postingSession.url
         let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
-        postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self) {(data, err) in
-            if err != nil {
-                completion(err)
+        postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self, udacityErrorDecoder: UdacityErrorResponse.self) {(loginData, udacityErrData, err) in
+            
+            if let dataObject = loginData {
+                UserInfo.username = name
+                UserInfo.password = password
+                UserInfo.accountKey = dataObject.account.key
+                UserInfo.accountRegistered = dataObject.account.registered
+                UserInfo.sessionExpiration = dataObject.session.expiration
+                UserInfo.sessionId = dataObject.session.id
+                completion(nil, nil)
+                return
+            } else if let udacityErrorObject = udacityErrData {
+                completion(udacityErrorObject.error, nil)
+                return
+            } else {
+                completion(nil, err)
                 return
             }
-            guard let dataObject = data else {return}
-            UserInfo.username = name
-            UserInfo.password = password
-            UserInfo.accountRegistered = dataObject.account.registered
-            UserInfo.accountKey = dataObject.account.key
-            UserInfo.sessionId = dataObject.session.id
-            UserInfo.sessionExpiration = dataObject.session.expiration
-            completion(nil)
-            return
         }
     }
 }
+
+
+/*
+ if err != nil {
+ completion(err)
+ return
+ }
+ guard let dataObject = data else {return}
+ UserInfo.username = name
+ UserInfo.password = password
+ UserInfo.accountRegistered = dataObject.account.registered
+ UserInfo.accountKey = dataObject.account.key
+ UserInfo.sessionId = dataObject.session.id
+ UserInfo.sessionExpiration = dataObject.session.expiration
+ completion(nil)
+ return
+ */
 
