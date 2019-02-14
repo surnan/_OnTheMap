@@ -25,12 +25,32 @@ extension LoginController{
     
     @objc func handleLoginButton(_ sender: UIButton){
         if passwordTextField.text == "" || emailTextField.text == "" {
-            let alertController = UIAlertController(title: "Login Error", message: "Both fields are mandatory", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Missing Entry", message: "Both fields are needed for succesful login", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertController, animated: true)
             return
         }
-        preparingToLoadMainTabController()
+        
+        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) {[weak self] (udacityErrString, err) in
+            if let udacityErrString = udacityErrString {
+                let myAlertController = UIAlertController(title: "Login Error", message: udacityErrString, preferredStyle: .alert)
+                myAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(myAlertController, animated: true)
+            } else if let err = err{
+                let myAlertController = UIAlertController(title: "Network Timed Out", message: "Unable to connect", preferredStyle: .alert)
+                myAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(myAlertController, animated: true)
+                print("\n\n\nUNKNOWN ERROR \n\n\n\n \(String(describing: err))")
+            } else {
+                self?.preparingToLoadMainTabController()
+            }
+        }
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -54,3 +74,20 @@ extension LoginController{
         navigationController?.popToRootViewController(animated: true)
     }
 }
+
+
+
+/*
+ UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { [weak self](err) in
+ if err != nil {
+ print("\n\n")
+ print(err)
+ print("\n\n\n\n\n\n\n")
+ print(err?.localizedDescription)
+ print("\n\n")
+ } else {
+ self?.preparingToLoadMainTabController()
+ }
+ }
+
+ */
