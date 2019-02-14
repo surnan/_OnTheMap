@@ -67,13 +67,15 @@ class UdacityClient {
         return UserInfo.accountKey
     }
     
-    private class func postRequest<WillEncode: Encodable, Decoder: Decodable, UdacityErrorDecoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, udacityErrorDecoder: UdacityErrorDecoder.Type, completion: @escaping (Decoder?, UdacityErrorDecoder?, Error?)-> Void){
+    private class func postRequest<WillEncode: Encodable, Decoder: Decodable, UdacityErrorDecoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, udacityErrorDecoder: UdacityErrorDecoder.Type, completion: @escaping (Decoder?, UdacityErrorDecoder?, Error?)-> Void)->URLSessionTask{
         var request = URLRequest(url: Endpoints.postingSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(encodable)
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        request.timeoutInterval = 30
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 DispatchQueue.main.async {
                     completion(nil, nil, error)
@@ -107,21 +109,18 @@ class UdacityClient {
                         completion(nil, nil, error)
                     }
                 }
-                
-                
-                //                DispatchQueue.main.async {
-                //                    completion(nil, decodeErr)
-                //                }
                 return
             }
-            }.resume()
+            }
+            task.resume()
+        return task
     }
     
     
-    class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void){
+    class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void)->URLSessionTask{
         let url = Endpoints.postingSession.url
         let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
-        postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self, udacityErrorDecoder: UdacityErrorResponse.self) {(loginData, udacityErrData, err) in
+        let task = postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self, udacityErrorDecoder: UdacityErrorResponse.self) {(loginData, udacityErrData, err) in
             
             if let dataObject = loginData {
                 UserInfo.username = name
@@ -131,32 +130,13 @@ class UdacityClient {
                 UserInfo.sessionExpiration = dataObject.session.expiration
                 UserInfo.sessionId = dataObject.session.id
                 completion(nil, nil)
-                return
             } else if let udacityErrorObject = udacityErrData {
                 completion(udacityErrorObject.error, nil)
-                return
             } else {
                 completion(nil, err)
-                return
             }
         }
+        return task
     }
 }
-
-
-/*
- if err != nil {
- completion(err)
- return
- }
- guard let dataObject = data else {return}
- UserInfo.username = name
- UserInfo.password = password
- UserInfo.accountRegistered = dataObject.account.registered
- UserInfo.accountKey = dataObject.account.key
- UserInfo.sessionId = dataObject.session.id
- UserInfo.sessionExpiration = dataObject.session.expiration
- completion(nil)
- return
- */
 

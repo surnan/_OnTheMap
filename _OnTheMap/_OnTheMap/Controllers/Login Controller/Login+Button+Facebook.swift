@@ -24,6 +24,11 @@ extension LoginController{
     }
     
     @objc func handleLoginButton(_ sender: UIButton){
+        if task != nil {
+            print("task call cancelled")
+            return
+        }
+        
         if passwordTextField.text == "" || emailTextField.text == "" {
             let alertController = UIAlertController(title: "Missing Entry", message: "Both fields are needed for succesful login", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -31,7 +36,9 @@ extension LoginController{
             return
         }
         
-        UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) {[weak self] (udacityErrString, err) in
+        print("BEFORE UDACITYCLIENT.AUTHENTICATESESSION")
+        task = UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) {[weak self] (udacityErrString, err) in
+            print("calling UDACITYCLIENT.AUTHENTICATESESSION")
             if let udacityErrString = udacityErrString {
                 let myAlertController = UIAlertController(title: "Login Error", message: udacityErrString, preferredStyle: .alert)
                 myAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -44,13 +51,8 @@ extension LoginController{
             } else {
                 self?.preparingToLoadMainTabController()
             }
+            self?.task = nil
         }
-        
-        
-        
-        
-        
-        
     }
     
     
@@ -75,19 +77,3 @@ extension LoginController{
     }
 }
 
-
-
-/*
- UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) { [weak self](err) in
- if err != nil {
- print("\n\n")
- print(err)
- print("\n\n\n\n\n\n\n")
- print(err?.localizedDescription)
- print("\n\n")
- } else {
- self?.preparingToLoadMainTabController()
- }
- }
-
- */

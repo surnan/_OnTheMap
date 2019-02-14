@@ -13,12 +13,13 @@ import FacebookLogin
 
 class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegate {
 
-    
+    var task: URLSessionTask?
     
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
+        textField.autocapitalizationType = .none
         textField.defaultTextAttributes = grey25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Email", attributes: grey25textAttributes)
         //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border.
