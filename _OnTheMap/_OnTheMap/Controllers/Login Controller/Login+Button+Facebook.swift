@@ -16,12 +16,18 @@ extension LoginController{
     
     //MARK:- Actions
     private func preparingToLoadMainTabController() {
+        showUserNetworkRequestInAction()
+        navigationController?.pushViewController(MainTabBarController(), animated: false)
+    }
+    
+    
+    func showUserNetworkRequestInAction(){
         [greyShadeSuperView, myActivityMonitor].forEach{view.addSubview($0)}
         greyShadeSuperView.fillSuperview()
         myActivityMonitor.centerToSuperView()
         myActivityMonitor.startAnimating()
-        navigationController?.pushViewController(MainTabBarController(), animated: false)
     }
+    
     
     @objc func handleLoginButton(_ sender: UIButton){
         if task != nil {
@@ -36,6 +42,7 @@ extension LoginController{
             return
         }
         
+        showUserNetworkRequestInAction()
         print("BEFORE UDACITYCLIENT.AUTHENTICATESESSION")
         task = UdacityClient.authenticateSession(name: emailTextField.text!, password: passwordTextField.text!) {[weak self] (udacityErrString, err) in
             print("calling UDACITYCLIENT.AUTHENTICATESESSION")
@@ -50,8 +57,10 @@ extension LoginController{
                 print("\n\n\nUNKNOWN ERROR \n\n\n\n \(String(describing: err))")
             } else {
                 self?.preparingToLoadMainTabController()
+                self?.navigationController?.pushViewController(MainTabBarController() , animated: true)
             }
             self?.task = nil
+            self?.deleteVisualNetworkActivityChanges()
         }
     }
     

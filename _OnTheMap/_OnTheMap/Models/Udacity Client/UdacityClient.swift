@@ -9,6 +9,7 @@
 import Foundation
 
 class UdacityClient {
+    
     private struct UserInfo {
         static var username = ""
         static var password = ""
@@ -73,7 +74,7 @@ class UdacityClient {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(encodable)
-        request.timeoutInterval = 30
+        request.timeoutInterval = 25
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {

@@ -151,6 +151,12 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         
     }
     
+    func deleteVisualNetworkActivityChanges(){
+        greyShadeSuperView.removeFromSuperview()
+        myActivityMonitor.stopAnimating()
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         greyShadeSuperView.removeFromSuperview()
