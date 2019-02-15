@@ -31,11 +31,9 @@ extension LoginController{
                 self?.showOKAlert(title: "Login Error", message: udacityErrString)
             } else if let err = err{
                 self?.showOKAlert(title: "Network Timed Out", message: "Unable to connect")
-                self?.showFinishNetworkRequest()
                 print("\n\n\nUNKNOWN ERROR \n\n\n\n \(String(describing: err))")
             } else {
-                self?.preparingToLoadMainTabController()
-                self?.navigationController?.pushViewController(MainTabBarController() , animated: true)
+                self?.navigationController?.pushViewController(MainTabBarController() , animated: false)
             }
             self?.task = nil
             self?.showFinishNetworkRequest()

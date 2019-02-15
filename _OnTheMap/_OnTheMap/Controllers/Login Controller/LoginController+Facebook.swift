@@ -32,9 +32,11 @@ extension LoginController {
             print("cancelled")
         case .success(_,_,_):
             print("success")
-            preparingToLoadMainTabController()
+            navigationController?.pushViewController(MainTabBarController() , animated: true)
+//            present(MainTabBarController, animated: true)
         }
     }
+    
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
         print("logged out")

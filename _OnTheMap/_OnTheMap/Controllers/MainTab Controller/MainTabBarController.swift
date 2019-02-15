@@ -15,36 +15,6 @@ import FBSDKLoginKit
 
 
 class MainTabBarController: UITabBarController{
-
-    private var myActivityMonitor: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.hidesWhenStopped = true
-        activity.style = .whiteLarge
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
-    }()
-    
-    private var coverView: UIView = {
-        var myView = UIView()
-        myView.backgroundColor = UIColor.grey125Half
-        myView.translatesAutoresizingMaskIntoConstraints = false
-        return myView
-    }()
-    
-    private func setupTempMapView(){
-        coverView.insertSubview(myActivityMonitor, at: 0)
-        view.addSubview(coverView)
-        NSLayoutConstraint.activate([
-            coverView.topAnchor.constraint(equalTo: view.topAnchor),
-            coverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            coverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            coverView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            myActivityMonitor.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            myActivityMonitor.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-        myActivityMonitor.startAnimating()
-    }
-
     private var currentSearchTask: URLSessionTask?
     
     private var mapView: MKMapView = {
@@ -52,8 +22,6 @@ class MainTabBarController: UITabBarController{
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
-
-
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -64,26 +32,26 @@ class MainTabBarController: UITabBarController{
             currentSearchTask?.cancel()
             print("Cancelled search Request")
         }
-        
-        setupTempMapView()
-        currentSearchTask = ParseClient.getStudents {[weak self] (data, err) in
+        showPassThroughNetworkActivityView()
+        currentSearchTask = ParseClient.getStudents {[unowned self] (data, err) in
             if err == nil{
                 print("CURRENT SEARCH TASK RUNNING NOW")
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
-                self?.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-                self?.myActivityMonitor.stopAnimating()
-                self?.coverView.removeFromSuperview()
+                self.showFinishNetworkRequest()
             } else {
-                self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+                self.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+                self.showFinishNetworkRequest()
+                self.navigationController?.popViewController(animated: true)
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
         }
     }
     
-    
+    //MARK:- Toolbar Setup
     private func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
@@ -103,13 +71,12 @@ class MainTabBarController: UITabBarController{
         ]
     }
     
+    
+    //MARK:- Handlers
     @objc private func handleLogout(){
-        
-        
         FBSDKAccessToken.setCurrent(nil)
         FBSDKProfile.setCurrent(nil)
         FBSDKLoginManager().logOut()
-        
         UdacityClient.logout {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
@@ -120,14 +87,11 @@ class MainTabBarController: UITabBarController{
     @objc private func handleAddBarButton(){
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID != nil {
-            
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
             guard let object = object_VerifiedPostedStudentInfoResponse else {
                 print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
                 return
             }
-            
-            
             let myAlertController = UIAlertController(title: "Confirmation Needed", message: "\(object.firstName) \(object.lastName) already has a student location posted. Do you wish to overwrite?", preferredStyle: .alert)
             myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {[weak self] _ in
                 let newVC = AddLocationController()
@@ -149,16 +113,16 @@ class MainTabBarController: UITabBarController{
             print("Cancelled search Request")
         }
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
-//            if err == nil{
-//                Students.allStudentLocations = data
-//                Students.loadValidLocations()
-//                self?.setupBottomToolBar() //let mapController = MapController()
-//                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-//                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-//            } else {
-            self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+            if err == nil{
+                Students.allStudentLocations = data
+                Students.loadValidLocations()
+                self?.setupBottomToolBar() //let mapController = MapController()
+                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+            } else {
+                self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
                 print("handleRefresh unable failed ParseClient.getStudents")
-//            }
+            }
         }
     }
 }
