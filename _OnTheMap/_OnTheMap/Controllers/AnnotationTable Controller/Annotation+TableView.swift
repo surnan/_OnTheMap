@@ -19,8 +19,7 @@ extension AnnotationTableController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: listReuseID, for: indexPath) as! AnnotationCell
         let item = locations[indexPath.row]
-//        cell.titleLabel.text =  "\(item.firstName) \(item.lastName) ..... \(item.objectId)"
-        cell.titleLabel.text =  "\(item.firstName) \(item.lastName)"
+        cell.titleLabel.text =  "\(item.firstName) \(item.lastName) ..... \(item.uniqueKey)"
         cell.messageLabel.text = item.mediaURL
         return cell
     }

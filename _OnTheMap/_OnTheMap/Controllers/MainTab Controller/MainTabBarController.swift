@@ -17,6 +17,8 @@ import FBSDKLoginKit
 class MainTabBarController: UITabBarController{
     private var currentSearchTask: URLSessionTask?
     
+    var currentObject:  VerifiedPostedStudentInfoResponse?
+    
     private var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,34 +35,8 @@ class MainTabBarController: UITabBarController{
             print("Cancelled search Request")
         }
         showPassThroughNetworkActivityView()
-        currentSearchTask = ParseClient.getStudents {[unowned self] (data, err) in
-            if err == nil{
-                print("CURRENT SEARCH TASK RUNNING NOW")
-                Students.allStudentLocations = data
-                Students.loadValidLocations()
-                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-                self.showFinishNetworkRequest()
-            } else {
-                self.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
-                self.showFinishNetworkRequest()
-                self.navigationController?.popViewController(animated: true)
-                print("ParseClient not returning expected results\n  \(String(describing: err))")
-            }
-        }
+        currentSearchTask = ParseClient.getStudents(completion: handleGetStudents(data:err:))
     }
-    
-    
-    override func viewDidLoad() {
-        print("hello")
-        
-        let searchString = UdacityClient.getAccountKey()
-        print(searchString)
-        print(searchString)
-        
-    }
-    
     
     
     //MARK:- Toolbar Setup
@@ -97,29 +73,17 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc private func handleAddBarButton(){
-        
-        
-        
-        
-        
-        
-        let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
-        if storedObjectID != nil {
-            let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
-            guard let object = object_VerifiedPostedStudentInfoResponse else {
-                print("Not able to retreive object_VerifiedPostedStudentInfoResponse")
-                return
-            }
-            let myAlertController = UIAlertController(title: "Confirmation Needed", message: "\(object.firstName) \(object.lastName) already has a student location posted. Do you wish to overwrite?", preferredStyle: .alert)
-            myAlertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {[weak self] _ in
-                let newVC = AddLocationController()
-                self?.navigationController?.pushViewController(newVC, animated: true)
-            }))
-            myAlertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-            present(myAlertController, animated: true)
-        } else {
+        if currentObject == nil {
             let newVC = AddLocationController()
             navigationController?.pushViewController(newVC, animated: true)
+        } else {
+            let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
+            myAlertController.addAction(UIAlertAction(title: "YES", style: .default, handler: { _ in
+                let newVC = AddLocationController()
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }))
+            myAlertController.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
+            present(myAlertController, animated: true)
         }
     }
     
@@ -143,4 +107,29 @@ class MainTabBarController: UITabBarController{
             }
         }
     }
+    
+    func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
+        if err == nil{
+            print("CURRENT SEARCH TASK RUNNING NOW")
+            Students.allStudentLocations = data
+            Students.loadValidLocations()
+            self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+            ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+            ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+            self.showFinishNetworkRequest()
+            
+            //////
+            var searchKey = "4931429520"
+            //  searchKey = UdacityClient.getAccountKey()
+            self.currentObject = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
+            //////
+        } else {
+            self.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+            self.showFinishNetworkRequest()
+            self.navigationController?.popViewController(animated: true)
+            print("ParseClient not returning expected results\n  \(String(describing: err))")
+        }
+    }
+    
+    
 }
