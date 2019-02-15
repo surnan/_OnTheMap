@@ -66,17 +66,18 @@ class MainTabBarController: UITabBarController{
         }
         
         setupTempMapView()
-        currentSearchTask = ParseClient.getStudents { (data, err) in
+        currentSearchTask = ParseClient.getStudents {[weak self] (data, err) in
             if err == nil{
                 print("CURRENT SEARCH TASK RUNNING NOW")
                 Students.allStudentLocations = data
                 Students.loadValidLocations()
-                self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+                self?.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-                self.myActivityMonitor.stopAnimating()
-                self.coverView.removeFromSuperview()
+                self?.myActivityMonitor.stopAnimating()
+                self?.coverView.removeFromSuperview()
             } else {
+                self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
                 print("ParseClient not returning expected results\n  \(String(describing: err))")
             }
         }
@@ -148,15 +149,16 @@ class MainTabBarController: UITabBarController{
             print("Cancelled search Request")
         }
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
-            if err == nil{
-                Students.allStudentLocations = data
-                Students.loadValidLocations()
-                self?.setupBottomToolBar() //let mapController = MapController()
-                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-            } else {
+//            if err == nil{
+//                Students.allStudentLocations = data
+//                Students.loadValidLocations()
+//                self?.setupBottomToolBar() //let mapController = MapController()
+//                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+//                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+//            } else {
+            self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
                 print("handleRefresh unable failed ParseClient.getStudents")
-            }
+//            }
         }
     }
 }

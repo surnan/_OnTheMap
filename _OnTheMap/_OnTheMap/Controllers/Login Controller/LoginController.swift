@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import FacebookCore
-import FBSDKLoginKit
 import FacebookLogin
+import FacebookCore
 
 class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegate {
 
     var task: URLSessionTask?
     
-    lazy var emailTextField: UITextField = {
+    var emailTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
@@ -26,23 +25,19 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         //But doesn't work with borderStyle = .roundedRect.  Rectangle Border shifts with text
         textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
     }()
     
-    lazy var passwordTextField: UITextField = {
+    var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
         textField.defaultTextAttributes = grey25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Password", attributes: grey25textAttributes)
         textField.isSecureTextEntry = true
-        textField.layer.cornerRadius = cornerRadiusSize
         textField.clearButtonMode = .whileEditing
+        textField.layer.cornerRadius = cornerRadiusSize
         textField.clipsToBounds = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
     }()
     
@@ -69,100 +64,63 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let greyShadeSuperView: UIView = {
-        let _view = UIView()
-        _view.backgroundColor = UIColor.grey196Half
-        _view.translatesAutoresizingMaskIntoConstraints = false
-        return _view
-    }()
-    
-    var myActivityMonitor: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
-        activity.hidesWhenStopped = true
-        activity.style = .whiteLarge
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
-    }()
-    
-    
-    private lazy var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
+    private var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
         var button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button
     }()
-
     
-    lazy var facebookLoginButton: LoginButton = {
+    private var facebookLoginButton: LoginButton = {
         let button = LoginButton(readPermissions: [.publicProfile])
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return button
     }()
-        
     
     
-    //MARK:- CODE STARTS HERE
+    //MARK:- UI Code
     private func setupUI(){
-        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{loginStack.addArrangedSubview($0)}
+        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{
+            $0.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
+            loginStack.addArrangedSubview($0)
+        }
         view.addSubview(loginStack)
         loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
         checkFacebook()
     }
     
-    func checkFacebook(){
-        if let _ = AccessToken.current  {          //True === Facebook logged in
-            print("Facebook logged in.  Access Token Below:")
-        } else {
-            print("Facebook not logged in")
-        }
+    func preparingToLoadMainTabController() {
+        showPassThroughNetworkActivityView()
+        navigationController?.pushViewController(MainTabBarController(), animated: false)
     }
     
     
-    
-    //MARK:- Swift Override Functions
+    //MARK:- Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         //line below prevents us from showing unnecessary bar button item until Tab Controller fully loads
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .done, target: self, action: nil)
         facebookLoginButton.delegate = self
-        setupUI()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
+        setupUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        
-        
-        
-    }
-    
-    func deleteVisualNetworkActivityChanges(){
-        greyShadeSuperView.removeFromSuperview()
-        myActivityMonitor.stopAnimating()
-        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        greyShadeSuperView.removeFromSuperview()
-        myActivityMonitor.stopAnimating()
+        showFinishNetworkRequest()
         navigationController?.navigationBar.isHidden = false
     }
-    
-
 }

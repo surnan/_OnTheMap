@@ -17,11 +17,15 @@ class ParseClient {
         static let base = "https://parse.udacity.com/parse/classes"
         case addStudentLocation
         case changeStudentLocation(String)
+        case getStudentsSortedByCreationDate(Int)
         
         var toString: String {
             switch self {
             case .addStudentLocation: return Endpoints.base + "/StudentLocation"
             case .changeStudentLocation(let objectID): return Endpoints.base + "/StudentLocation/" + objectID
+            case .getStudentsSortedByCreationDate(let countRequest): return Endpoints.base
+                + "/StudentLocation?limit=\(countRequest)"
+                + "&order=-updatedAt"
             }
         }
         
@@ -67,8 +71,7 @@ class ParseClient {
     }
     
     class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void)-> URLSessionTask{
-        let url = ParseClient.Endpoints.addStudentLocation.url
-        //  let url = URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=20000000000000")!
+        let url = ParseClient.Endpoints.getStudentsSortedByCreationDate(100).url
         let task = taskForGetResponse(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
                 return completion([], err)
