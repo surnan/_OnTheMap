@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 class UserInfoClient {
-    static var uniqueKey = ""
+    static var uniqueKey = ""  //UdacityClient.LoggedInUserInfo.accountKey
     static var firstName = ""
     static var lastName = ""
     static var mapString = ""

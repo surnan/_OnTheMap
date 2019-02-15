@@ -10,7 +10,7 @@ import Foundation
 
 class UdacityClient {
     
-    private struct UserInfo {
+    private struct LoggedInUserInfo {
         static var username = ""
         static var password = ""
         static var accountRegistered = false
@@ -19,6 +19,7 @@ class UdacityClient {
         static var sessionExpiration = ""
     }
     
+
     private enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1"
         case postingSession
@@ -29,7 +30,7 @@ class UdacityClient {
             switch self {
             case .postingSession: return Endpoints.base + "/session"
             case .deletingSession: return Endpoints.base + "/session"
-            case .onTheMapUserData: return Endpoints.base + "/users/" + UserInfo.username
+            case .onTheMapUserData: return Endpoints.base + "/users/" + LoggedInUserInfo.username
             }
         }
         
@@ -65,7 +66,7 @@ class UdacityClient {
     
     //Used by  class func setupFromAnnotationController(mapString: String, mediaURL: String, location: CLLocation){
     class func getAccountKey()-> String {
-        return UserInfo.accountKey
+        return LoggedInUserInfo.accountKey
     }
     
     private class func postRequest<WillEncode: Encodable, Decoder: Decodable, UdacityErrorDecoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, udacityErrorDecoder: UdacityErrorDecoder.Type, completion: @escaping (Decoder?, UdacityErrorDecoder?, Error?)-> Void)->URLSessionTask{
@@ -119,17 +120,18 @@ class UdacityClient {
     
     
     class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void)->URLSessionTask{
+        
         let url = Endpoints.postingSession.url
         let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
         let task = postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self, udacityErrorDecoder: UdacityErrorResponse.self) {(loginData, udacityErrData, err) in
             
             if let dataObject = loginData {
-                UserInfo.username = name
-                UserInfo.password = password
-                UserInfo.accountKey = dataObject.account.key
-                UserInfo.accountRegistered = dataObject.account.registered
-                UserInfo.sessionExpiration = dataObject.session.expiration
-                UserInfo.sessionId = dataObject.session.id
+                UdacityClient.LoggedInUserInfo.username = name
+                UdacityClient.LoggedInUserInfo.password = password
+                UdacityClient.LoggedInUserInfo.accountKey = dataObject.account.key
+                UdacityClient.LoggedInUserInfo.accountRegistered = dataObject.account.registered
+                UdacityClient.LoggedInUserInfo.sessionExpiration = dataObject.session.expiration
+                UdacityClient.LoggedInUserInfo.sessionId = dataObject.session.id
                 completion(nil, nil)
             } else if let udacityErrorObject = udacityErrData {
                 completion(udacityErrorObject.error, nil)

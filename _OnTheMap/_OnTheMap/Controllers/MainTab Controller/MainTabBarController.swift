@@ -51,6 +51,18 @@ class MainTabBarController: UITabBarController{
         }
     }
     
+    
+    override func viewDidLoad() {
+        print("hello")
+        
+        let searchString = UdacityClient.getAccountKey()
+        print(searchString)
+        print(searchString)
+        
+    }
+    
+    
+    
     //MARK:- Toolbar Setup
     private func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
@@ -85,6 +97,12 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc private func handleAddBarButton(){
+        
+        
+        
+        
+        
+        
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
         if storedObjectID != nil {
             let object_VerifiedPostedStudentInfoResponse = Students.validLocations.filter{$0.objectId == storedObjectID!}.first //find matching objectID stored in NSUserDefaults
