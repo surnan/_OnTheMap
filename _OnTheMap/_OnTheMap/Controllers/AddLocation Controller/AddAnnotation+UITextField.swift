@@ -10,12 +10,11 @@ import UIKit
 
 
 extension AddLocationController {
-    func AddLocationController(_ textField: UITextField) {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isFirstResponder == true {
             textField.placeholder = ""
         }
-        //Because of security setting, passwordTextField clears everytime it's tapped
-        //// textField.isSecureTextEntry = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

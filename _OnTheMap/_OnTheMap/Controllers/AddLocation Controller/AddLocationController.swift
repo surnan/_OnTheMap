@@ -24,39 +24,40 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     func getMapString()-> String{return locationTextField.text ?? ""}
     
     //MARK:- Local Variables
-
     var mapString = ""
     var mediaURL = ""
     var globalLocation = CLLocation()
     
-    lazy var locationTextField: UITextField = {
+    let geoCoder = CLGeocoder()
+    
+    
+    
+    var locationTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
-        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
     }()
     
-    lazy var urlTextField: UITextField = {
+    var urlTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSAttributedString(string: "Enter a Website", attributes: grey25textAttributes)
-        textField.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         return textField
     }()
     
-    private lazy var findLocationButton: UIButton = {
+    private var findLocationButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("FIND LOCATION", for: .normal)
+        button.setTitle("Searching...", for: .selected)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(handleFindLocation), for: .touchUpInside)
-        button.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
         return button
@@ -68,8 +69,6 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    
     
     private func setupNavigationPane(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
@@ -94,7 +93,12 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             stack.translatesAutoresizingMaskIntoConstraints = false
             return stack
         }()
-        [locationTextField, urlTextField, findLocationButton].forEach{stackView.addArrangedSubview($0)}
+        
+        [locationTextField, urlTextField, findLocationButton].forEach{
+            $0.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
+            stackView.addArrangedSubview($0)
+        }
+        
         [stackView, locationImageView].forEach{view.addSubview($0)}
         NSLayoutConstraint.activate([
             locationImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -105,5 +109,13 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
             urlTextField.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             findLocationButton.widthAnchor.constraint(equalTo: locationTextField.widthAnchor),
             ])
+    }
+    
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        showFinishNetworkRequest()
+        findLocationButton.isSelected = false
     }
 }

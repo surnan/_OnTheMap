@@ -19,13 +19,22 @@ extension LoginController{
             return
         }
         
+        
+        
+        
+        
         if passwordTextField.text == "" || emailTextField.text == "" {
             showOKAlert(title: "Missing Entry", message: "Both fields are needed for succesful login")
             showFinishNetworkRequest()
             return
         }
         
+        
+        
+        
         showNONPassThroughNetworkActivityView()
+        sender.isSelected = true
+        
         task = UdacityClient.authenticateSession(name: emailTextField.text ?? "", password: passwordTextField.text ?? "") {[weak self] (udacityErrString, err) in
             if let udacityErrString = udacityErrString {
                 self?.showOKAlert(title: "Login Error", message: udacityErrString)
@@ -37,6 +46,7 @@ extension LoginController{
             }
             self?.task = nil
             self?.showFinishNetworkRequest()
+            sender.isSelected = false
         }
     }
 }

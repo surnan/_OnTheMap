@@ -13,13 +13,31 @@ import CoreLocation
 
 extension AddLocationController {
 
-    @objc func handleFindLocation(){
+    @objc func handleFindLocation(_ sender: UIButton){
         guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
         mediaURL = temp
-        let geoCoder = CLGeocoder()
+        
+        
+        showPassThroughNetworkActivityView()
+//         button.setTitle("Searching...", for: .selected)
+        
+        sender.isSelected = true
+        
+//        let geoCoder = CLGeocoder()
+        
+        
+        geoCoder.cancelGeocode()
+        
+        print("running a search")
         geoCoder.geocodeAddressString(locationTextField.text ?? "") { [weak self] (clplacement, error) in
             guard let placemarks = clplacement, let location = placemarks.first?.location else {
-                print("UNABLE to convert to CLL Coordinates")
+//                print("UNABLE to convert to CLL Coordinates")
+                self?.showFinishNetworkRequest()
+                sender.isSelected = false
+                
+                self?.showOKAlert(title: "Location Error", message: "Unable to find location on map")
+                
+                
                 return
             }
             self?.globalLocation = location
@@ -29,6 +47,10 @@ extension AddLocationController {
                 self?.navigationController?.pushViewController(newVC, animated: true)
             }
         }
+        
+        
+        
+        
     }
     
     func isStringToURLValid(testString: String)-> String?{

@@ -71,6 +71,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         var button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
+        button.setTitle("Connecting ...", for: .selected)
         button.layer.cornerRadius = cornerRadiusSize
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
