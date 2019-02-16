@@ -8,9 +8,17 @@
 
 import UIKit
 
+protocol MaintTabBarControllerDelegate {
+    func getPutPostInfo()-> (
+        object: String?,
+        firstName: String,
+        lastName: String,
+        key: String)
+}
 
-
-class MainTabBarController: UITabBarController{
+class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
+    
+    
     var currentSearchTask: URLSessionTask?
     var willOverwrite = false
     
@@ -45,5 +53,18 @@ class MainTabBarController: UITabBarController{
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LOGOUT", style: .done, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: .done, target: self, action: #selector(handleAddBarButton)),
                                               UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: .done, target: self, action: #selector(handleRefreshBarButton))]
+    }
+    
+    //Protocol Stuff
+    var firstName = ""
+    var lastName = ""
+    var key = ""
+    var object: String?
+    
+    func getPutPostInfo() -> (object: String?, firstName: String, lastName: String, key: String) {
+        return (object: object,
+                firstName: firstName,
+                lastName: lastName,
+                key: key)
     }
 }

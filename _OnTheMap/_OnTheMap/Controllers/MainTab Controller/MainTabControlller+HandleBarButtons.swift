@@ -7,16 +7,16 @@
 //
 
 import UIKit
-//import FacebookCore
-//import FacebookLogin
+import FacebookCore
+import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
 
 extension MainTabBarController{
     @objc   func handleLogout(){
-//        FBSDKAccessToken.setCurrent(nil)
-//        FBSDKProfile.setCurrent(nil)
-//        FBSDKLoginManager().logOut()
+        FBSDKAccessToken.setCurrent(nil)
+        FBSDKProfile.setCurrent(nil)
+        FBSDKLoginManager().logOut()
         UdacityClient.logout {
             FBSDKAccessToken.setCurrent(nil)
             FBSDKProfile.setCurrent(nil)
@@ -28,11 +28,13 @@ extension MainTabBarController{
     @objc   func handleAddBarButton(){
         func pushViewController(alert: UIAlertAction!){
             let newVC = AddLocationController()
+            newVC.delegate = self
             self.navigationController?.pushViewController(newVC, animated: true)
         }
         
         if willOverwrite {
             let newVC = AddLocationController()
+            newVC.delegate = self
             self.navigationController?.pushViewController(newVC, animated: true)
         } else {
             let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)

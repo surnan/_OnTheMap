@@ -28,8 +28,8 @@ extension MainTabBarController {
         showFinishNetworkRequest()
         
         
-        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
-        //        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
+        var matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
         
         
         if matchingValidLocation != nil {
@@ -38,36 +38,53 @@ extension MainTabBarController {
             willOverwrite = true
         } else {
             print(" POST ---- did not find a match")
-            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(object:error:))
+            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(studentLocationResponse:error:))
             willOverwrite = false
         }
         currentSearchTask = nil
     }
     
+
+    
     func handleGetStudent(studentLocationResponse: GetStudentLocationResponse2?, err: Error?){
-        guard let object = studentLocationResponse else {
+        guard let objectGetStudentLocationResponse2 = studentLocationResponse else {
             print("There was an error")
             return
         }
         
-        let object1 = object.results.first
+        let putObject = objectGetStudentLocationResponse2.results.first
         
-        print("object.firstName ---> \(object1?.firstName ?? "")")
-        print("object.lastName ---> \(object1?.lastName ?? "")")
-        print("object.objectId ---> \(object1?.objectId ?? "")")
+        firstName = putObject?.firstName ?? ""
+        lastName = putObject?.lastName ?? ""
+        key = putObject?.uniqueKey ?? ""
+        object = putObject?.objectId
+        
+        print("object.firstName ---> \(putObject?.firstName ?? "")")
+        print("object.lastName ---> \(putObject?.lastName ?? "")")
+        print("object.objectId ---> \(putObject?.objectId ?? "")")
+        
+        
     }
     
     
-    func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
-        
-        guard let object = object else {
+    func handleGetPublicUserData(studentLocationResponse: UdacityPublicUserData2?, error: Error?){
+        guard let postObject = studentLocationResponse else {
             print("FAIL: handleGetPublicUserData --> \(error ?? "" as! Error)")
             return
         }
         
+        
+        firstName = postObject.firstName ?? ""
+        lastName = postObject.lastName ?? ""
+        key = postObject.key
+        
+        
         print("------------ INSIDE HANDLE ------------")
-        print("searchResultObject.firstName ==> \(object.firstName ?? "")")
-        print("searchResultObject.lastName ===> \(object.lastName ?? "")")
-        print("searchResultObject.uniqueKey ===> \(object.key)")
+        print("searchResultObject.firstName ==> \(postObject.firstName ?? "")")
+        print("searchResultObject.lastName ===> \(postObject.lastName ?? "")")
+        print("searchResultObject.uniqueKey ===> \(postObject.key)")
+        
+        
+        
     }
 }

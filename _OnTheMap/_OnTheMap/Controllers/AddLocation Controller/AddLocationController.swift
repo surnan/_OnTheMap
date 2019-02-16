@@ -15,10 +15,38 @@ protocol AddLocationControllerDelegate{
     func getMapString()-> String
     func getURLString()-> String
     func getLoction()-> CLLocation
+    func getPutPostInfo() -> (
+        object: String?,
+        firstName: String,
+        lastName: String,
+        key: String,
+        urlString: String,
+        location: CLLocation,
+        mapString: String)?
 }
 
 class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDelegate, AddLocationControllerDelegate {
+    
+    var delegate: MaintTabBarControllerDelegate?
+    
     //MARK:- Protocol Functions
+    
+    
+    func getPutPostInfo() -> (object: String?, firstName: String, lastName: String, key: String, urlString: String,location: CLLocation,mapString: String)? {
+        if let myDelegate = delegate {
+            return (object: myDelegate.getPutPostInfo().object,
+                    firstName: myDelegate.getPutPostInfo().firstName,
+                    lastName: myDelegate.getPutPostInfo().lastName,
+                    key: myDelegate.getPutPostInfo().key,
+                    urlString: urlTextField.text ?? "",
+                    location: globalLocation,
+                    mapString: locationTextField.text ?? "")
+        } else {
+            return nil
+        }
+    }
+    
+    
     func getURLString() -> String {return urlTextField.text ?? ""}
     func getLoction() -> CLLocation {return globalLocation}
     func getMapString()-> String{return locationTextField.text ?? ""}
