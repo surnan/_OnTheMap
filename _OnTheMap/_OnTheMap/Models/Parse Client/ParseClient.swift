@@ -18,6 +18,7 @@ class ParseClient {
         case addStudentLocation
         case changeStudentLocation(String)
         case getStudentsSortedByCreationDate(Int)
+        case getPublicInfo(String)
         
         var toString: String {
             switch self {
@@ -26,11 +27,30 @@ class ParseClient {
             case .getStudentsSortedByCreationDate(let countRequest): return Endpoints.base
                 + "/StudentLocation?limit=\(countRequest)"
                 + "&order=-updatedAt"
+            case .getPublicInfo(let key): return Endpoints.base
+                + "/StudentLocation"
+                + "?where=%7B%22uniqueKey%22%3A%22"
+                + "\(key)"
+                + "%22%7D"
+                
             }
         }
         
         var url: URL {
             return URL(string: toString)!
+        }
+    }
+    
+    
+    class func getStudentLocation(key: String, completion: @escaping (GetStudentLocationResponse?, Error?)-> Void ){
+        let url = Endpoints.getPublicInfo(key).url
+        taskForGetResponse(url: url, decoder: GetStudentLocationResponse.self) { (data, err) in
+            guard let object = data else {
+                completion(nil, err)
+                return
+            }
+            completion(object, nil)
+            return
         }
     }
     

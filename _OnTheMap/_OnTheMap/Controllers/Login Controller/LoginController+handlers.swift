@@ -18,19 +18,12 @@ extension LoginController{
             print("task call cancelled")
             return
         }
-        
-        
-        
-        
-        
+
         if passwordTextField.text == "" || emailTextField.text == "" {
             showOKAlert(title: "Missing Entry", message: "Both fields are needed for succesful login")
             showFinishNetworkRequest()
             return
         }
-        
-        
-        
         
         showNONPassThroughNetworkActivityView()
         sender.isSelected = true

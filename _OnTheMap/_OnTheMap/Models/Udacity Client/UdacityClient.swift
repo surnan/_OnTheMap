@@ -10,7 +10,7 @@ import Foundation
 
 class UdacityClient {
     
-    private struct LoggedInUserInfo {
+     private struct LoggedInUserInfo {
         static var username = ""
         static var password = ""
         static var accountRegistered = false

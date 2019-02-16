@@ -19,6 +19,8 @@ class MainTabBarController: UITabBarController{
     
     var currentObject:  VerifiedPostedStudentInfoResponse?
     
+    var willOverwrite = false
+    
     private var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,16 +75,18 @@ class MainTabBarController: UITabBarController{
     }
     
     @objc private func handleAddBarButton(){
-        if currentObject == nil {
+        func doSomething(alert: UIAlertAction!){
             let newVC = AddLocationController()
-            navigationController?.pushViewController(newVC, animated: true)
+            self.navigationController?.pushViewController(newVC, animated: true)
+        }
+
+        if willOverwrite {
+            let newVC = AddLocationController()
+            self.navigationController?.pushViewController(newVC, animated: true)
         } else {
             let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
-            myAlertController.addAction(UIAlertAction(title: "YES", style: .default, handler: { _ in
-                let newVC = AddLocationController()
-                self.navigationController?.pushViewController(newVC, animated: true)
-            }))
-            myAlertController.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
+            myAlertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: doSomething))
+            myAlertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             present(myAlertController, animated: true)
         }
     }
@@ -109,42 +113,88 @@ class MainTabBarController: UITabBarController{
     }
     
     func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
-        if err == nil{
-            print("CURRENT SEARCH TASK RUNNING NOW")
-            Students.allStudentLocations = data
-            Students.loadValidLocations()
-            self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-            ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-            ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-            self.showFinishNetworkRequest()
-            
-            //////
-            var searchKey = "4931429520"
-//            searchKey = UdacityClient.getAccountKey()  //From my login
-            
-            
-            let searchResult = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
-         
-            if let searchResult = searchResult {
-                print("Found a match")
-                UserDefaults.standard.set(searchKey, forKey: studentLocationKey)  //FACEBOOK WON'T WORK WITH THIS
-                
-                
-                
-                
-            } else {
-                print("NO MATCH")
-                UserDefaults.standard.set(searchKey, forKey: studentLocationKey)
-            }
+        
+        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+        showFinishNetworkRequest()
+        
+        if err != nil {
+            showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
+            print("handleGetStudentsm --> Err --> \(String(describing: err))")
+            return
         }
         
-        func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
+        Students.allStudentLocations = data
+        Students.loadValidLocations()  //[VerifiedStudentLocations]
+        
+        
+//        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
+        
+        
+        if matchingValidLocation != nil {
+            print("found a match")
             
+            ParseClient.getStudentLocation(key: UdacityClient.getAccountKey(), completion: handleGetStudent)
+            
+            willOverwrite = true
+        } else {
+            print("did not find a match")
+            willOverwrite = false
         }
+    }
+    
+    
+    func handleGetStudent(studentLocationResponse: GetStudentLocationResponse?, err: Error?){
+        guard let object = studentLocationResponse else {
+            print("There was an error")
+            return
+        }
+        print(object.firstName)
+        print(object.lastName)
+    }
+    
+    
+    func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
+        
+        guard let object = object else {
+            print("FAIL: handleGetPublicUserData --> \(error ?? "" as! Error)")
+            return
+        }
+        
+        
+        
+        
+        
+        print("------------ INSIDE HANDLE ------------")
+        print("searchResultObject.firstName ==> \(object.firstName ?? "")")
+        print("searchResultObject.lastName ===> \(object.lastName ?? "")")
+        print("searchResultObject.uniqueKey ===> \(object.key)")
+        
+        
+        
+        
     }
 }
 
-
+ /*
+ //////
+ var searchKey = "4931429520"
+ searchKey = UdacityClient.getAccountKey()  //From my login
+ 
+ let matchingObject = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
+ 
+ if let searchResultObject = matchingObject {
+ print("Found a match")
+ print("searchResultObject.firstName ==> \(searchResultObject.firstName)")
+ print("searchResultObject.lastName ===> \(searchResultObject.lastName)")
+ print("searchResultObject.uniqueKey ===> \(searchResultObject.uniqueKey)")
+ } else {
+ print("NO MATCH")
+ UdacityClient.getPublicUserData(key: searchKey, completion: handleGetPublicUserData(object:error:))
+ }
+ */
 
 /*
  UserDefaults.standard.removeObject(forKey: key)
@@ -153,4 +203,75 @@ class MainTabBarController: UITabBarController{
  */
 
 
+/*
+ func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
+ if err == nil{
+ print("CURRENT SEARCH TASK RUNNING NOW")
+ Students.allStudentLocations = data
+ Students.loadValidLocations()
+ self.setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+ ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+ ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+ self.showFinishNetworkRequest()
+ 
+ //////
+ var searchKey = "4931429520"
+ searchKey = UdacityClient.getAccountKey()
+ self.currentObject = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
+ 
+ if currentObject == nil {
+ UserDefaults.standard.set(nil, forKey: studentLocationKey)
+ 
+ UdacityClient.getPublicUserData(key: searchKey, completion: handleGetPublicUserData(object:error:))
+ 
+ 
+ 
+ 
+ } else {
+ UserDefaults.standard.set(currentObject?.uniqueKey, forKey: studentLocationKey)
+ UserDefaults.standard.set(currentObject?.firstName, forKey: studentLocationFirstName)
+ UserDefaults.standard.set(currentObject?.lastName, forKey: studentLocationLastName)
+ }
+ 
+ //////
+ } else {
+ self.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+ self.showFinishNetworkRequest()
+ self.navigationController?.popViewController(animated: true)
+ print("ParseClient not returning expected results\n  \(String(describing: err))")
+ }
+ }
+ 
+ 
+ func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
+ guard let object = object else {
+ showOKAlert(title: "UNABLE TO GET KEY", message: "UNABLE TO GET KEY")
+ return
+ }
+ 
+ 
+ //        let dictionary = object.bigAssDictionary
+ //        let firstName = dictionary.firstName
+ //        let lastName = dictionary.lastName
+ 
+ 
+ let firstName = object.firstName
+ let lastName = object.lastName
+ 
+ 
+ UserDefaults.standard.set(currentObject?.uniqueKey, forKey: studentLocationKey)
+ UserDefaults.standard.set(firstName, forKey: studentLocationFirstName)
+ UserDefaults.standard.set(lastName, forKey: studentLocationLastName)
+ print("Saved: \(currentObject?.uniqueKey ?? "") ..... fname = \(firstName) ..... lname = \(lastName)")
+ }
+ }
+ 
+ 
+ 
+ /*
+ UserDefaults.standard.removeObject(forKey: key)
+ UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
+ let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+ */
+ */
 
