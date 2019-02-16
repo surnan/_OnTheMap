@@ -120,63 +120,37 @@ class MainTabBarController: UITabBarController{
             
             //////
             var searchKey = "4931429520"
-              searchKey = UdacityClient.getAccountKey()
-            self.currentObject = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
+//            searchKey = UdacityClient.getAccountKey()  //From my login
             
-            if currentObject == nil {
-                UserDefaults.standard.set(nil, forKey: studentLocationKey)
-                
-                UdacityClient.getPublicUserData(key: searchKey, completion: handleGetPublicUserData(object:error:))
+            
+            let searchResult = Students.validLocations.filter{$0.uniqueKey == searchKey}.first
+         
+            if let searchResult = searchResult {
+                print("Found a match")
+                UserDefaults.standard.set(searchKey, forKey: studentLocationKey)  //FACEBOOK WON'T WORK WITH THIS
                 
                 
                 
                 
             } else {
-                UserDefaults.standard.set(currentObject?.uniqueKey, forKey: studentLocationKey)
-                UserDefaults.standard.set(currentObject?.firstName, forKey: studentLocationFirstName)
-                UserDefaults.standard.set(currentObject?.lastName, forKey: studentLocationLastName)
+                print("NO MATCH")
+                UserDefaults.standard.set(searchKey, forKey: studentLocationKey)
             }
+        }
+        
+        func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
             
-            //////
-        } else {
-            self.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
-            self.showFinishNetworkRequest()
-            self.navigationController?.popViewController(animated: true)
-            print("ParseClient not returning expected results\n  \(String(describing: err))")
         }
-    }
-    
-    
-    func handleGetPublicUserData(object: UdacityPublicUserData2?, error: Error?){
-        guard let object = object else {
-            showOKAlert(title: "UNABLE TO GET KEY", message: "UNABLE TO GET KEY")
-            return
-        }
-
-      
-//        let dictionary = object.bigAssDictionary
-//        let firstName = dictionary.firstName
-//        let lastName = dictionary.lastName
-
-        
-        let firstName = object.firstName
-        let lastName = object.lastName
-        
-        
-        UserDefaults.standard.set(currentObject?.uniqueKey, forKey: studentLocationKey)
-        UserDefaults.standard.set(firstName, forKey: studentLocationFirstName)
-        UserDefaults.standard.set(lastName, forKey: studentLocationLastName)
-        print("Saved: \(currentObject?.uniqueKey ?? "") ..... fname = \(firstName) ..... lname = \(lastName)")
     }
 }
 
 
 
 /*
-UserDefaults.standard.removeObject(forKey: key)
-UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
-let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+ UserDefaults.standard.removeObject(forKey: key)
+ UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
+ let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
  */
- 
- 
- 
+
+
+
