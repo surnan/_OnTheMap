@@ -129,21 +129,34 @@ class MainTabBarController: UITabBarController{
         Students.loadValidLocations()  //[VerifiedStudentLocations]
         
         
-//        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
-        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
+        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+//        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
         
         
         if matchingValidLocation != nil {
             print("found a match")
-            
+            print(" PUT ")
             ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
-            
             willOverwrite = true
         } else {
             print("did not find a match")
+            print(" POST ")
+            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(object:error:))
             willOverwrite = false
         }
     }
+    
+    
+    func handleGetPublicUserData(publicData: UdacityPublicUserData2?, err: Error?){
+        if let object = publicData {
+            print(object)
+        }
+    }
+    
+    
+    
+//    class func getPublicUserData(key: String, completion: @escaping(UdacityPublicUserData2?, Error?)->Void)
+    
     
     
     func handleGetStudent(studentLocationResponse: GetStudentLocationResponse2?, err: Error?){
@@ -154,9 +167,9 @@ class MainTabBarController: UITabBarController{
         
         let object1 = object.results.first
         
-        print("object.firstName ---> \(object1?.firstName)")
-        print("object.lastName ---> \(object1?.lastName)")
-        print("object.objectId ---> \(object1?.objectId)")
+        print("object.firstName ---> \(object1?.firstName ?? "")")
+        print("object.lastName ---> \(object1?.lastName ?? "")")
+        print("object.objectId ---> \(object1?.objectId ?? "")")
     }
     
     
