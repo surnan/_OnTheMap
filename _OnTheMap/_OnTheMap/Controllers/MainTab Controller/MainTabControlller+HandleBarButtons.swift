@@ -31,17 +31,34 @@ extension MainTabBarController{
             newVC.delegate = self
             self.navigationController?.pushViewController(newVC, animated: true)
         }
+
         
         if willOverwrite {
-            let newVC = AddLocationController()
-            newVC.delegate = self
-            self.navigationController?.pushViewController(newVC, animated: true)
-        } else {
             let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
             myAlertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: pushViewController))
             myAlertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             present(myAlertController, animated: true)
+            let newVC = AddLocationController()
+            newVC.delegate = self
+            self.navigationController?.pushViewController(newVC, animated: true)
+        } else {
+            let newVC = AddLocationController()
+            newVC.delegate = self
+            self.navigationController?.pushViewController(newVC, animated: true)
         }
+        
+        
+        
+//        if willOverwrite {
+//            let newVC = AddLocationController()
+//            newVC.delegate = self
+//            self.navigationController?.pushViewController(newVC, animated: true)
+//        } else {
+//            let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
+//            myAlertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: pushViewController))
+//            myAlertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+//            present(myAlertController, animated: true)
+//        }
     }
 
     

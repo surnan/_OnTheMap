@@ -12,9 +12,9 @@ import MapKit
 
 
 protocol AddLocationControllerDelegate{
-    func getMapString()-> String
-    func getURLString()-> String
-    func getLoction()-> CLLocation
+//    func getMapString()-> String
+//    func getURLString()-> String
+//    func getLoction()-> CLLocation
     func getPutPostInfo() -> (
         object: String?,
         firstName: String,

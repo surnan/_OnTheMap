@@ -42,7 +42,7 @@ extension AddLocationController {
             }
             self?.globalLocation = location
             DispatchQueue.main.async {
-                let newVC = VerifyOnMapController()
+                let newVC = EditStudentLocationController()
                 newVC.delegate = self
                 self?.navigationController?.pushViewController(newVC, animated: true)
             }

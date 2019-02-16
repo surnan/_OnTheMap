@@ -29,7 +29,7 @@ extension MainTabBarController {
         
         
         var matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
-         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
+//         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
         
         
         if matchingValidLocation != nil {

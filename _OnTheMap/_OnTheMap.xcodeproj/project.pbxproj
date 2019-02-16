@@ -118,13 +118,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84332C5A22179F91003CF12C /* EditStudentLocations Controller */ = {
+		84332C5A22179F91003CF12C /* EditStudentLocation Controller */ = {
 			isa = PBXGroup;
 			children = (
 				84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */,
 				84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */,
 			);
-			path = "EditStudentLocations Controller";
+			path = "EditStudentLocation Controller";
 			sourceTree = "<group>";
 		};
 		8439960E220D192800A73345 /* UserInfoClient */ = {
@@ -199,7 +199,7 @@
 		848928602204F7C100BF9BF6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				84332C5A22179F91003CF12C /* EditStudentLocations Controller */,
+				84332C5A22179F91003CF12C /* EditStudentLocation Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				84F272AF2212B4BF000F9542 /* MainTab Controller */,
 				845BA44F22077FD700F6D80E /* AnnotationTable Controller */,

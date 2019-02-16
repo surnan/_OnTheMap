@@ -129,6 +129,30 @@ class ParseClient {
         }
     }
     
+    class func putStudentLocation(objectID: String, firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (postStudentLocationResponse?, Error?)->Void){
+        let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
+                                                             firstName: firstname,
+                                                             lastName: lastName,
+                                                             mapString: mapString,
+                                                             mediaURL: mediaURL,
+                                                             latitude: latitude,
+                                                             longitude: longitude)
+        taskForPostRequest(url: Endpoints.addStudentLocation.url, body: _StudentLocationRequest, decodeType: postStudentLocationResponse.self) { (data, error) in
+            if let err = error {
+                completion(nil, err)
+                return
+            }
+            guard let data = data else {
+                print("Data returned from taskForPostRequest is nil and returned error was also nil")
+                completion(nil, error)
+                return
+            }
+            completion(data, nil)
+            return
+        }
+    }
+    
+    
     
     private class func taskForPostRequest<Encoding: Encodable, Decoder: Decodable>(url: URL, body: Encoding, decodeType: Decoder.Type, completion: @escaping (Decoder?, Error?)->Void){
         var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)

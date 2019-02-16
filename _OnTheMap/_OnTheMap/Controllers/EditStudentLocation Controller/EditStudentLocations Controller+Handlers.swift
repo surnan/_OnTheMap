@@ -14,22 +14,22 @@ import UIKit
 //var location = CLLocation()
 //var coord = CLLocationCoordinate2D()
 
-extension VerifyOnMapController {
-    @objc func handleFinish(){
-
-        let storedObjectID = UserDefaults.standard.object(forKey: studentLocationKey) as? String
-        
-        if storedObjectID == nil {
-            print("GOING TO POST")
-            
-//            ParseClient.postStudentLocation(firstname: <#T##String#>, lastName: <#T##String#>, mapString: <#T##String#>, mediaURL: <#T##String#>, latitude: <#T##Double#>, longitude: <#T##Double#>, completion: <#T##(postStudentLocationResponse?, Error?) -> Void#>)
-            
-            
-        } else {
-            print("PUT PUT PUT")
-        }
-    }
-}
+//extension EditStudentLocationController {
+//    @objc func handleFinish(){
+//
+//        let storedObjectID = UserDefaults.standard.object(forKey: studentLocationKey) as? String
+//        
+//        if storedObjectID == nil {
+//            print("GOING TO POST")
+//            
+////            ParseClient.postStudentLocation(firstname: <#T##String#>, lastName: <#T##String#>, mapString: <#T##String#>, mediaURL: <#T##String#>, latitude: <#T##Double#>, longitude: <#T##Double#>, completion: <#T##(postStudentLocationResponse?, Error?) -> Void#>)
+//            
+//            
+//        } else {
+//            print("PUT PUT PUT")
+//        }
+//    }
+//}
     
     
 //UserDefaults.standard.removeObject(forKey: key)
