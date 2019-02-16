@@ -34,28 +34,12 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         return button
     }()
     
-    private let deleteNSUserDefaultsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.lightSteelBlue1
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.black.cgColor
-        button.isHidden = true
-        button.setAttributedTitle(NSAttributedString(string: "Add Entry.  No Overwrite ", attributes: orange_25), for: .normal)
-        button.addTarget(self, action: #selector(handledDeletePLIST), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    
     override func viewDidLoad() {
         mapView.delegate = self
         navigationItem.title = "Add Location"
-        [mapView, finishButton, deleteNSUserDefaultsButton].forEach{view.addSubview($0)}
+        [mapView, finishButton].forEach{view.addSubview($0)}
         mapView.fillSuperview()
         finishButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: mapView.bottomAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
-        deleteNSUserDefaultsButton.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: finishButton.topAnchor, padding: .init(top: 0, left: 20, bottom: 20, right: 20), size: .zero)
         
         let annotation = MKPointAnnotation()
         if let coordinate = delegate?.getLoction().coordinate {
@@ -66,6 +50,5 @@ class VerifyOnMapController: UIViewController, MKMapViewDelegate {
         } else {
             print("Unable to obtain coordinate from delegate")
         }
-        //        deleteNSUserDefaultsButton.isHidden = false
     }
 }
