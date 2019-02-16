@@ -44,7 +44,7 @@ extension VerifyOnMapController2 {
          coord = location.coordinate
         
         
-        let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+        let storedObjectID = UserDefaults.standard.object(forKey: studentLocationKey) as? String
         if storedObjectID == nil {
             
             let myAlerController = UIAlertController(title: "New Student Location", message: "Please enter full name for new student location.  First space will be used to separate first and last names", preferredStyle: .alert)
@@ -89,7 +89,7 @@ extension VerifyOnMapController2 {
     func handlePostStudentLocation(item: postStudentLocationResponse?, error: Error?){
         if let postStudentLocationResponseObject = item {
             print("1 - StudentLocation Added")
-            UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
+            UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: studentLocationKey)
         } else {
             print(error?.localizedDescription as Any)
             print(error ?? "")
@@ -102,6 +102,6 @@ extension VerifyOnMapController2 {
     
     @objc func handledDeletePLIST(){
         print("handleDelete was run.  NSUserDefaults object deleted")
-        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.removeObject(forKey: studentLocationKey)
     }
 }

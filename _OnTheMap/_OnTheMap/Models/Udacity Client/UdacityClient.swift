@@ -25,12 +25,15 @@ class UdacityClient {
         case postingSession
         case deletingSession
         case onTheMapUserData
+        case getPublicUserData(String)
         
         var toString: String {
             switch self {
             case .postingSession: return Endpoints.base + "/session"
             case .deletingSession: return Endpoints.base + "/session"
             case .onTheMapUserData: return Endpoints.base + "/users/" + LoggedInUserInfo.username
+            case .getPublicUserData(let key): return Endpoints.base + "/users/" + "\(key)"
+                
             }
         }
         
@@ -38,6 +41,45 @@ class UdacityClient {
             return URL(string: self.toString)!
         }
     }
+    
+    
+    class func getPublicUserData(key: String, completion: @escaping(UdacityPublicUserData2?, Error?)->Void){
+        
+        var request = URLRequest(url: Endpoints.getPublicUserData(key).url)
+        request.httpMethod = "GET"
+        
+        print("URL = \(request)")
+        
+        URLSession.shared.dataTask(with: request) { (data, resp, err) in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, err)
+                }
+                return
+            }
+            
+            let range = (5..<data.count)
+            let newData = data.subdata(in: range)
+            
+            
+            do {
+                let udacityPublicUserDataObject = try JSONDecoder().decode(UdacityPublicUserData2.self, from: newData)
+                DispatchQueue.main.async {
+                    completion(udacityPublicUserDataObject, nil)
+                }
+                return
+            } catch {
+                print("Received data but can't convert it to UdacityPublicUserData.type \n\(error)")
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+            }
+        }.resume()
+    }
+    
+    
+    
+    
     
     
     class func logout(completion: @escaping ()-> Void){

@@ -8,4 +8,6 @@
 
 import Foundation
 
-let key = "asdfasdfDaKey"  //NSUserDefaults uses this key to save/retrieve objectID for Student Locations
+let studentLocationKey = "uniqueKey"  //NSUserDefaults uses this key to save/retrieve objectID for Student Locations
+let studentLocationFirstName = "fName"
+let studentLocationLastName = "lName"

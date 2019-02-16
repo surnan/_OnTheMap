@@ -8,10 +8,38 @@
 
 import UIKit
 
+
+//var mapString = ""
+//var mediaURL = ""
+//var location = CLLocation()
+//var coord = CLLocationCoordinate2D()
+
 extension VerifyOnMapController {
     @objc func handleFinish(){
-        pushOrPost()
+
+        let storedObjectID = UserDefaults.standard.object(forKey: studentLocationKey) as? String
+        
+        if storedObjectID == nil {
+            print("GOING TO POST")
+            
+//            ParseClient.postStudentLocation(firstname: <#T##String#>, lastName: <#T##String#>, mapString: <#T##String#>, mediaURL: <#T##String#>, latitude: <#T##Double#>, longitude: <#T##Double#>, completion: <#T##(postStudentLocationResponse?, Error?) -> Void#>)
+            
+            
+        } else {
+            print("PUT PUT PUT")
+        }
     }
+}
+    
+    
+//UserDefaults.standard.removeObject(forKey: key)
+//UserDefaults.standard.set(postStudentLocationResponseObject.objectId, forKey: key)
+//let storedObjectID = UserDefaults.standard.object(forKey: key) as? String
+
+    
+    
+    
+    /*
     
     private func getFirstLastNames(potentialName: String?){
         guard let testString = potentialName else {return}
@@ -105,3 +133,4 @@ extension VerifyOnMapController {
         UserDefaults.standard.removeObject(forKey: key)
     }
 }
+*/
