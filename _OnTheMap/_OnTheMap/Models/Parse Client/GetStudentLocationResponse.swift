@@ -10,16 +10,16 @@ import Foundation
 
 
 struct GetStudentLocationResponse: Codable {
-    var createdAt: String
-    var firstName: String
-    var lastName:  String
-    var latitude: String
-    var longitude: String
-    var mapString: String
-    var mediaURL: String
-    var objectId: String
-    var uniqueKey: String
-    var updatedAt: String
+    var createdAt: String?
+    var firstName: String?
+    var lastName:  String?
+    var latitude: Double?
+    var longitude: Double?
+    var mapString: String?
+    var mediaURL: String?
+    var objectId: String?
+    var uniqueKey: String?
+    var updatedAt: String?
     
     enum CodingKeys: String, CodingKey {
         case createdAt
@@ -32,5 +32,14 @@ struct GetStudentLocationResponse: Codable {
         case objectId
         case uniqueKey
         case updatedAt
+    }
+}
+
+
+struct GetStudentLocationResponse2: Codable {
+    var results: [GetStudentLocationResponse]
+    
+    enum CodingKeys: String, CodingKey {
+        case results
     }
 }

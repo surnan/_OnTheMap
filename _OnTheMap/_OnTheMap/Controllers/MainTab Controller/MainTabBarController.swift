@@ -136,7 +136,7 @@ class MainTabBarController: UITabBarController{
         if matchingValidLocation != nil {
             print("found a match")
             
-            ParseClient.getStudentLocation(key: UdacityClient.getAccountKey(), completion: handleGetStudent)
+            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
             
             willOverwrite = true
         } else {
@@ -146,13 +146,17 @@ class MainTabBarController: UITabBarController{
     }
     
     
-    func handleGetStudent(studentLocationResponse: GetStudentLocationResponse?, err: Error?){
+    func handleGetStudent(studentLocationResponse: GetStudentLocationResponse2?, err: Error?){
         guard let object = studentLocationResponse else {
             print("There was an error")
             return
         }
-        print(object.firstName)
-        print(object.lastName)
+        
+        let object1 = object.results.first
+        
+        print("object.firstName ---> \(object1?.firstName)")
+        print("object.lastName ---> \(object1?.lastName)")
+        print("object.objectId ---> \(object1?.objectId)")
     }
     
     

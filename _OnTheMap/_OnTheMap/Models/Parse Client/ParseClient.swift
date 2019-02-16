@@ -29,7 +29,8 @@ class ParseClient {
                 + "&order=-updatedAt"
             case .getPublicInfo(let key): return Endpoints.base
                 + "/StudentLocation"
-                + "?where=%7B%22uniqueKey%22%3A%22"
+                + "?where=%7B%22"
+                + "uniqueKey%22%3A%22"
                 + "\(key)"
                 + "%22%7D"
                 
@@ -42,9 +43,9 @@ class ParseClient {
     }
     
     
-    class func getStudentLocation(key: String, completion: @escaping (GetStudentLocationResponse?, Error?)-> Void ){
+    class func getStudentLocation(key: String, completion: @escaping (GetStudentLocationResponse2?, Error?)-> Void ){
         let url = Endpoints.getPublicInfo(key).url
-        taskForGetResponse(url: url, decoder: GetStudentLocationResponse.self) { (data, err) in
+        taskForGetResponse(url: url, decoder: GetStudentLocationResponse2.self) { (data, err) in
             guard let object = data else {
                 completion(nil, err)
                 return
