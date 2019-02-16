@@ -15,34 +15,34 @@ import FBSDKLoginKit
 
 
 class MainTabBarController: UITabBarController{
-    private var currentSearchTask: URLSessionTask?
+    var currentSearchTask: URLSessionTask?
     
     var currentObject:  VerifiedPostedStudentInfoResponse?
     
     var willOverwrite = false
     
-    private var mapView: MKMapView = {
+    var mapView: MKMapView = {
         var mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.backgroundColor = .white
-        self.setupBottomToolBar()                   //Make toolbar visible before network call
-        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
-        if currentSearchTask != nil {
-            currentSearchTask?.cancel()
-            print("Cancelled search Request")
-        }
-        showPassThroughNetworkActivityView()
-        currentSearchTask = ParseClient.getStudents(completion: handleGetStudents(data:err:))
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        view.backgroundColor = .white
+//        self.setupBottomToolBar()                   //Make toolbar visible before network call
+//        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
+//        if currentSearchTask != nil {
+//            currentSearchTask?.cancel()
+//            print("Cancelled search Request")
+//        }
+//        showPassThroughNetworkActivityView()
+//        currentSearchTask = ParseClient.getStudents(completion: handleGetStudents(data:err:))
+//    }
     
     
     //MARK:- Toolbar Setup
-    private func setupBottomToolBar(){
+    func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
         let mapController = MapController()
@@ -53,7 +53,7 @@ class MainTabBarController: UITabBarController{
         self.viewControllers = controllers
     }
     
-    private func setupTopToolBar(){
+    func setupTopToolBar(){
         navigationItem.title = "On The Map"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LOGOUT", style: .done, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: .done, target: self, action: #selector(handleAddBarButton)),
@@ -63,7 +63,7 @@ class MainTabBarController: UITabBarController{
     
     
     //MARK:- Handlers
-    @objc private func handleLogout(){
+    @objc   func handleLogout(){
         FBSDKAccessToken.setCurrent(nil)
         FBSDKProfile.setCurrent(nil)
         FBSDKLoginManager().logOut()
@@ -74,12 +74,12 @@ class MainTabBarController: UITabBarController{
         }
     }
     
-    @objc private func handleAddBarButton(){
+    @objc   func handleAddBarButton(){
         func doSomething(alert: UIAlertAction!){
             let newVC = AddLocationController()
             self.navigationController?.pushViewController(newVC, animated: true)
         }
-
+        
         if willOverwrite {
             let newVC = AddLocationController()
             self.navigationController?.pushViewController(newVC, animated: true)
@@ -91,12 +91,90 @@ class MainTabBarController: UITabBarController{
         }
     }
     
-    @objc private func handleRefreshBarButton(){
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.backgroundColor = .white
+        self.setupBottomToolBar()                   //Make toolbar visible before network call
+        self.setupTopToolBar()                      //Update the NavigationPane from LoginController
+        
+        
+        if currentSearchTask != nil {
+            currentSearchTask?.cancel()
+            print("APPEAR -- Cancelled search Request")
+            return
+        }
+        showPassThroughNetworkActivityView()
+        currentSearchTask = ParseClient.getStudents(completion: handleGetStudents(data:err:))
+    }
+
+    func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
+        
+//        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+//        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+//        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+//        showFinishNetworkRequest()
+
+        if err != nil {
+            showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
+            print("handleGetStudentsm --> Err --> \(String(describing: err))")
+            currentSearchTask = nil
+            return
+        }
+
+        Students.allStudentLocations = data
+        Students.loadValidLocations()  //[VerifiedStudentLocations]
+
+        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+        showFinishNetworkRequest()
+        
+
+        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+        //        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
+
+
+        if matchingValidLocation != nil {
+            print("found a match")
+            print(" PUT ")
+            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
+            willOverwrite = true
+        } else {
+            print("did not find a match")
+            print(" POST ")
+            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(object:error:))
+            willOverwrite = false
+        }
+        currentSearchTask = nil
+    }
+    
+    @objc   func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
+        
+        
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")
+            return
         }
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
             if err == nil{
@@ -109,42 +187,82 @@ class MainTabBarController: UITabBarController{
                 self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
+            self?.currentSearchTask = nil
         }
     }
     
-    func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
-        
-        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-        showFinishNetworkRequest()
-        
-        if err != nil {
-            showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
-            print("handleGetStudentsm --> Err --> \(String(describing: err))")
-            return
-        }
-        
-        Students.allStudentLocations = data
-        Students.loadValidLocations()  //[VerifiedStudentLocations]
-        
-        
-        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
-//        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
-        
-        
-        if matchingValidLocation != nil {
-            print("found a match")
-            print(" PUT ")
-            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
-            willOverwrite = true
-        } else {
-            print("did not find a match")
-            print(" POST ")
-            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(object:error:))
-            willOverwrite = false
-        }
-    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    func handleGetStudents(data: [PostedStudentInfoResponse], err: Error?){
+//        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+//        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
+//        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+//        showFinishNetworkRequest()
+//
+//        if err != nil {
+//            showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
+//            print("handleGetStudentsm --> Err --> \(String(describing: err))")
+//            currentSearchTask = nil
+//            return
+//        }
+//
+//        Students.allStudentLocations = data
+//        Students.loadValidLocations()  //[VerifiedStudentLocations]
+//
+//
+//        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+//        //        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "9361191001"}.first
+//
+//
+//        if matchingValidLocation != nil {
+//            print("found a match")
+//            print(" PUT ")
+//            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
+//            willOverwrite = true
+//        } else {
+//            print("did not find a match")
+//            print(" POST ")
+//            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(object:error:))
+//            willOverwrite = false
+//        }
+//        currentSearchTask = nil
+//    }
     
     
     func handleGetPublicUserData(publicData: UdacityPublicUserData2?, err: Error?){
@@ -155,7 +273,7 @@ class MainTabBarController: UITabBarController{
     
     
     
-//    class func getPublicUserData(key: String, completion: @escaping(UdacityPublicUserData2?, Error?)->Void)
+    //    class func getPublicUserData(key: String, completion: @escaping(UdacityPublicUserData2?, Error?)->Void)
     
     
     
@@ -195,7 +313,7 @@ class MainTabBarController: UITabBarController{
     }
 }
 
- /*
+/*
  //////
  var searchKey = "4931429520"
  searchKey = UdacityClient.getAccountKey()  //From my login
