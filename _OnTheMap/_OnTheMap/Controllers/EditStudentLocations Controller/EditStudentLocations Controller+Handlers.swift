@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension VerifyOnMapController2 {
+extension VerifyOnMapController {
     @objc func handleFinish(){
         pushOrPost()
     }
@@ -31,17 +31,17 @@ extension VerifyOnMapController2 {
         }
     }
     
-
+    
     private func pushOrPost(){
         guard let delegate = delegate else {
             print("Delegate is UNDEFINED!!.  No pointer back to VerifyOnMapController")
             return
         }
-
-         mapString = delegate.getMapString()
-         mediaURL = delegate.getURLString()
-         location = delegate.getLoction()
-         coord = location.coordinate
+        
+        mapString = delegate.getMapString()
+        mediaURL = delegate.getURLString()
+        location = delegate.getLoction()
+        coord = location.coordinate
         
         
         let storedObjectID = UserDefaults.standard.object(forKey: key) as? String

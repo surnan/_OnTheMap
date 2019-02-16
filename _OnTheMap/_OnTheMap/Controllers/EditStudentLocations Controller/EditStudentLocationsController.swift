@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class VerifyOnMapController2: UIViewController, MKMapViewDelegate {
+class VerifyOnMapController: UIViewController, MKMapViewDelegate {
     
     var field: UITextField?
     
@@ -66,6 +66,6 @@ class VerifyOnMapController2: UIViewController, MKMapViewDelegate {
         } else {
             print("Unable to obtain coordinate from delegate")
         }
-//        deleteNSUserDefaultsButton.isHidden = false
+        //        deleteNSUserDefaultsButton.isHidden = false
     }
 }

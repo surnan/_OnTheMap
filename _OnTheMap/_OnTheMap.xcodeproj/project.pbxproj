@@ -14,6 +14,8 @@
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		842AE0702211410200A87358 /* VerifyOnMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06F2211410200A87358 /* VerifyOnMapController.swift */; };
 		84332C522217238D003CF12C /* UdacityPublicUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C512217238D003CF12C /* UdacityPublicUserData.swift */; };
+		84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */; };
+		84332C5E22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */; };
 		8436E4B122146FC2002175F2 /* Login+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B022146FC2002175F2 /* Login+UITextField.swift */; };
 		8436E4B32214703C002175F2 /* AddAnnotation+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
@@ -57,6 +59,8 @@
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		842AE06F2211410200A87358 /* VerifyOnMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOnMapController.swift; sourceTree = "<group>"; };
 		84332C512217238D003CF12C /* UdacityPublicUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityPublicUserData.swift; sourceTree = "<group>"; };
+		84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentLocationsController.swift; sourceTree = "<group>"; };
+		84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditStudentLocations Controller+Handlers.swift"; sourceTree = "<group>"; };
 		8436E4B022146FC2002175F2 /* Login+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Login+UITextField.swift"; sourceTree = "<group>"; };
 		8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddAnnotation+UITextField.swift"; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
@@ -108,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84332C5A22179F91003CF12C /* EditStudentLocations Controller */ = {
+			isa = PBXGroup;
+			children = (
+				84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */,
+				84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */,
+			);
+			path = "EditStudentLocations Controller";
+			sourceTree = "<group>";
+		};
 		8439960E220D192800A73345 /* UserInfoClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +193,7 @@
 		848928602204F7C100BF9BF6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84332C5A22179F91003CF12C /* EditStudentLocations Controller */,
 				848928782204F8EE00BF9BF6 /* Login Controller */,
 				84F272AF2212B4BF000F9542 /* MainTab Controller */,
 				845BA44F22077FD700F6D80E /* AnnotationTable Controller */,
@@ -431,6 +445,7 @@
 			files = (
 				849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */,
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
+				84332C5E22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift in Sources */,
 				84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */,
 				84EE6D8F221654EB008EECBC /* LoginController+Facebook.swift in Sources */,
 				844DFEC62204F42800742437 /* AppDelegate.swift in Sources */,
@@ -439,6 +454,7 @@
 				84EE6D9122165670008EECBC /* UIViewController+Extensions.swift in Sources */,
 				8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */,
 				840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */,
+				84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */,
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
 				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
 				8439D011220CB6F20057CE6E /* String and TextField +Extensions.swift in Sources */,
