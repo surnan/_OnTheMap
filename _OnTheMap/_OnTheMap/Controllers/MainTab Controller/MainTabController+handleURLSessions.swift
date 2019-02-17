@@ -26,7 +26,7 @@ extension MainTabBarController {
         showFinishNetworkRequest()
         
         
-        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+        let matchingValidLocation = Students.getVerifiedStudentLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
         //         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
         
         

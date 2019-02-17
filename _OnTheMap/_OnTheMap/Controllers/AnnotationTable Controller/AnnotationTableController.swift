@@ -51,7 +51,7 @@ class AnnotationTableController:UITableViewController, AnnotationTableController
     }()
    
     func loadLocationsArray(){
-        locations = Students.validLocations
+        locations = Students.getVerifiedStudentLocations
     }
     
     override func viewDidLoad() {

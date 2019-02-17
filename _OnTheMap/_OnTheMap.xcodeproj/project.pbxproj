@@ -237,7 +237,7 @@
 		848928622204F7C600BF9BF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				848D4481220614C600BF3EF9 /* Data */,
+				848D4481220614C600BF3EF9 /* Student Locations Data */,
 				848928652204F86500BF9BF6 /* Parse Client */,
 				848928662204F86F00BF9BF6 /* Udacity Client */,
 			);
@@ -275,12 +275,12 @@
 			path = "Login Controller";
 			sourceTree = "<group>";
 		};
-		848D4481220614C600BF3EF9 /* Data */ = {
+		848D4481220614C600BF3EF9 /* Student Locations Data */ = {
 			isa = PBXGroup;
 			children = (
 				848D4482220614DB00BF3EF9 /* Students.swift */,
 			);
-			path = Data;
+			path = "Student Locations Data";
 			sourceTree = "<group>";
 		};
 		84F272AB2212AD73000F9542 /* AddLocation Controller */ = {

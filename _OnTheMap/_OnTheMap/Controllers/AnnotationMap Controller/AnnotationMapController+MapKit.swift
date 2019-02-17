@@ -36,7 +36,7 @@ extension AnnotationMapController {
     }
     
     private func loadLocationsArray(){
-        Students.validLocations.forEach {
+        Students.getVerifiedStudentLocations.forEach {
             let tempAnnotation: [String:Any] = [
                 locationsIndex.objectId.rawValue: $0.objectId,
                 locationsIndex.uniqueKey.rawValue: $0.uniqueKey,
