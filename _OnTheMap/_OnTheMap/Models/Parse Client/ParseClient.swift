@@ -43,19 +43,18 @@ class ParseClient {
     }
     
     //MARK:- PUT
-    class func putStudentLocation(objectID: String, firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?)->Void){
+    class func putStudentLocation(objectID: String, firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?)->Void)-> URLSessionTask?{
         let _StudentLocationRequest = PostPutRequest(
-                                                 firstName: firstname,
-                                                 lastName: lastName,
-                                                 latitude: latitude,
-                                                 longitude: longitude,
-                                                 mapString: mapString,
-                                                 mediaURL: mediaURL,
-                                                 uniqueKey: UdacityClient.getAccountKey())
+            firstName: firstname,
+            lastName: lastName,
+            latitude: latitude,
+            longitude: longitude,
+            mapString: mapString,
+            mediaURL: mediaURL,
+            uniqueKey: UdacityClient.getAccountKey())
         
-        taskForPutRequest(url: Endpoints.putStudentLocation(objectID).url, encodable: _StudentLocationRequest) { (success, err) in
+        let task = taskForPutRequest(url: Endpoints.putStudentLocation(objectID).url, encodable: _StudentLocationRequest) { (success, err) in
             if success {
-                print("taskForPUT returned success")
                 DispatchQueue.main.async {
                     completion(true, nil)
                 }
@@ -64,25 +63,33 @@ class ParseClient {
                 DispatchQueue.main.async {
                     completion(false, err)
                 }
-                print("taskForPut FAILED:\n\n\n \(String(describing: err)) \n\n\n \(err?.localizedDescription)")
+                print("taskForPut FAILED:\n\n\n \(String(describing: err)) \n\n\n \(String(describing: err?.localizedDescription))")
                 return
             }
         }
+        task?.resume()
+        return task
     }
     
-    private class func taskForPutRequest(url: URL, encodable: PostPutRequest, completion: @escaping (Bool, Error?)->Void ){
+    private class func taskForPutRequest(url: URL, encodable: PostPutRequest, completion: @escaping (Bool, Error?)->Void )->URLSessionTask?{
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.timeoutInterval = putTimeOut
+        
         do {
             let body = try JSONEncoder().encode(encodable)
             request.httpBody = body
         } catch {
             print("taskForPutRequest - unable to encode")
+            DispatchQueue.main.async {
+                completion(false, error)
+            }
+            return nil
         }
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error == nil {
                 DispatchQueue.main.async {
                     completion(true, nil)
@@ -94,23 +101,13 @@ class ParseClient {
                 }
                 return
             }
-            }.resume()
-    }
-    
-    
-    //MARK: Get Only One Location - Used to setup PUT input
-    class func getOneStudentLocation(key: String, completion: @escaping (StudentLocationResultsResponse?, Error?)-> Void ){
-        let url = Endpoints.getPublicInfo(key).url
-        taskForGetRequest(url: url, decoder: StudentLocationResultsResponse.self) { (data, err) in
-            guard let object = data else {
-                completion(nil, err)
-                return
             }
-            completion(object, nil)
-            return
-        }
+            task.resume()
+        return task
     }
-
+    
+    
+    
     
     
     //MARK:- GET
@@ -133,7 +130,7 @@ class ParseClient {
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         
-//        request.timeoutInterval = 25
+        //        request.timeoutInterval = 25
         request.timeoutInterval = downloadStudentLocationsTimeOut
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -168,16 +165,18 @@ class ParseClient {
     }
     
     //MARK:- POST
-    class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostPushResponse?, Error?)->Void){
+    class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostPushResponse?, Error?)->Void)-> URLSessionTask?{
         let _StudentLocationRequest = PostPutRequest(firstName: firstname,
-                                                             lastName: lastName,
-                                                             latitude: latitude,
-                                                             longitude: longitude,
-                                                             mapString: mapString,
-                                                             mediaURL: mediaURL,
-                                                             uniqueKey: UdacityClient.getAccountKey())
+                                                     lastName: lastName,
+                                                     latitude: latitude,
+                                                     longitude: longitude,
+                                                     mapString: mapString,
+                                                     mediaURL: mediaURL,
+                                                     uniqueKey: UdacityClient.getAccountKey())
         
-        taskForPostRequest(url: Endpoints.postStudentLocation.url, body: _StudentLocationRequest, decodeType: PostPushResponse.self) { (data, error) in
+        
+        
+        let task = taskForPostRequest(url: Endpoints.postStudentLocation.url, body: _StudentLocationRequest, decodeType: PostPushResponse.self) { (data, error) in
             if let err = error {
                 completion(nil, err)
                 return
@@ -190,14 +189,18 @@ class ParseClient {
             completion(data, nil)
             return
         }
+        return task
     }
     
-    private class func taskForPostRequest<Encoding: Encodable, Decoder: Decodable>(url: URL, body: Encoding, decodeType: Decoder.Type, completion: @escaping (Decoder?, Error?)->Void){
+    private class func taskForPostRequest<Encoding: Encodable, Decoder: Decodable>(url: URL, body: Encoding, decodeType: Decoder.Type, completion: @escaping (Decoder?, Error?)->Void) -> URLSessionTask? {
         var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.timeoutInterval = postTimeOut
+        
         do {
             let body =  try JSONEncoder().encode(body)
             request.httpBody =   body
@@ -206,9 +209,9 @@ class ParseClient {
             DispatchQueue.main.async {
                 completion(nil, error)
             }
-            return
+            return nil
         }
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(nil, error)
@@ -228,8 +231,27 @@ class ParseClient {
                 }
                 return
             }
-            }.resume()
+        }
+        task.resume()
+        return task
     }
+    
+    
+    
+    
+    //MARK:- Get Only One Location - Used to setup PUT input
+    class func getOneStudentLocation(key: String, completion: @escaping (StudentLocationResultsResponse?, Error?)-> Void ){
+        let url = Endpoints.getPublicInfo(key).url
+        taskForGetRequest(url: url, decoder: StudentLocationResultsResponse.self) { (data, err) in
+            guard let object = data else {
+                completion(nil, err)
+                return
+            }
+            completion(object, nil)
+            return
+        }
+    }
+    
 }
 
 

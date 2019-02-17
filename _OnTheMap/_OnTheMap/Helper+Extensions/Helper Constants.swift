@@ -10,3 +10,5 @@ import Foundation
 
 let loginTimeOut: TimeInterval = 25
 let downloadStudentLocationsTimeOut: TimeInterval = 30
+let postTimeOut: TimeInterval = 30
+let putTimeOut: TimeInterval = 30

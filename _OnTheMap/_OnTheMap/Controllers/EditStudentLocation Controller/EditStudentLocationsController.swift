@@ -14,13 +14,13 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     var field: UITextField?
     var delegate: AddLocationControllerDelegate?
+    var currentSearchTask: URLSessionTask?
     
     private var mapView = MKMapView()
     var mapString = ""
     var mediaURL = ""
     var location = CLLocation()
     var coord = CLLocationCoordinate2D()
-    
     
     private let finishButton: UIButton = {
         let button = UIButton()
@@ -54,40 +54,43 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     
     @objc func handleFinishButton(){
-            print("HI")
+        if currentSearchTask != nil{
+            print("ignoring network request or delegate not set")
+            return
+        }
         
         showPassThroughNetworkActivityView()
-        
         guard let pushPostObject = delegate?.getPutPostInfo() else {
             return
         }
         
-        
         if let objectID = pushPostObject.object {
             //PUT
-            print("NEED TO PUT")
-            ParseClient.putStudentLocation(objectID: objectID,
-                                           firstname: pushPostObject.firstName,
-                                           lastName: pushPostObject.lastName,
-                                           mapString: pushPostObject.mapString,
-                                           mediaURL: pushPostObject.urlString,
-                                           latitude: pushPostObject.location.coordinate.latitude,
-                                           longitude: pushPostObject.location.coordinate.longitude,
-                                           completion: handlePutStudentLocation)
+            print("EXECUTING PUT PUT request")
+            currentSearchTask = ParseClient.putStudentLocation(objectID: objectID,
+                                                               firstname: pushPostObject.firstName,
+                                                               lastName: pushPostObject.lastName,
+                                                               mapString: pushPostObject.mapString,
+                                                               mediaURL: pushPostObject.urlString,
+                                                               latitude: pushPostObject.location.coordinate.latitude,
+                                                               longitude: pushPostObject.location.coordinate.longitude,
+                                                               completion: handlePutStudentLocation)
         } else {
             //POST
-            ParseClient.postStudentLocation(firstname: pushPostObject.firstName,
-                                            lastName: pushPostObject.lastName,
-                                            mapString: pushPostObject.mapString,
-                                            mediaURL: pushPostObject.urlString,
-                                            latitude: pushPostObject.location.coordinate.latitude,
-                                            longitude: pushPostObject.location.coordinate.longitude,
-                                            completion: handlePostStudentLocation)
+            print("EXECUTING POST request")
+            currentSearchTask = ParseClient.postStudentLocation(firstname: pushPostObject.firstName,
+                                                                lastName: pushPostObject.lastName,
+                                                                mapString: pushPostObject.mapString,
+                                                                mediaURL: pushPostObject.urlString,
+                                                                latitude: pushPostObject.location.coordinate.latitude,
+                                                                longitude: pushPostObject.location.coordinate.longitude,
+                                                                completion: handlePostStudentLocation)
         }
     }
     
     func handlePutStudentLocation(success: Bool, err: Error?){
         showFinishNetworkRequest()
+        currentSearchTask = nil
         if let _ = err {
             showOKAlert(title: "Connection Error", message: "Unable to succesfully update existing student location")
             return
@@ -100,6 +103,7 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     func handlePostStudentLocation(data: PostPushResponse?, err: Error?){
         showFinishNetworkRequest()
+        currentSearchTask = nil
         if let _ = err {
             showOKAlert(title: "Connection Error", message: "Unable to succesfully add student location")
             return
