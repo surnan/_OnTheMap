@@ -34,16 +34,6 @@ struct VerifiedStudentLocation: Codable, Hashable {
     var updatedAt: String
 }
 
-struct PutPostRequest: Codable {
-    var firstName: String
-    var lastName: String
-    var latitude: Double
-    var longitude: Double
-    var mapString: String
-    var mediaURL: String
-    var uniqueKey: String
-}
-
 struct StudentLocationResultsResponse: Codable {
     var results: [StudentLocation]
 }
