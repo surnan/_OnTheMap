@@ -9,8 +9,8 @@
 import Foundation
 
 class Students {
-    static var allStudentLocations = [StudentLocation]()
-    static var validStudentLocations = [VerifiedStudentLocation]()
+    private static var allStudentLocations = [StudentLocation]()
+    private static var validStudentLocations = [VerifiedStudentLocation]()
     
     static var getAllStudentLocations:[StudentLocation] {
         return allStudentLocations
@@ -26,7 +26,7 @@ class Students {
             guard $0.firstName != nil,
                 $0.lastName != nil,
                 $0.objectId != nil,
-                $0.uniqueKey != nil,
+//                $0.uniqueKey != nil,
                 $0.mapString != nil,
                 $0.mediaURL != nil,
                 $0.latitude != nil,
@@ -45,7 +45,7 @@ class Students {
                                     mapString: $0.mapString!,
                                     mediaURL: $0.mediaURL!,
                                     objectId: $0.objectId!,
-                                    uniqueKey: $0.uniqueKey!,
+                                    uniqueKey: $0.uniqueKey ?? " ",
                                     updatedAt: $0.updatedAt!)
         }
     }
