@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct StudentLocationResponse: Codable {
+struct StudentLocation: Codable {
     var createdAt: String?
     var firstName: String?
     var lastName: String?
@@ -21,7 +21,7 @@ struct StudentLocationResponse: Codable {
     var updatedAt: String?
 }
 
-struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
+struct VerifiedStudentLocation: Codable, Hashable {
     var createdAt: String
     var firstName: String
     var lastName: String
@@ -34,7 +34,6 @@ struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
     var updatedAt: String
 }
 
-
 struct PutPostRequest: Codable {
     var firstName: String
     var lastName: String
@@ -45,10 +44,12 @@ struct PutPostRequest: Codable {
     var uniqueKey: String
 }
 
-struct GetStudentLocationResponse2: Codable {
-    var results: [StudentLocationResponse]
-    
+struct StudentLocationResultsResponse: Codable {
+    var results: [StudentLocation]
     enum CodingKeys: String, CodingKey {
         case results
     }
 }
+
+
+

@@ -10,7 +10,7 @@ import UIKit
 
 
 extension MainTabBarController {
-    func handleGetStudents(data: [StudentLocationResponse], err: Error?){
+    func handleGetStudents(data: [StudentLocation], err: Error?){
         
         if err != nil {
             showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
@@ -65,7 +65,7 @@ extension MainTabBarController {
     
 
     
-    func handleGetStudent(studentLocationResponse: GetStudentLocationResponse2?, err: Error?){
+    func handleGetStudent(studentLocationResponse: StudentLocationResultsResponse?, err: Error?){
         guard let objectGetStudentLocationResponse2 = studentLocationResponse else {
             print("There was an error")
             return

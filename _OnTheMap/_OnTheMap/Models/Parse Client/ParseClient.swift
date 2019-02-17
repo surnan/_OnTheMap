@@ -99,9 +99,9 @@ class ParseClient {
     
     
     //MARK: Get Only One Location - Used to setup PUT input
-    class func getOneStudentLocation(key: String, completion: @escaping (GetStudentLocationResponse2?, Error?)-> Void ){
+    class func getOneStudentLocation(key: String, completion: @escaping (StudentLocationResultsResponse?, Error?)-> Void ){
         let url = Endpoints.getPublicInfo(key).url
-        taskForGetRequest(url: url, decoder: GetStudentLocationResponse2.self) { (data, err) in
+        taskForGetRequest(url: url, decoder: StudentLocationResultsResponse.self) { (data, err) in
             guard let object = data else {
                 completion(nil, err)
                 return
@@ -114,7 +114,7 @@ class ParseClient {
     
     
     //MARK:- GET
-    class func getStudents(completion: @escaping ([StudentLocationResponse], Error?)-> Void)-> URLSessionTask{
+    class func getStudents(completion: @escaping ([StudentLocation], Error?)-> Void)-> URLSessionTask{
         let url = ParseClient.Endpoints.getStudentsSortedByCreationDate(100).url
         let task = taskForGetRequest(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {

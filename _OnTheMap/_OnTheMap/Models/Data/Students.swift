@@ -9,8 +9,8 @@
 import Foundation
 
 class Students {
-    static var allStudentLocations = [StudentLocationResponse]()
-    static var validLocations = [VerifiedPostedStudentInfoResponse]()
+    static var allStudentLocations = [StudentLocation]()
+    static var validLocations = [VerifiedStudentLocation]()
     
     class func loadValidLocations(){
         let nonNilArray = self.allStudentLocations.filter{
@@ -28,7 +28,7 @@ class Students {
         }
 
         validLocations = nonNilArray.map{
-           VerifiedPostedStudentInfoResponse(createdAt: $0.createdAt!,
+           VerifiedStudentLocation(createdAt: $0.createdAt!,
                                              firstName: $0.firstName!,
                                              lastName: $0.lastName!,
                                              latitude: $0.latitude!,
