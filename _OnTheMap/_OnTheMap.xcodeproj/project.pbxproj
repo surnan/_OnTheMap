@@ -17,7 +17,6 @@
 		841CEE432219261C0002CA6C /* LoginController+Overload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE422219261C0002CA6C /* LoginController+Overload.swift */; };
 		841CEE462219A7DB0002CA6C /* AddLocation+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE452219A7DB0002CA6C /* AddLocation+Override.swift */; };
 		841CEE482219AE4B0002CA6C /* Helper Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE472219AE4B0002CA6C /* Helper Constants.swift */; };
-		841CEE4A2219C73A0002CA6C /* UIViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE492219C73A0002CA6C /* UIViewConstants.swift */; };
 		841CEE4C2219F5590002CA6C /* NSMutable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE4B2219F5590002CA6C /* NSMutable+Extension.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		84332C522217238D003CF12C /* PublicUserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C512217238D003CF12C /* PublicUserDataResponse.swift */; };
@@ -38,7 +37,7 @@
 		848928712204F89400BF9BF6 /* LoginSuccessRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489286E2204F89400BF9BF6 /* LoginSuccessRequest.swift */; };
 		848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489286F2204F89400BF9BF6 /* UdacityClient.swift */; };
 		848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848928732204F8C100BF9BF6 /* UIColor+Extension.swift */; };
-		848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848928742204F8C100BF9BF6 /* UIView+Constraints.swift */; };
+		848928762204F8C100BF9BF6 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848928742204F8C100BF9BF6 /* UIView+Extensions.swift */; };
 		848D44772204FD6400BF3EF9 /* StudentLocationMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44762204FD6400BF3EF9 /* StudentLocationMapController.swift */; };
 		848D44792204FD7300BF3EF9 /* StudentLocationTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D44782204FD7300BF3EF9 /* StudentLocationTableController.swift */; };
 		848D4483220614DB00BF3EF9 /* StudentInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D4482220614DB00BF3EF9 /* StudentInformationModel.swift */; };
@@ -49,7 +48,7 @@
 		84EE6D9122165670008EECBC /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE6D9022165670008EECBC /* UIViewController+Extensions.swift */; };
 		84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F272AC2212ADA8000F9542 /* AddLocation+Handle.swift */; };
 		84FBF1CD221A033A00036C3C /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBF1CC221A033A00036C3C /* UITextField+Extensions.swift */; };
-		84FBF1CF221A034A00036C3C /* File2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBF1CE221A034A00036C3C /* File2.swift */; };
+		84FBF1CF221A034A00036C3C /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBF1CE221A034A00036C3C /* UIButton+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +62,6 @@
 		841CEE422219261C0002CA6C /* LoginController+Overload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Overload.swift"; sourceTree = "<group>"; };
 		841CEE452219A7DB0002CA6C /* AddLocation+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocation+Override.swift"; sourceTree = "<group>"; };
 		841CEE472219AE4B0002CA6C /* Helper Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper Constants.swift"; sourceTree = "<group>"; };
-		841CEE492219C73A0002CA6C /* UIViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewConstants.swift; sourceTree = "<group>"; };
 		841CEE4B2219F5590002CA6C /* NSMutable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutable+Extension.swift"; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		84332C512217238D003CF12C /* PublicUserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserDataResponse.swift; sourceTree = "<group>"; };
@@ -86,7 +84,7 @@
 		8489286E2204F89400BF9BF6 /* LoginSuccessRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSuccessRequest.swift; sourceTree = "<group>"; };
 		8489286F2204F89400BF9BF6 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		848928732204F8C100BF9BF6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		848928742204F8C100BF9BF6 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		848928742204F8C100BF9BF6 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		848D44762204FD6400BF3EF9 /* StudentLocationMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationMapController.swift; sourceTree = "<group>"; };
 		848D44782204FD7300BF3EF9 /* StudentLocationTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationTableController.swift; sourceTree = "<group>"; };
 		848D4482220614DB00BF3EF9 /* StudentInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationModel.swift; sourceTree = "<group>"; };
@@ -97,7 +95,7 @@
 		84EE6D9022165670008EECBC /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		84F272AC2212ADA8000F9542 /* AddLocation+Handle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocation+Handle.swift"; sourceTree = "<group>"; };
 		84FBF1CC221A033A00036C3C /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
-		84FBF1CE221A034A00036C3C /* File2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File2.swift; sourceTree = "<group>"; };
+		84FBF1CE221A034A00036C3C /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		9403CF63766314290E9E8C66 /* Pods-_OnTheMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-_OnTheMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-_OnTheMap/Pods-_OnTheMap.debug.xcconfig"; sourceTree = "<group>"; };
 		BC2D5232DCA28D5BB23BF32B /* Pods__OnTheMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods__OnTheMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -194,9 +192,9 @@
 				848928622204F7C600BF9BF6 /* Models */,
 				848928612204F7C400BF9BF6 /* Views */,
 				848928602204F7C100BF9BF6 /* Controllers */,
+				8439D00F220CB6C00057CE6E /* Helper+Extensions */,
 				844DFEC52204F42800742437 /* AppDelegate.swift */,
 				844DFED12204F42900742437 /* Info.plist */,
-				8439D00F220CB6C00057CE6E /* Helper+Extensions */,
 			);
 			path = _OnTheMap;
 			sourceTree = "<group>";
@@ -240,11 +238,10 @@
 				844DFECE2204F42900742437 /* LaunchScreen.storyboard */,
 				840D5DD722128CDC00929BE5 /* NSAttributedStringKeys.swift */,
 				848928732204F8C100BF9BF6 /* UIColor+Extension.swift */,
-				848928742204F8C100BF9BF6 /* UIView+Constraints.swift */,
+				848928742204F8C100BF9BF6 /* UIView+Extensions.swift */,
 				84EE6D9022165670008EECBC /* UIViewController+Extensions.swift */,
-				841CEE492219C73A0002CA6C /* UIViewConstants.swift */,
 				84FBF1CC221A033A00036C3C /* UITextField+Extensions.swift */,
-				84FBF1CE221A034A00036C3C /* File2.swift */,
+				84FBF1CE221A034A00036C3C /* UIButton+Extensions.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,8 +278,8 @@
 		848928782204F8EE00BF9BF6 /* Login Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8489285B2204F78A00BF9BF6 /* LoginController+handlers.swift */,
 				8489285A2204F78A00BF9BF6 /* LoginController.swift */,
+				8489285B2204F78A00BF9BF6 /* LoginController+handlers.swift */,
 				8436E4B022146FC2002175F2 /* Login+UITextField.swift */,
 				84EE6D8E221654EB008EECBC /* LoginController+Facebook.swift */,
 				841CEE422219261C0002CA6C /* LoginController+Overload.swift */,
@@ -478,8 +475,7 @@
 				84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */,
 				841CEE3F221919230002CA6C /* PostPutRequest.swift in Sources */,
 				8439D011220CB6F20057CE6E /* String+Extensions.swift in Sources */,
-				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
-				841CEE4A2219C73A0002CA6C /* UIViewConstants.swift in Sources */,
+				848928762204F8C100BF9BF6 /* UIView+Extensions.swift in Sources */,
 				842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */,
 				84EE6D8A2215D433008EECBC /* LoginFailedResponse.swift in Sources */,
 				848928752204F8C100BF9BF6 /* UIColor+Extension.swift in Sources */,
@@ -487,7 +483,7 @@
 				845BA4512207807500F6D80E /* StudentLocationTableController+TableView.swift in Sources */,
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* LoginRequest.swift in Sources */,
-				84FBF1CF221A034A00036C3C /* File2.swift in Sources */,
+				84FBF1CF221A034A00036C3C /* UIButton+Extensions.swift in Sources */,
 				848928712204F89400BF9BF6 /* LoginSuccessRequest.swift in Sources */,
 				841CEE432219261C0002CA6C /* LoginController+Overload.swift in Sources */,
 				841CEE302218734A0002CA6C /* MainTabController+handleURLSessions.swift in Sources */,

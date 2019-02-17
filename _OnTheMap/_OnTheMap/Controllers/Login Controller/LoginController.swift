@@ -16,28 +16,18 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
     
     var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
-        textField.defaultTextAttributes = grey25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Email", attributes: grey25textAttributes)
-        //textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0) //prevents entered text from starting at left border.
-        //But doesn't work with borderStyle = .roundedRect.  Rectangle Border shifts with text
-        textField.layer.cornerRadius = cornerRadiusSize
-        textField.clipsToBounds = true
+        textField.myStandardSetup(cornerRadiusSize: cornerRadiusSize, defaulAttributes: grey25textAttributes)
         return textField
     }()
     
     var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
         textField.clearsOnBeginEditing = true
-        textField.defaultTextAttributes = grey25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Password", attributes: grey25textAttributes)
         textField.isSecureTextEntry = true
-        textField.clearButtonMode = .whileEditing
-        textField.layer.cornerRadius = cornerRadiusSize
-        textField.clipsToBounds = true
+        textField.myStandardSetup(cornerRadiusSize: cornerRadiusSize, defaulAttributes: grey25textAttributes)
         return textField
     }()
     
@@ -63,13 +53,11 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         return label
     }()
     
-    var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
+    var loginButton: UIButton = {
         var button = UIButton()
-        button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
         button.setTitle("Connecting ...", for: .selected)
-        button.layer.cornerRadius = cornerRadiusSize
-        button.clipsToBounds = true
+        button.myStandardSetup(cornerRadiusSize: cornerRadiusSize, background: UIColor.steelBlue)
         button.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -97,18 +85,14 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
     
     //MARK:- UI Code
     func setupUI(){
-
         [logoImage, insertSpaceLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton, registrationTextLink].forEach{
             $0.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
             loginStack.addArrangedSubview($0)
         }
         
-        
         view.addSubview(loginStack)
-        
         loginStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         loginStack.anchor(top: logoImage.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 25, left: 50, bottom: 0, right: 50), size: .zero)
-        
         checkFacebook()
     }
     
@@ -116,6 +100,4 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         showPassThroughNetworkActivityView()
         navigationController?.pushViewController(MainTabBarController(), animated: false)
     }
-    
-
 }

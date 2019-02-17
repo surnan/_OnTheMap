@@ -49,20 +49,19 @@ class AddLocationController: UIViewController, MKMapViewDelegate, UITextFieldDel
     
     var locationTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
-        textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSMutableAttributedString(string: "Enter a Location", attributes: grey25textAttributes)
+        
+        textField.myStandardSetup(cornerRadiusSize: cornerRadiusSize, defaulAttributes: black25textAttributes)
+        
+        
         return textField
     }()
     
     var urlTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
-        textField.defaultTextAttributes = black25textAttributes
         textField.attributedPlaceholder = NSAttributedString(string: "Enter a Website", attributes: grey25textAttributes)
+        textField.myStandardSetup(cornerRadiusSize: cornerRadiusSize, defaulAttributes: black25textAttributes)
         return textField
     }()
     

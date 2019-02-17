@@ -24,12 +24,9 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     private let finishButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.steelBlue
-        button.layer.cornerRadius = cornerRadiusSize
-        button.clipsToBounds = true
         button.setAttributedTitle(NSAttributedString(string: "  FINISH  ", attributes: white25textAttributes), for: .normal)
         button.addTarget(self, action: #selector(handleFinishButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.myStandardSetup(cornerRadiusSize: cornerRadiusSize, background: UIColor.steelBlue)        
         return button
     }()
     

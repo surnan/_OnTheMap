@@ -15,5 +15,7 @@ extension UITextField {
         layer.cornerRadius = cornerRadiusSize
         clipsToBounds = true
         defaultTextAttributes = defaulAttributes
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }
+

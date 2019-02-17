@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         window?.rootViewController = UINavigationController(rootViewController: LoginController())
-//        window?.rootViewController = UINavigationController(rootViewController: AddLocationController())
-        
         return true
     }
 
