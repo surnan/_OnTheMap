@@ -12,7 +12,11 @@ class Students {
     static var allStudentLocations = [StudentLocation]()
     static var validLocations = [VerifiedStudentLocation]()
     
-    class func loadValidLocations(){
+//    static var allStudentLocations = [StudentLocation]()
+//    static var validLocations = [VerifiedStudentLocation]()
+    
+    
+    private class func loadValidLocations(){
         let nonNilArray = self.allStudentLocations.filter{
             guard $0.firstName != nil,
                 $0.lastName != nil,
@@ -39,5 +43,10 @@ class Students {
                                              uniqueKey: $0.uniqueKey!,
                                              updatedAt: $0.updatedAt!)
         }
+    }
+    
+    class func loadStudentLocationArrays(studentLocations: [StudentLocation]){
+        Students.allStudentLocations = studentLocations
+        Students.loadValidLocations()
     }
 }

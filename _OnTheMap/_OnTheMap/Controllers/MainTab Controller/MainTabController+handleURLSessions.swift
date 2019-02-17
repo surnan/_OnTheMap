@@ -18,10 +18,8 @@ extension MainTabBarController {
             currentSearchTask = nil
             return
         }
-        
-        Students.allStudentLocations = data
-        Students.loadValidLocations()  //[VerifiedStudentLocations]
-        
+
+        Students.loadStudentLocationArrays(studentLocations: data)
         setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
         ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
@@ -43,24 +41,6 @@ extension MainTabBarController {
             willOverwrite = false
         }
         currentSearchTask = nil
-        
-        
-        
-        
-        
-        
-        
-        //        if matchingValidLocation != nil {
-        //            print(" PUT ---- found a match")
-        ////            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
-        //            ParseClient.getStudentLocation(key: (matchingValidLocation?.objectId)!, completion: handleGetStudent)
-        //            willOverwrite = true
-        //        } else {
-        //            print(" POST ---- did not find a match")
-        //            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(studentLocationResponse:error:))
-        //            willOverwrite = false
-        //        }
-        //        currentSearchTask = nil
     }
     
 
@@ -77,12 +57,6 @@ extension MainTabBarController {
         lastName = putObject?.lastName ?? ""
         key = putObject?.uniqueKey ?? ""
         object = putObject?.objectId
-        
-        print("object.firstName ---> \(putObject?.firstName ?? "")")
-        print("object.lastName ---> \(putObject?.lastName ?? "")")
-        print("object.objectId ---> \(putObject?.objectId ?? "")")
-        
-        
     }
     
     
@@ -96,14 +70,5 @@ extension MainTabBarController {
         firstName = postObject.firstName ?? ""
         lastName = postObject.lastName ?? ""
         key = postObject.key
-        
-        
-        print("------------ INSIDE HANDLE ------------")
-        print("searchResultObject.firstName ==> \(postObject.firstName ?? "")")
-        print("searchResultObject.lastName ===> \(postObject.lastName ?? "")")
-        print("searchResultObject.uniqueKey ===> \(postObject.key)")
-        
-        
-        
     }
 }

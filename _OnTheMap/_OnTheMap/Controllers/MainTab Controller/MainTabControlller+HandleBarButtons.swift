@@ -46,23 +46,10 @@ extension MainTabBarController{
             newVC.delegate = self
             self.navigationController?.pushViewController(newVC, animated: true)
         }
-        
-        
-        
-//        if willOverwrite {
-//            let newVC = AddLocationController()
-//            newVC.delegate = self
-//            self.navigationController?.pushViewController(newVC, animated: true)
-//        } else {
-//            let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
-//            myAlertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: pushViewController))
-//            myAlertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-//            present(myAlertController, animated: true)
-//        }
     }
 
     
-    @objc   func handleRefreshBarButton(){
+    @objc func handleRefreshBarButton(){
         ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
         ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
         
@@ -73,8 +60,7 @@ extension MainTabBarController{
         }
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
             if err == nil{
-                Students.allStudentLocations = data
-                Students.loadValidLocations()
+                Students.loadStudentLocationArrays(studentLocations: data)
                 self?.setupBottomToolBar() //let mapController = MapController()
                 ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
                 ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
