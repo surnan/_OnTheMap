@@ -14,25 +14,25 @@ import FBSDKLoginKit
 
 extension MainTabBarController{
     @objc   func handleLogout(){
-        FBSDKAccessToken.setCurrent(nil)
-        FBSDKProfile.setCurrent(nil)
-        FBSDKLoginManager().logOut()
         UdacityClient.logout {
             FBSDKAccessToken.setCurrent(nil)
             FBSDKProfile.setCurrent(nil)
             FBSDKLoginManager().logOut()
-//            self.navigationController?.popViewController(animated: true)
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
     @objc   func handleAddBarButton(){
+        if currentlyMakingNetworkRequest() {
+            return
+        }
+        
         func pushViewController(alert: UIAlertAction!){
             let newVC = AddLocationController()
             newVC.delegate = self
             self.navigationController?.pushViewController(newVC, animated: true)
         }
-
+        
         
         if willOverwrite {
             let myAlertController = UIAlertController(title: "Overwrite", message: "Overwrite existing location?", preferredStyle: .alert)
@@ -48,13 +48,13 @@ extension MainTabBarController{
             self.navigationController?.pushViewController(newVC, animated: true)
         }
     }
-
+    
     @objc func handleRefreshBarButton(){
-        if currentSearchTask != nil {
-            currentSearchTask?.cancel()
-            print("Cancelled search Request")
+        if currentlyMakingNetworkRequest() {
             return
         }
+        
+        
         showPassThroughNetworkActivityView()
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
             if err == nil{
@@ -69,6 +69,20 @@ extension MainTabBarController{
             self?.currentSearchTask = nil
         }
     }
+    
+    
+    
+    func currentlyMakingNetworkRequest()->Bool {
+        if currentSearchTask != nil {
+            currentSearchTask?.cancel()
+            print("Cancelled search Request")
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
 }
 
 
