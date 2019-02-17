@@ -22,7 +22,6 @@
 		8436E4B122146FC2002175F2 /* Login+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B022146FC2002175F2 /* Login+UITextField.swift */; };
 		8436E4B32214703C002175F2 /* AddAnnotation+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */; };
 		8439960B220CEB0700A73345 /* ParseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960A220CEB0700A73345 /* ParseResponse.swift */; };
-		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
 		8439D011220CB6F20057CE6E /* String and TextField +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* String and TextField +Extensions.swift */; };
 		843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */; };
 		843CA25F220D644000B09A66 /* PostingStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */; };
@@ -70,7 +69,6 @@
 		8436E4B022146FC2002175F2 /* Login+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Login+UITextField.swift"; sourceTree = "<group>"; };
 		8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddAnnotation+UITextField.swift"; sourceTree = "<group>"; };
 		8439960A220CEB0700A73345 /* ParseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseResponse.swift; sourceTree = "<group>"; };
-		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* String and TextField +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String and TextField +Extensions.swift"; sourceTree = "<group>"; };
 		843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationRequest.swift; sourceTree = "<group>"; };
 		843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingStudentLocationResponse.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				848928692204F88500BF9BF6 /* ParseClient.swift */,
-				8439960F220D195400A73345 /* UserInfoClient.swift */,
 				843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */,
 				843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */,
 				848928672204F88500BF9BF6 /* ParseRequest.swift */,
@@ -458,7 +455,6 @@
 				840D5DDA22128DEA00929BE5 /* NSUserDefaultsKey.swift in Sources */,
 				84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */,
 				840D5DDC22128EE100929BE5 /* ActivityIndicatorSingleton.swift in Sources */,
-				84399610220D195400A73345 /* UserInfoClient.swift in Sources */,
 				8439D011220CB6F20057CE6E /* String and TextField +Extensions.swift in Sources */,
 				843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */,
 				848928762204F8C100BF9BF6 /* UIView+Constraints.swift in Sources */,
