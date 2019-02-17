@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct UdacityErrorResponse:Codable {
+struct LoginFailedResponse:Codable {
     var status: Double
     var error: String
-    
-    
 }

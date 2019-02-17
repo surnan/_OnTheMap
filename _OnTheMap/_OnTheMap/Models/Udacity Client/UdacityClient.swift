@@ -43,7 +43,7 @@ class UdacityClient {
     }
     
     
-    class func getPublicUserData(key: String, completion: @escaping(UdacityPublicUserData2?, Error?)->Void){
+    class func getPublicUserData(key: String, completion: @escaping(PublicUserDataResponse?, Error?)->Void){
         
         var request = URLRequest(url: Endpoints.getPublicUserData(key).url)
         request.httpMethod = "GET"
@@ -63,7 +63,7 @@ class UdacityClient {
             
             
             do {
-                let udacityPublicUserDataObject = try JSONDecoder().decode(UdacityPublicUserData2.self, from: newData)
+                let udacityPublicUserDataObject = try JSONDecoder().decode(PublicUserDataResponse.self, from: newData)
                 DispatchQueue.main.async {
                     completion(udacityPublicUserDataObject, nil)
                 }
@@ -164,8 +164,8 @@ class UdacityClient {
     class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void)->URLSessionTask{
         
         let url = Endpoints.postingSession.url
-        let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
-        let task = postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self, udacityErrorDecoder: UdacityErrorResponse.self) {(loginData, udacityErrData, err) in
+        let userCredentials = LoginRequest(udacity: Credentials(username: name, password: password))
+        let task = postRequest(url: url, encodable: userCredentials, decoder: LoginSuccessRequest.self, udacityErrorDecoder: LoginFailedResponse.self) {(loginData, udacityErrData, err) in
             
             if let dataObject = loginData {
                 UdacityClient.LoggedInUserInfo.username = name

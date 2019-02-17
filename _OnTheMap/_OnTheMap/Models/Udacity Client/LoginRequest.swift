@@ -14,7 +14,7 @@ struct Credentials: Codable {
     var password: String
 }
 
-struct UdacityRequest: Codable {
+struct LoginRequest: Codable {
     var udacity: Credentials
 }
 

@@ -20,7 +20,7 @@ struct Session: Codable {
 }
 
 
-struct UdacityResponse: Codable {
+struct LoginSuccessRequest: Codable {
     var account: Account
     var session: Session
 }

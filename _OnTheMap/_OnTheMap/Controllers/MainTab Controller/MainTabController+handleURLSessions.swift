@@ -86,7 +86,7 @@ extension MainTabBarController {
     }
     
     
-    func handleGetPublicUserData(studentLocationResponse: UdacityPublicUserData2?, error: Error?){
+    func handleGetPublicUserData(studentLocationResponse: PublicUserDataResponse?, error: Error?){
         guard let postObject = studentLocationResponse else {
             print("FAIL: handleGetPublicUserData --> \(error ?? "" as! Error)")
             return
