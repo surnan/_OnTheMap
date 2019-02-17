@@ -25,7 +25,7 @@
 		84399610220D195400A73345 /* UserInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439960F220D195400A73345 /* UserInfoClient.swift */; };
 		8439D011220CB6F20057CE6E /* String and TextField +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* String and TextField +Extensions.swift */; };
 		843CA25D220D51AA00B09A66 /* StudentLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */; };
-		843CA25F220D644000B09A66 /* postStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25E220D644000B09A66 /* postStudentLocationResponse.swift */; };
+		843CA25F220D644000B09A66 /* PostingStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */; };
 		844DFEC62204F42800742437 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DFEC52204F42800742437 /* AppDelegate.swift */; };
 		844DFECD2204F42900742437 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844DFECC2204F42900742437 /* Assets.xcassets */; };
 		844DFED02204F42900742437 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844DFECE2204F42900742437 /* LaunchScreen.storyboard */; };
@@ -73,7 +73,7 @@
 		8439960F220D195400A73345 /* UserInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoClient.swift; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* String and TextField +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String and TextField +Extensions.swift"; sourceTree = "<group>"; };
 		843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationRequest.swift; sourceTree = "<group>"; };
-		843CA25E220D644000B09A66 /* postStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postStudentLocationResponse.swift; sourceTree = "<group>"; };
+		843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingStudentLocationResponse.swift; sourceTree = "<group>"; };
 		844DFEC22204F42800742437 /* _OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = _OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844DFEC52204F42800742437 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844DFECC2204F42900742437 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			children = (
 				8439960F220D195400A73345 /* UserInfoClient.swift */,
 				843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */,
-				843CA25E220D644000B09A66 /* postStudentLocationResponse.swift */,
+				843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */,
 			);
 			path = UserInfoClient;
 			sourceTree = "<group>";
@@ -487,7 +487,7 @@
 				848D44792204FD7300BF3EF9 /* AnnotationTableController.swift in Sources */,
 				848D44772204FD6400BF3EF9 /* MapController.swift in Sources */,
 				8436E4B122146FC2002175F2 /* Login+UITextField.swift in Sources */,
-				843CA25F220D644000B09A66 /* postStudentLocationResponse.swift in Sources */,
+				843CA25F220D644000B09A66 /* PostingStudentLocationResponse.swift in Sources */,
 				848D4483220614DB00BF3EF9 /* Students.swift in Sources */,
 				84F272B32212B8C1000F9542 /* VerifyOnMap+Handlers.swift in Sources */,
 				8489286A2204F88500BF9BF6 /* ParseRequest.swift in Sources */,

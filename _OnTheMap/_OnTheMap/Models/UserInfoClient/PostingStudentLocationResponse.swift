@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct postStudentLocationResponse: Codable {
+struct PostingStudentLocationResponse: Codable {
     var createdAt: String
     var objectId: String
 }
