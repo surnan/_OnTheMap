@@ -24,12 +24,7 @@ extension String {
     }
 }
 
-extension UITextField {
-    var isEmpty: Bool {
-        guard let text = self.text, text.isEmpty else { return false}        
-        return true
-    }
-}
+
 
 
 

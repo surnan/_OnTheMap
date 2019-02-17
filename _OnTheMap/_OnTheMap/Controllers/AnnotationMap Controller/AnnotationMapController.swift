@@ -15,7 +15,7 @@ protocol MapControllerDelegate {
     func stopActivityIndicator()
 }
 
-class MapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
+class AnnotationMapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     
     //MARK:- Protocol Functions
     func startActivityIndicator(){

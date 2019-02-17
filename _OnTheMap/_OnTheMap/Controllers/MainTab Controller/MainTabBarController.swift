@@ -40,7 +40,7 @@ class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
     func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
-        let mapController = MapController()
+        let mapController = AnnotationMapController()
         let listController = AnnotationTableController()
         mapController.tabBarItem = mapIcon
         listController.tabBarItem = listIcon
