@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Students {
+class StudentInformationModel {
     private static var allStudentLocations = [StudentLocation]()
     private static var validStudentLocations = [VerifiedStudentLocation]()
     
@@ -51,7 +51,7 @@ class Students {
     }
     
     class func loadStudentLocationArrays(studentLocations: [StudentLocation]){
-        Students.allStudentLocations = studentLocations
-        Students.loadValidLocations()
+        StudentInformationModel.allStudentLocations = studentLocations
+        StudentInformationModel.loadValidLocations()
     }
 }

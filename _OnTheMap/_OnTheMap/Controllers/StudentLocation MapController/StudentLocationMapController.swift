@@ -8,27 +8,8 @@
 
 import UIKit
 import MapKit
-
-
-protocol MapControllerDelegate {
-    func startActivityIndicator()
-    func stopActivityIndicator()
-}
-
-class AnnotationMapController:UIViewController, MKMapViewDelegate, MapControllerDelegate{
     
-    //MARK:- Protocol Functions
-    func startActivityIndicator(){
-        myActivityMonitor.startAnimating()
-        mapView.alpha = 0.5
-    }
-    
-    func stopActivityIndicator(){
-        myActivityMonitor.stopAnimating()
-        mapView.alpha = 1.0
-    }
-    
-
+class StudentLocationMapController:UIViewController, MKMapViewDelegate{
     private var myActivityMonitor: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         activity.hidesWhenStopped = true
@@ -68,6 +49,5 @@ class AnnotationMapController:UIViewController, MKMapViewDelegate, MapController
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        ActivityIndicatorSingleton.shared.mapDelegate = self
     }
 }

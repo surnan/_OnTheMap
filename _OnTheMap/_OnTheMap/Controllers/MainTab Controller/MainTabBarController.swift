@@ -17,8 +17,6 @@ protocol MaintTabBarControllerDelegate {
 }
 
 class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
-    
-    
     var currentSearchTask: URLSessionTask?
     var willOverwrite = false
     
@@ -33,15 +31,15 @@ class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
             return
         }
         showPassThroughNetworkActivityView()
-        currentSearchTask = ParseClient.getStudents(completion: handleGetStudents(data:err:))
+        currentSearchTask = ParseClient.getStudents(completion: handleGetStudentLocations(data:err:))
     }
     
     //MARK:- Toolbar Setup
     func setupBottomToolBar(){
         let mapIcon = UITabBarItem(title: "MAP", image: #imageLiteral(resourceName: "icon_mapview-selected"), selectedImage: #imageLiteral(resourceName: "icon_mapview-deselected"))
         let listIcon = UITabBarItem(title: "LIST", image: #imageLiteral(resourceName: "icon_listview-selected"), selectedImage: #imageLiteral(resourceName: "icon_listview-deselected"))
-        let mapController = AnnotationMapController()
-        let listController = AnnotationTableController()
+        let mapController = StudentLocationMapController()
+        let listController = StudentLocationTableController()
         mapController.tabBarItem = mapIcon
         listController.tabBarItem = listIcon
         let controllers = [mapController, listController]
@@ -55,7 +53,7 @@ class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
                                               UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: .done, target: self, action: #selector(handleRefreshBarButton))]
     }
     
-    //Protocol Stuff
+    //Protocol Variables
     var firstName = ""
     var lastName = ""
     var key = ""

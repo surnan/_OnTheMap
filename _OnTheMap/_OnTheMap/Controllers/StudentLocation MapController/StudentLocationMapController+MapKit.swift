@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-extension AnnotationMapController {
+extension StudentLocationMapController {
 
     func setupMap(){
         loadLocationsArray()
@@ -36,7 +36,7 @@ extension AnnotationMapController {
     }
     
     private func loadLocationsArray(){
-        Students.getVerifiedStudentLocations.forEach {
+        StudentInformationModel.getVerifiedStudentLocations.forEach {
             let tempAnnotation: [String:Any] = [
                 locationsIndex.objectId.rawValue: $0.objectId,
                 locationsIndex.uniqueKey.rawValue: $0.uniqueKey,

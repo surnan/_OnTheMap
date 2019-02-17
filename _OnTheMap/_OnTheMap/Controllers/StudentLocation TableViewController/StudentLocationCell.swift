@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AnnotationCell: UITableViewCell {
+class StudentLocationCell: UITableViewCell {
     
     let iconSizeConstant: CGFloat = 40
     

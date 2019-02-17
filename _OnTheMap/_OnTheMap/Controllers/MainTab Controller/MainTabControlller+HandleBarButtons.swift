@@ -21,7 +21,8 @@ extension MainTabBarController{
             FBSDKAccessToken.setCurrent(nil)
             FBSDKProfile.setCurrent(nil)
             FBSDKLoginManager().logOut()
-            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -48,28 +49,27 @@ extension MainTabBarController{
         }
     }
 
-    
     @objc func handleRefreshBarButton(){
-        ActivityIndicatorSingleton.shared.mapDelegate?.startActivityIndicator()
-        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.startActivityIndicator()
-        
         if currentSearchTask != nil {
             currentSearchTask?.cancel()
             print("Cancelled search Request")
             return
         }
+        showPassThroughNetworkActivityView()
         currentSearchTask = ParseClient.getStudents { [weak self] (data, err) in
             if err == nil{
-                Students.loadStudentLocationArrays(studentLocations: data)
+                StudentInformationModel.loadStudentLocationArrays(studentLocations: data)
                 self?.setupBottomToolBar() //let mapController = MapController()
-                ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-                ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
+                self?.showFinishNetworkRequest()
             } else {
                 self?.showOKAlert(title: "Loading Error", message: "Unable to download Student Locations")
+                self?.showFinishNetworkRequest()
                 print("handleRefresh unable failed ParseClient.getStudents")
             }
             self?.currentSearchTask = nil
         }
     }
 }
+
+
 

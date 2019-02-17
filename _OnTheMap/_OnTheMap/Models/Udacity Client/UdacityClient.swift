@@ -138,7 +138,10 @@ class UdacityClient {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(encodable)
-        request.timeoutInterval = 25
+        
+        request.timeoutInterval = loginTimeOut
+        
+        
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {

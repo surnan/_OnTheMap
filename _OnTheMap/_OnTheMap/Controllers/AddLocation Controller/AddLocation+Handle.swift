@@ -14,6 +14,9 @@ import CoreLocation
 extension AddLocationController {
 
     @objc func handleFindLocation(_ sender: UIButton){
+        
+        
+        
         guard let temp = isStringToURLValid(testString: urlTextField.text ?? "") else {return}
         mediaURL = temp
         showPassThroughNetworkActivityView()

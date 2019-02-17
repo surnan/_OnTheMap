@@ -10,25 +10,18 @@ import UIKit
 
 
 extension MainTabBarController {
-    func handleGetStudents(data: [StudentLocation], err: Error?){
+    func handleGetStudentLocations(data: [StudentLocation], err: Error?){
         
         if err != nil {
             showOKAlert(title: "Loading Error", message: "Unable to Update Student Locations")
+            showFinishNetworkRequest()
             print("handleGetStudentsm --> Err --> \(String(describing: err))")
             currentSearchTask = nil
             return
         }
-
-        Students.loadStudentLocationArrays(studentLocations: data)
-        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
-        ActivityIndicatorSingleton.shared.mapDelegate?.stopActivityIndicator()
-        ActivityIndicatorSingleton.shared.AnnotationTableDelegate?.stopActivityIndicator()
-        showFinishNetworkRequest()
         
-        
-        let matchingValidLocation = Students.getVerifiedStudentLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+        let matchingValidLocation = StudentInformationModel.getVerifiedStudentLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
         //         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
-        
         
         if let VerifiedPostedStudentInfoResponseObject = matchingValidLocation {
             print(" PUT ---- found a match")
@@ -40,6 +33,10 @@ extension MainTabBarController {
             UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(studentLocationResponse:error:))
             willOverwrite = false
         }
+        
+        StudentInformationModel.loadStudentLocationArrays(studentLocations: data)
+        setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
+        showFinishNetworkRequest()
         currentSearchTask = nil
     }
     
@@ -65,8 +62,6 @@ extension MainTabBarController {
             print("FAIL: handleGetPublicUserData --> \(error ?? "" as! Error)")
             return
         }
-        
-        
         firstName = postObject.firstName ?? ""
         lastName = postObject.lastName ?? ""
         key = postObject.key

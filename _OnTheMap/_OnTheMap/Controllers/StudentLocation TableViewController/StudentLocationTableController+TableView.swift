@@ -9,7 +9,7 @@
 import UIKit
 
 
-extension AnnotationTableController {
+extension StudentLocationTableController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -17,7 +17,7 @@ extension AnnotationTableController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: listReuseID, for: indexPath) as! AnnotationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: listReuseID, for: indexPath) as! StudentLocationCell
         let item = locations[indexPath.row]
         cell.titleLabel.text =  "\(item.firstName) \(item.lastName) ..... \(item.uniqueKey)"
         cell.messageLabel.text = item.mediaURL

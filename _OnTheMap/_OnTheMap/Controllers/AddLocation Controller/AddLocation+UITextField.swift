@@ -24,6 +24,8 @@ extension AddLocationController {
         
         if urlTextField.isEmpty {
             urlTextField.attributedPlaceholder = NSAttributedString(string: "Enter a Website", attributes: grey25textAttributes)
+        } else {
+            urlTextField.text =  urlTextField.text?._prependHTTPifNeeded()
         }
     }
 }
