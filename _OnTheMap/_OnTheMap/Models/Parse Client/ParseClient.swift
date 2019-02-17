@@ -114,7 +114,7 @@ class ParseClient {
     
     
     //MARK:- GET
-    class func getStudents(completion: @escaping ([PostedStudentInfoResponse], Error?)-> Void)-> URLSessionTask{
+    class func getStudents(completion: @escaping ([StudentLocationResponse], Error?)-> Void)-> URLSessionTask{
         let url = ParseClient.Endpoints.getStudentsSortedByCreationDate(100).url
         let task = taskForGetRequest(url: url, decoder: ParseRequest.self) { (data, err) in
             if err != nil {
@@ -167,7 +167,7 @@ class ParseClient {
     
     //MARK:- POST
     class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostPushResponse?, Error?)->Void){
-        let _StudentLocationRequest = StudentLocationRequest(firstName: firstname,
+        let _StudentLocationRequest = PutPostRequest(firstName: firstname,
                                                              lastName: lastName,
                                                              latitude: latitude,
                                                              longitude: longitude,

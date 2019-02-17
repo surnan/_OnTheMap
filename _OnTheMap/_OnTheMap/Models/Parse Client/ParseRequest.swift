@@ -9,7 +9,7 @@
 import Foundation
 
 struct ParseRequest: Codable {
-    var results: [PostedStudentInfoResponse]
+    var results: [StudentLocationResponse]
 }
 
 

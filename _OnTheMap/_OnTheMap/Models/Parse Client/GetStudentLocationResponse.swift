@@ -8,20 +8,7 @@
 
 import Foundation
 
-struct GetStudentLocationResponse: Codable {
-    var createdAt: String?
-    var firstName: String?
-    var lastName:  String?
-    var latitude: Double?
-    var longitude: Double?
-    var mapString: String?
-    var mediaURL: String?
-    var objectId: String?
-    var uniqueKey: String?
-    var updatedAt: String?
-}
-
-struct PostedStudentInfoResponse: Codable {
+struct StudentLocationResponse: Codable {
     var createdAt: String?
     var firstName: String?
     var lastName: String?
@@ -31,7 +18,8 @@ struct PostedStudentInfoResponse: Codable {
     var mediaURL: String?
     var objectId: String?
     var uniqueKey: String?
-    var updatedAt: String?}
+    var updatedAt: String?
+}
 
 struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
     var createdAt: String
@@ -47,16 +35,6 @@ struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
 }
 
 
-struct StudentLocationRequest: Codable {
-    var firstName: String
-    var lastName: String
-    var latitude: Double
-    var longitude: Double
-    var mapString: String
-    var mediaURL: String
-    var uniqueKey: String
-}
-
 struct PutPostRequest: Codable {
     var firstName: String
     var lastName: String
@@ -67,11 +45,8 @@ struct PutPostRequest: Codable {
     var uniqueKey: String
 }
 
-
-
-
 struct GetStudentLocationResponse2: Codable {
-    var results: [GetStudentLocationResponse]
+    var results: [StudentLocationResponse]
     
     enum CodingKeys: String, CodingKey {
         case results

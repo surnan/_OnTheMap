@@ -9,7 +9,7 @@
 import Foundation
 
 class Students {
-    static var allStudentLocations = [PostedStudentInfoResponse]()
+    static var allStudentLocations = [StudentLocationResponse]()
     static var validLocations = [VerifiedPostedStudentInfoResponse]()
     
     class func loadValidLocations(){
