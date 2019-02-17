@@ -77,11 +77,6 @@ class UdacityClient {
         }.resume()
     }
     
-    
-    
-    
-    
-    
     class func logout(completion: @escaping ()-> Void){
         var request = URLRequest(url: Endpoints.deletingSession.url)
         request.httpMethod = "DELETE"
@@ -109,6 +104,32 @@ class UdacityClient {
     //Used by  class func setupFromAnnotationController(mapString: String, mediaURL: String, location: CLLocation){
     class func getAccountKey()-> String {
         return LoggedInUserInfo.accountKey
+    }
+    
+
+    
+    //MARK:- Log In
+    class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void)->URLSessionTask{
+        
+        let url = Endpoints.postingSession.url
+        let userCredentials = LoginRequest(udacity: Credentials(username: name, password: password))
+        let task = postRequest(url: url, encodable: userCredentials, decoder: LoginSuccessRequest.self, udacityErrorDecoder: LoginFailedResponse.self) {(loginData, udacityErrData, err) in
+            
+            if let dataObject = loginData {
+                UdacityClient.LoggedInUserInfo.username = name
+                UdacityClient.LoggedInUserInfo.password = password
+                UdacityClient.LoggedInUserInfo.accountKey = dataObject.account.key
+                UdacityClient.LoggedInUserInfo.accountRegistered = dataObject.account.registered
+                UdacityClient.LoggedInUserInfo.sessionExpiration = dataObject.session.expiration
+                UdacityClient.LoggedInUserInfo.sessionId = dataObject.session.id
+                completion(nil, nil)
+            } else if let udacityErrorObject = udacityErrData {
+                completion(udacityErrorObject.error, nil)
+            } else {
+                completion(nil, err)
+            }
+        }
+        return task
     }
     
     private class func postRequest<WillEncode: Encodable, Decoder: Decodable, UdacityErrorDecoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type, udacityErrorDecoder: UdacityErrorDecoder.Type, completion: @escaping (Decoder?, UdacityErrorDecoder?, Error?)-> Void)->URLSessionTask{
@@ -155,32 +176,8 @@ class UdacityClient {
                 }
                 return
             }
-            }
-            task.resume()
-        return task
-    }
-    
-    
-    class func authenticateSession(name: String, password: String, completion: @escaping (String?, Error?)-> Void)->URLSessionTask{
-        
-        let url = Endpoints.postingSession.url
-        let userCredentials = LoginRequest(udacity: Credentials(username: name, password: password))
-        let task = postRequest(url: url, encodable: userCredentials, decoder: LoginSuccessRequest.self, udacityErrorDecoder: LoginFailedResponse.self) {(loginData, udacityErrData, err) in
-            
-            if let dataObject = loginData {
-                UdacityClient.LoggedInUserInfo.username = name
-                UdacityClient.LoggedInUserInfo.password = password
-                UdacityClient.LoggedInUserInfo.accountKey = dataObject.account.key
-                UdacityClient.LoggedInUserInfo.accountRegistered = dataObject.account.registered
-                UdacityClient.LoggedInUserInfo.sessionExpiration = dataObject.session.expiration
-                UdacityClient.LoggedInUserInfo.sessionId = dataObject.session.id
-                completion(nil, nil)
-            } else if let udacityErrorObject = udacityErrData {
-                completion(udacityErrorObject.error, nil)
-            } else {
-                completion(nil, err)
-            }
         }
+        task.resume()
         return task
     }
 }

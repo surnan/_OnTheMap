@@ -67,7 +67,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         return label
     }()
     
-    private var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
+    var loginButton: UIButton = {  //Need the lazy to have height anchor in definition
         var button = UIButton()
         button.backgroundColor = UIColor.steelBlue
         button.setTitle("Log In", for: .normal)
@@ -78,14 +78,14 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         return button
     }()
     
-    private var facebookLoginButton: LoginButton = {
+    var facebookLoginButton: LoginButton = {
         let button = LoginButton(readPermissions: [.publicProfile])
         return button
     }()
     
     
     //MARK:- UI Code
-    private func setupUI(){
+    func setupUI(){
         [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{
             $0.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
             loginStack.addArrangedSubview($0)
@@ -101,27 +101,5 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         navigationController?.pushViewController(MainTabBarController(), animated: false)
     }
     
-    
-    //MARK:- Override Functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-        //line below prevents us from showing unnecessary bar button item until Tab Controller fully loads
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .done, target: self, action: nil)
-        facebookLoginButton.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        setupUI()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showFinishNetworkRequest()
-        navigationController?.navigationBar.isHidden = false
-    }
+
 }

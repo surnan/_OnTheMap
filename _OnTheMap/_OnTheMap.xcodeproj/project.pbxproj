@@ -15,10 +15,10 @@
 		841CEE302218734A0002CA6C /* MainTabController+handleURLSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE2F2218734A0002CA6C /* MainTabController+handleURLSessions.swift */; };
 		841CEE3F221919230002CA6C /* PostPutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE3E221919230002CA6C /* PostPutRequest.swift */; };
 		841CEE4122191D470002CA6C /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE4022191D470002CA6C /* TextField+Extensions.swift */; };
+		841CEE432219261C0002CA6C /* LoginController+Overload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE422219261C0002CA6C /* LoginController+Overload.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		84332C522217238D003CF12C /* PublicUserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C512217238D003CF12C /* PublicUserDataResponse.swift */; };
 		84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */; };
-		84332C5E22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */; };
 		8436E4B122146FC2002175F2 /* Login+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B022146FC2002175F2 /* Login+UITextField.swift */; };
 		8436E4B32214703C002175F2 /* AddAnnotation+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */; };
 		8439D011220CB6F20057CE6E /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439D010220CB6F20057CE6E /* String+Extensions.swift */; };
@@ -56,10 +56,10 @@
 		841CEE2F2218734A0002CA6C /* MainTabController+handleURLSessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabController+handleURLSessions.swift"; sourceTree = "<group>"; };
 		841CEE3E221919230002CA6C /* PostPutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPutRequest.swift; sourceTree = "<group>"; };
 		841CEE4022191D470002CA6C /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
+		841CEE422219261C0002CA6C /* LoginController+Overload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Overload.swift"; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		84332C512217238D003CF12C /* PublicUserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserDataResponse.swift; sourceTree = "<group>"; };
 		84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentLocationsController.swift; sourceTree = "<group>"; };
-		84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditStudentLocations Controller+Handlers.swift"; sourceTree = "<group>"; };
 		8436E4B022146FC2002175F2 /* Login+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Login+UITextField.swift"; sourceTree = "<group>"; };
 		8436E4B22214703C002175F2 /* AddAnnotation+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddAnnotation+UITextField.swift"; sourceTree = "<group>"; };
 		8439D010220CB6F20057CE6E /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */,
-				84332C5D22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift */,
 			);
 			path = "EditStudentLocation Controller";
 			sourceTree = "<group>";
@@ -271,6 +270,7 @@
 				8489285A2204F78A00BF9BF6 /* LoginController.swift */,
 				8436E4B022146FC2002175F2 /* Login+UITextField.swift */,
 				84EE6D8E221654EB008EECBC /* LoginController+Facebook.swift */,
+				841CEE422219261C0002CA6C /* LoginController+Overload.swift */,
 			);
 			path = "Login Controller";
 			sourceTree = "<group>";
@@ -450,7 +450,6 @@
 			files = (
 				849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */,
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
-				84332C5E22179FEE003CF12C /* EditStudentLocations Controller+Handlers.swift in Sources */,
 				84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */,
 				841CEE2A2217FDD90002CA6C /* GetStudentLocationResponse.swift in Sources */,
 				84EE6D8F221654EB008EECBC /* LoginController+Facebook.swift in Sources */,
@@ -471,6 +470,7 @@
 				8489286C2204F88500BF9BF6 /* ParseClient.swift in Sources */,
 				848928702204F89400BF9BF6 /* LoginRequest.swift in Sources */,
 				848928712204F89400BF9BF6 /* LoginSuccessRequest.swift in Sources */,
+				841CEE432219261C0002CA6C /* LoginController+Overload.swift in Sources */,
 				841CEE302218734A0002CA6C /* MainTabController+handleURLSessions.swift in Sources */,
 				848D448722062C6000BF3EF9 /* AnnotationMapController+MapKit.swift in Sources */,
 				8489285F2204F79600BF9BF6 /* MainTabBarController.swift in Sources */,

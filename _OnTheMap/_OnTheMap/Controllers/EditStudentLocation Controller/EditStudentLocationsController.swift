@@ -13,10 +13,9 @@ import MapKit
 class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     var field: UITextField?
-    
     var delegate: AddLocationControllerDelegate?
-    private var mapView = MKMapView()
     
+    private var mapView = MKMapView()
     var mapString = ""
     var mediaURL = ""
     var location = CLLocation()
@@ -54,7 +53,6 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     }
     
     
-    
     @objc func handleFinishButton(){
             print("HI")
         
@@ -86,18 +84,13 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
         }
     }
     
-//    func handlePutStudentLocation(data: postStudentLocationResponse?, err: Error?){
     func handlePutStudentLocation(success: Bool, err: Error?){
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
     }
     
-    
-    
-    
     func handlePostStudentLocation(data: PostPushResponse?, error: Error?){
-//    func handlePostStudentLocation(success: Bool, error: Error?){
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
