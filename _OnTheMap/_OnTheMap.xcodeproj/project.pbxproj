@@ -45,7 +45,6 @@
 		848D4483220614DB00BF3EF9 /* Students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D4482220614DB00BF3EF9 /* Students.swift */; };
 		848D448722062C6000BF3EF9 /* MapController+MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D448622062C6000BF3EF9 /* MapController+MapKit.swift */; };
 		849DEAA0220F8B13009B0E91 /* AnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */; };
-		849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEAA1220FAF4E009B0E91 /* PutRequest.swift */; };
 		84EE6D8A2215D433008EECBC /* LoginFailedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE6D892215D432008EECBC /* LoginFailedResponse.swift */; };
 		84EE6D8F221654EB008EECBC /* LoginController+Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE6D8E221654EB008EECBC /* LoginController+Facebook.swift */; };
 		84EE6D9122165670008EECBC /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE6D9022165670008EECBC /* UIViewController+Extensions.swift */; };
@@ -94,7 +93,6 @@
 		848D4482220614DB00BF3EF9 /* Students.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Students.swift; sourceTree = "<group>"; };
 		848D448622062C6000BF3EF9 /* MapController+MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapController+MapKit.swift"; sourceTree = "<group>"; };
 		849DEA9F220F8B13009B0E91 /* AnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationCell.swift; sourceTree = "<group>"; };
-		849DEAA1220FAF4E009B0E91 /* PutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutRequest.swift; sourceTree = "<group>"; };
 		84EE6D892215D432008EECBC /* LoginFailedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailedResponse.swift; sourceTree = "<group>"; };
 		84EE6D8E221654EB008EECBC /* LoginController+Facebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Facebook.swift"; sourceTree = "<group>"; };
 		84EE6D9022165670008EECBC /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 				848928672204F88500BF9BF6 /* ParseRequest.swift */,
 				848928682204F88500BF9BF6 /* PostedStudentInfoResponse.swift */,
 				8439960A220CEB0700A73345 /* ParseResponse.swift */,
-				849DEAA1220FAF4E009B0E91 /* PutRequest.swift */,
 				841CEE292217FDD90002CA6C /* GetStudentLocationResponse.swift */,
 			);
 			path = "Parse Client";
@@ -479,7 +476,6 @@
 				848D4483220614DB00BF3EF9 /* Students.swift in Sources */,
 				84F272B32212B8C1000F9542 /* VerifyOnMap+Handlers.swift in Sources */,
 				8489286A2204F88500BF9BF6 /* ParseRequest.swift in Sources */,
-				849DEAA2220FAF4E009B0E91 /* PutRequest.swift in Sources */,
 				8436E4B32214703C002175F2 /* AddAnnotation+UITextField.swift in Sources */,
 				8489285D2204F78A00BF9BF6 /* LoginController+handlers.swift in Sources */,
 			);
