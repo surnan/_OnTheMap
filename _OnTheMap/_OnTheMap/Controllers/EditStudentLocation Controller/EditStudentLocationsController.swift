@@ -56,6 +56,8 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     @objc func handleFinishButton(){
             print("HI")
         
+        showPassThroughNetworkActivityView()
+        
         guard let pushPostObject = delegate?.getPutPostInfo() else {
             return
         }
@@ -85,12 +87,23 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     }
     
     func handlePutStudentLocation(success: Bool, err: Error?){
+        showFinishNetworkRequest()
+        if let _ = err {
+            showOKAlert(title: "Connection Error", message: "Unable to succesfully update existing student location")
+            return
+        }
+        
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
     }
     
-    func handlePostStudentLocation(data: PostPushResponse?, error: Error?){
+    func handlePostStudentLocation(data: PostPushResponse?, err: Error?){
+        showFinishNetworkRequest()
+        if let _ = err {
+            showOKAlert(title: "Connection Error", message: "Unable to succesfully add student location")
+            return
+        }
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
