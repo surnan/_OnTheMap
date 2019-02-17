@@ -44,7 +44,7 @@ class ParseClient {
     
     //MARK:- PUT
     class func putStudentLocation(objectID: String, firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?)->Void){
-        let _StudentLocationRequest = PutRequest(uniqueKey: UdacityClient.getAccountKey(),
+        let _StudentLocationRequest = PutPostRequest(uniqueKey: UdacityClient.getAccountKey(),
                                                  firstName: firstname,
                                                  lastName: lastName,
                                                  mapString: mapString,
@@ -69,7 +69,7 @@ class ParseClient {
         }
     }
     
-    private class func taskForPutRequest(url: URL, encodable: PutRequest, completion: @escaping (Bool, Error?)->Void ){
+    private class func taskForPutRequest(url: URL, encodable: PutPostRequest, completion: @escaping (Bool, Error?)->Void ){
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
