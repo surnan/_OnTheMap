@@ -20,19 +20,6 @@ struct GetStudentLocationResponse: Codable {
     var objectId: String?
     var uniqueKey: String?
     var updatedAt: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case createdAt
-        case firstName
-        case lastName
-        case latitude
-        case longitude
-        case mapString
-        case mediaURL
-        case objectId
-        case uniqueKey
-        case updatedAt
-    }
 }
 
 

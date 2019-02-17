@@ -127,16 +127,6 @@
 			path = "EditStudentLocation Controller";
 			sourceTree = "<group>";
 		};
-		8439960E220D192800A73345 /* UserInfoClient */ = {
-			isa = PBXGroup;
-			children = (
-				8439960F220D195400A73345 /* UserInfoClient.swift */,
-				843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */,
-				843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */,
-			);
-			path = UserInfoClient;
-			sourceTree = "<group>";
-		};
 		8439D00F220CB6C00057CE6E /* Helper+Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				848D4481220614C600BF3EF9 /* Data */,
-				8439960E220D192800A73345 /* UserInfoClient */,
 				848928652204F86500BF9BF6 /* Parse Client */,
 				848928662204F86F00BF9BF6 /* Udacity Client */,
 			);
@@ -237,8 +226,11 @@
 		848928652204F86500BF9BF6 /* Parse Client */ = {
 			isa = PBXGroup;
 			children = (
-				848928672204F88500BF9BF6 /* ParseRequest.swift */,
 				848928692204F88500BF9BF6 /* ParseClient.swift */,
+				8439960F220D195400A73345 /* UserInfoClient.swift */,
+				843CA25C220D51AA00B09A66 /* StudentLocationRequest.swift */,
+				843CA25E220D644000B09A66 /* PostingStudentLocationResponse.swift */,
+				848928672204F88500BF9BF6 /* ParseRequest.swift */,
 				848928682204F88500BF9BF6 /* PostedStudentInfoResponse.swift */,
 				8439960A220CEB0700A73345 /* ParseResponse.swift */,
 				849DEAA1220FAF4E009B0E91 /* PutRequest.swift */,
