@@ -8,32 +8,32 @@
 
 import Foundation
 
-struct PostedStudentInfoResponse: Codable {
-    var objectId: String?
-    var uniqueKey: String?
-    var firstName: String?
-    var lastName: String?
-    var mapString: String?
-    var mediaURL: String?
-    var latitude: Double?
-    var longitude: Double?
-    var createdAt: String?
-    var updatedAt: String?
-}
-
-
-struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
-    var objectId: String
-    var uniqueKey: String
-    var firstName: String
-    var lastName: String
-    var mapString: String
-    var mediaURL: String
-    var latitude: Double
-    var longitude: Double
-    var createdAt: String
-    var updatedAt: String
-}
+//struct PostedStudentInfoResponse: Codable {
+//    var objectId: String?
+//    var uniqueKey: String?
+//    var firstName: String?
+//    var lastName: String?
+//    var mapString: String?
+//    var mediaURL: String?
+//    var latitude: Double?
+//    var longitude: Double?
+//    var createdAt: String?
+//    var updatedAt: String?
+//}
+//
+//
+//struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
+//    var objectId: String
+//    var uniqueKey: String
+//    var firstName: String
+//    var lastName: String
+//    var mapString: String
+//    var mediaURL: String
+//    var latitude: Double
+//    var longitude: Double
+//    var createdAt: String
+//    var updatedAt: String
+//}
 
 
 

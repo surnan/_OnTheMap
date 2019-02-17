@@ -28,15 +28,15 @@ class Students {
         }
 
         validLocations = nonNilArray.map{
-           VerifiedPostedStudentInfoResponse(objectId: $0.objectId!,
-                                             uniqueKey: $0.uniqueKey!,
+           VerifiedPostedStudentInfoResponse(createdAt: $0.createdAt!,
                                              firstName: $0.firstName!,
                                              lastName: $0.lastName!,
-                                             mapString: $0.mapString!,
-                                             mediaURL: $0.mediaURL!,
                                              latitude: $0.latitude!,
                                              longitude: $0.longitude!,
-                                             createdAt: $0.createdAt!,
+                                             mapString: $0.mapString!,
+                                             mediaURL: $0.mediaURL!,
+                                             objectId: $0.objectId!,
+                                             uniqueKey: $0.uniqueKey!,
                                              updatedAt: $0.updatedAt!)
         }
     }

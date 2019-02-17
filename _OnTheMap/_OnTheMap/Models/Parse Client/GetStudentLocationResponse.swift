@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct GetStudentLocationResponse: Codable {
     var createdAt: String?
     var firstName: String?
@@ -21,6 +20,54 @@ struct GetStudentLocationResponse: Codable {
     var uniqueKey: String?
     var updatedAt: String?
 }
+
+struct PostedStudentInfoResponse: Codable {
+    var createdAt: String?
+    var firstName: String?
+    var lastName: String?
+    var latitude: Double?
+    var longitude: Double?
+    var mapString: String?
+    var mediaURL: String?
+    var objectId: String?
+    var uniqueKey: String?
+    var updatedAt: String?}
+
+struct VerifiedPostedStudentInfoResponse: Codable, Hashable {
+    var createdAt: String
+    var firstName: String
+    var lastName: String
+    var latitude: Double
+    var longitude: Double
+    var mapString: String
+    var mediaURL: String
+    var objectId: String
+    var uniqueKey: String
+    var updatedAt: String
+}
+
+
+struct StudentLocationRequest: Codable {
+    var firstName: String
+    var lastName: String
+    var latitude: Double
+    var longitude: Double
+    var mapString: String
+    var mediaURL: String
+    var uniqueKey: String
+}
+
+struct PutPostRequest: Codable {
+    var firstName: String
+    var lastName: String
+    var latitude: Double
+    var longitude: Double
+    var mapString: String
+    var mediaURL: String
+    var uniqueKey: String
+}
+
+
 
 
 struct GetStudentLocationResponse2: Codable {

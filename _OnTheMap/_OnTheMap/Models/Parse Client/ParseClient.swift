@@ -44,13 +44,14 @@ class ParseClient {
     
     //MARK:- PUT
     class func putStudentLocation(objectID: String, firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Bool, Error?)->Void){
-        let _StudentLocationRequest = PutPostRequest(uniqueKey: UdacityClient.getAccountKey(),
+        let _StudentLocationRequest = PutPostRequest(
                                                  firstName: firstname,
                                                  lastName: lastName,
+                                                 latitude: latitude,
+                                                 longitude: longitude,
                                                  mapString: mapString,
                                                  mediaURL: mediaURL,
-                                                 latitude: latitude,
-                                                 longitude: longitude)
+                                                 uniqueKey: UdacityClient.getAccountKey())
         
         taskForPutRequest(url: Endpoints.putStudentLocation(objectID).url, encodable: _StudentLocationRequest) { (success, err) in
             if success {
@@ -166,13 +167,14 @@ class ParseClient {
     
     //MARK:- POST
     class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostPushResponse?, Error?)->Void){
-        let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
-                                                             firstName: firstname,
+        let _StudentLocationRequest = StudentLocationRequest(firstName: firstname,
                                                              lastName: lastName,
+                                                             latitude: latitude,
+                                                             longitude: longitude,
                                                              mapString: mapString,
                                                              mediaURL: mediaURL,
-                                                             latitude: latitude,
-                                                             longitude: longitude)
+                                                             uniqueKey: UdacityClient.getAccountKey())
+        
         taskForPostRequest(url: Endpoints.postStudentLocation.url, body: _StudentLocationRequest, decodeType: PostPushResponse.self) { (data, error) in
             if let err = error {
                 completion(nil, err)
