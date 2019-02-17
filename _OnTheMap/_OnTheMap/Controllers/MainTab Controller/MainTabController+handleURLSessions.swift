@@ -28,13 +28,14 @@ extension MainTabBarController {
         showFinishNetworkRequest()
         
         
-        var matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
-//         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
+        let matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
+        //         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
         
         
-        if matchingValidLocation != nil {
+        if let VerifiedPostedStudentInfoResponseObject = matchingValidLocation {
             print(" PUT ---- found a match")
-            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
+            //            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
+            ParseClient.getOneStudentLocation(key: VerifiedPostedStudentInfoResponseObject.uniqueKey, completion: handleGetStudent)
             willOverwrite = true
         } else {
             print(" POST ---- did not find a match")
@@ -42,6 +43,24 @@ extension MainTabBarController {
             willOverwrite = false
         }
         currentSearchTask = nil
+        
+        
+        
+        
+        
+        
+        
+        //        if matchingValidLocation != nil {
+        //            print(" PUT ---- found a match")
+        ////            ParseClient.getStudentLocation(key: "3300603272", completion: handleGetStudent)
+        //            ParseClient.getStudentLocation(key: (matchingValidLocation?.objectId)!, completion: handleGetStudent)
+        //            willOverwrite = true
+        //        } else {
+        //            print(" POST ---- did not find a match")
+        //            UdacityClient.getPublicUserData(key: UdacityClient.getAccountKey(), completion: handleGetPublicUserData(studentLocationResponse:error:))
+        //            willOverwrite = false
+        //        }
+        //        currentSearchTask = nil
     }
     
 

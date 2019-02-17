@@ -73,10 +73,7 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
                                            mediaURL: pushPostObject.urlString,
                                            latitude: pushPostObject.location.coordinate.latitude,
                                            longitude: pushPostObject.location.coordinate.longitude,
-                                           completion: handlePutStudentLocation(data:err:))
-            
-            
-            
+                                           completion: handlePutStudentLocation)
         } else {
             //POST
             ParseClient.postStudentLocation(firstname: pushPostObject.firstName,
@@ -89,7 +86,8 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func handlePutStudentLocation(data: postStudentLocationResponse?, err: Error?){
+//    func handlePutStudentLocation(data: postStudentLocationResponse?, err: Error?){
+    func handlePutStudentLocation(success: Bool, err: Error?){
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
@@ -99,6 +97,7 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     
     func handlePostStudentLocation(data: postStudentLocationResponse?, error: Error?){
+//    func handlePostStudentLocation(success: Bool, error: Error?){
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]
         navigationController?.popToViewController(vc!, animated: true)
