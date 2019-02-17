@@ -97,7 +97,14 @@ class UdacityClient {
             print(String(data: newData!, encoding: .utf8)!)
             }.resume()
         print("Logged out")
-        completion()
+        
+        
+        DispatchQueue.main.async {
+            completion()
+        }
+        
+        
+        
         return
     }
     
