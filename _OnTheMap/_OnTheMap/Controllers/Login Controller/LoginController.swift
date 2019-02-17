@@ -44,6 +44,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
     private var loginStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        //stack.alignment = .center  //Causes very bad things to happen
         stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -54,16 +55,11 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         imageView.image = #imageLiteral(resourceName: "logo-u")
         imageView.tintColor = UIColor.white
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private var loginLabel: UILabel = {
+    private var insertSpaceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Login To Udacity"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.white
-        label.textAlignment = .center
         return label
     }()
     
@@ -82,17 +78,37 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginButtonDelegat
         let button = LoginButton(readPermissions: [.publicProfile])
         return button
     }()
+
     
+    var registrationTextLink: UITextView = {
+       let textView = UITextView()
+        let myAttributes: [NSAttributedString.Key: Any]? = [
+            NSMutableAttributedString.Key.font : UIFont(name: "Georgia", size: 15) as Any
+        ]
+        let myMutableString = NSMutableAttributedString(string: "Don't have an account? Sign Up ", attributes: myAttributes)
+        let _ = myMutableString.setAsLink(textToFind: "Sign Up", linkURL: "https://www.udacity.com")
+        textView.attributedText = myMutableString
+        textView.isUserInteractionEnabled = true
+        textView.isEditable = false
+        textView.textAlignment = .center
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
     
     //MARK:- UI Code
     func setupUI(){
-        [logoImage, loginLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton].forEach{
+
+        [logoImage, insertSpaceLabel, emailTextField, passwordTextField, loginButton, facebookLoginButton, registrationTextLink].forEach{
             $0.heightAnchor.constraint(equalToConstant: customUIHeightSize).isActive = true
             loginStack.addArrangedSubview($0)
         }
+        
+        
         view.addSubview(loginStack)
-        loginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        loginStack.anchor(top: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 0, left: 50, bottom: 0, right: 50), size: .zero)
+        
+        loginStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        loginStack.anchor(top: logoImage.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, padding: .init(top: 25, left: 50, bottom: 0, right: 50), size: .zero)
+        
         checkFacebook()
     }
     

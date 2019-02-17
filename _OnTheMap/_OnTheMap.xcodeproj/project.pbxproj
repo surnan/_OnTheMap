@@ -18,6 +18,7 @@
 		841CEE462219A7DB0002CA6C /* AddLocation+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE452219A7DB0002CA6C /* AddLocation+Override.swift */; };
 		841CEE482219AE4B0002CA6C /* Helper Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE472219AE4B0002CA6C /* Helper Constants.swift */; };
 		841CEE4A2219C73A0002CA6C /* UIViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE492219C73A0002CA6C /* UIViewConstants.swift */; };
+		841CEE4C2219F5590002CA6C /* NSMutable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CEE4B2219F5590002CA6C /* NSMutable+Extension.swift */; };
 		842AE06E2210F52000A87358 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AE06D2210F52000A87358 /* AddLocationController.swift */; };
 		84332C522217238D003CF12C /* PublicUserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C512217238D003CF12C /* PublicUserDataResponse.swift */; };
 		84332C5C22179FDA003CF12C /* EditStudentLocationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */; };
@@ -61,6 +62,7 @@
 		841CEE452219A7DB0002CA6C /* AddLocation+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddLocation+Override.swift"; sourceTree = "<group>"; };
 		841CEE472219AE4B0002CA6C /* Helper Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper Constants.swift"; sourceTree = "<group>"; };
 		841CEE492219C73A0002CA6C /* UIViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewConstants.swift; sourceTree = "<group>"; };
+		841CEE4B2219F5590002CA6C /* NSMutable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutable+Extension.swift"; sourceTree = "<group>"; };
 		842AE06D2210F52000A87358 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		84332C512217238D003CF12C /* PublicUserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicUserDataResponse.swift; sourceTree = "<group>"; };
 		84332C5B22179FDA003CF12C /* EditStudentLocationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentLocationsController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				8439D010220CB6F20057CE6E /* String+Extensions.swift */,
 				841CEE4022191D470002CA6C /* TextField+Extensions.swift */,
 				841CEE472219AE4B0002CA6C /* Helper Constants.swift */,
+				841CEE4B2219F5590002CA6C /* NSMutable+Extension.swift */,
 			);
 			path = "Helper+Extensions";
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849DEAA0220F8B13009B0E91 /* StudentLocationCell.swift in Sources */,
+				841CEE4C2219F5590002CA6C /* NSMutable+Extension.swift in Sources */,
 				848928722204F89400BF9BF6 /* UdacityClient.swift in Sources */,
 				841CEE462219A7DB0002CA6C /* AddLocation+Override.swift in Sources */,
 				84F272AD2212ADA8000F9542 /* AddLocation+Handle.swift in Sources */,
