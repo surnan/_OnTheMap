@@ -19,6 +19,9 @@ extension MainTabBarController {
             currentSearchTask = nil
             return
         }
+
+        
+        StudentInformationModel.loadStudentLocationArrays(studentLocations: data)
         
         let matchingValidLocation = StudentInformationModel.getVerifiedStudentLocations.filter{$0.uniqueKey == UdacityClient.getAccountKey()}.first
         //         matchingValidLocation = Students.validLocations.filter{$0.uniqueKey == "213746442237"}.first
@@ -34,7 +37,7 @@ extension MainTabBarController {
             willOverwrite = false
         }
         
-        StudentInformationModel.loadStudentLocationArrays(studentLocations: data)
+//        StudentInformationModel.loadStudentLocationArrays(studentLocations: data)
         setupBottomToolBar()   // Get another instance of MapController.  Easier than reloading all annotations
         showFinishNetworkRequest()
         currentSearchTask = nil
