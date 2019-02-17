@@ -8,11 +8,6 @@
 
 import Foundation
 
-struct ParseResponse: Codable {
-    var createdAt: String
-    var objectId: String
-}
-
 struct PostPushResponse: Codable {
     var createdAt: String
     var objectId: String
