@@ -96,7 +96,7 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     
     
     
-    func handlePostStudentLocation(data: PostingStudentLocationResponse?, error: Error?){
+    func handlePostStudentLocation(data: PostPushResponse?, error: Error?){
 //    func handlePostStudentLocation(success: Bool, error: Error?){
         let  vc =  navigationController?.viewControllers.filter({$0 is MainTabBarController}).first
         //let  vc =  self?.navigationController?.viewControllers[1]

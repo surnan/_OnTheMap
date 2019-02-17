@@ -165,7 +165,7 @@ class ParseClient {
     }
     
     //MARK:- POST
-    class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostingStudentLocationResponse?, Error?)->Void){
+    class func postStudentLocation(firstname: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (PostPushResponse?, Error?)->Void){
         let _StudentLocationRequest = StudentLocationRequest(uniqueKey: UdacityClient.getAccountKey(),
                                                              firstName: firstname,
                                                              lastName: lastName,
@@ -173,7 +173,7 @@ class ParseClient {
                                                              mediaURL: mediaURL,
                                                              latitude: latitude,
                                                              longitude: longitude)
-        taskForPostRequest(url: Endpoints.postStudentLocation.url, body: _StudentLocationRequest, decodeType: PostingStudentLocationResponse.self) { (data, error) in
+        taskForPostRequest(url: Endpoints.postStudentLocation.url, body: _StudentLocationRequest, decodeType: PostPushResponse.self) { (data, error) in
             if let err = error {
                 completion(nil, err)
                 return

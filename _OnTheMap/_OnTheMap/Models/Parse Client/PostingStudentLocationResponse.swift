@@ -8,7 +8,17 @@
 
 import Foundation
 
-struct PostingStudentLocationResponse: Codable {
+//struct PostingStudentLocationResponse: Codable {
+//    var createdAt: String
+//    var objectId: String
+//}
+
+struct ParseResponse: Codable {
+    var createdAt: String
+    var objectId: String
+}
+
+struct PostPushResponse: Codable {
     var createdAt: String
     var objectId: String
 }

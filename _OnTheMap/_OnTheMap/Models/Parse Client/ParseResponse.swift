@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ParseResponse: Codable {
-    var createdAt: String
-    var objectId: String
-}
+//struct ParseResponse: Codable {
+//    var createdAt: String
+//    var objectId: String
+//}
