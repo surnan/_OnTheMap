@@ -116,7 +116,7 @@ class ParseClient {
     //MARK:- GET
     class func getStudents(completion: @escaping ([StudentLocation], Error?)-> Void)-> URLSessionTask{
         let url = ParseClient.Endpoints.getStudentsSortedByCreationDate(100).url
-        let task = taskForGetRequest(url: url, decoder: ParseRequest.self) { (data, err) in
+        let task = taskForGetRequest(url: url, decoder: StudentLocationResultsResponse.self) { (data, err) in
             if err != nil {
                 return completion([], err)
             }

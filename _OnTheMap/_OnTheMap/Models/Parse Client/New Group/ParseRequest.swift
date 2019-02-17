@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct ParseRequest: Codable {
-    var results: [StudentLocation]
-}
+//struct ParseRequest: Codable {
+//    var results: [StudentLocation]
+//}
 
 

@@ -46,10 +46,6 @@ struct PutPostRequest: Codable {
 
 struct StudentLocationResultsResponse: Codable {
     var results: [StudentLocation]
-    enum CodingKeys: String, CodingKey {
-        case results
-    }
 }
-
 
 
