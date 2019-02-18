@@ -15,18 +15,18 @@ class StudentInformationModel {
     static var getAllStudentLocations:[StudentLocation] {
         return allStudentLocations
     }
-
+    
     static var getVerifiedStudentLocations:[VerifiedStudentLocation] {
         return validStudentLocations
     }
-
+    
     
     private class func loadValidLocations(){
         let nonNilArray = self.getAllStudentLocations.filter{
             guard $0.firstName != nil,
                 $0.lastName != nil,
                 $0.objectId != nil,
-//                $0.uniqueKey != nil,
+                $0.uniqueKey != nil,
                 $0.mapString != nil,
                 $0.mediaURL != nil,
                 $0.latitude != nil,
@@ -35,7 +35,7 @@ class StudentInformationModel {
                 $0.updatedAt != nil      else {return false}
             return true
         }
-
+        
         validStudentLocations = nonNilArray.map{
             VerifiedStudentLocation(createdAt: $0.createdAt!,
                                     firstName: $0.firstName!,
@@ -45,8 +45,9 @@ class StudentInformationModel {
                                     mapString: $0.mapString!,
                                     mediaURL: $0.mediaURL!,
                                     objectId: $0.objectId!,
-                                    uniqueKey: $0.uniqueKey ?? " ",
-                                    updatedAt: $0.updatedAt!)
+                                    //                                    uniqueKey: $0.uniqueKey ?? " ",
+                uniqueKey: $0.uniqueKey!,
+                updatedAt: $0.updatedAt!)
         }
     }
     

@@ -32,8 +32,8 @@ extension LoginController {
             print("cancelled")
         case .success(_,_,_):
             print("success")
-            navigationController?.pushViewController(MainTabBarController() , animated: true)
-//            present(MainTabBarController, animated: true)
+            navigationController?.pushViewController(MainTabBarController() , animated: false)
+//            present(MainTabBarController(), animated: false)
         }
     }
     

@@ -23,6 +23,7 @@ class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.backgroundColor = .white
+        
         self.setupBottomToolBar()                   //Make toolbar visible before network call
         self.setupTopToolBar()                      //Update the NavigationPane from LoginController
         if currentSearchTask != nil {
@@ -32,6 +33,10 @@ class MainTabBarController: UITabBarController, MaintTabBarControllerDelegate{
         }
         showPassThroughNetworkActivityView()
         currentSearchTask = ParseClient.getStudents(completion: handleGetStudentLocations(data:err:))
+    }
+    
+    override func viewDidLoad() {
+        navigationController?.navigationBar.isHidden = false
     }
     
     //MARK:- Toolbar Setup
