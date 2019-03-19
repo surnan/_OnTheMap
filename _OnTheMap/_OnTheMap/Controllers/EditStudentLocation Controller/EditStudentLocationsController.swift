@@ -31,6 +31,7 @@ class EditStudentLocationController: UIViewController, MKMapViewDelegate {
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         mapView.delegate = self
         navigationItem.title = "Add Location"
         [mapView, finishButton].forEach{view.addSubview($0)}

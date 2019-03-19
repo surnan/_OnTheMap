@@ -20,6 +20,7 @@ extension AddLocationController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = UIColor.white
         urlTextField.delegate = self
         locationTextField.delegate = self
